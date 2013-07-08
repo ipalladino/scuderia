@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
+#gem "rails-boilerplate"
+gem 'bootstrap-sass', '2.1'
 
 group :development do
   gem 'pg', '0.12.2'
