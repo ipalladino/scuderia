@@ -31,6 +31,7 @@ group :test do
   gem 'spork', '0.9.2'
   gem 'rspec-rails', '2.11.0'
   gem 'guard-rspec', '1.2.1'
+  gem 'factory_girl_rails', '4.1.0'
 end
 
 group :production do
