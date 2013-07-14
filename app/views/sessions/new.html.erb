@@ -1,0 +1,40 @@
+<% provide(:title, "Sign in") %>
+<h1>Sign in</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+      
+      <!--
+      This type of form is going to provide a params[:email] and params[:password]
+      -->  
+    <%= form_tag sessions_path do %>
+      
+      <%= label_tag :email %>
+      <%= text_field_tag :email, params[:email] %>
+      
+      <%= label_tag :password %>
+      <%= password_field_tag :password %>
+      
+      <%= submit_tag "Sign in", class: "btn btn-large btn-primary" %>
+  <% end %>  
+    
+    <!--
+    This type of form is going to provide a params[:session][:email] and params[:session][:password]
+    I'm leaving it here for education purposes
+    -->
+      <!--
+    <%= form_for(:session, url: sessions_path) do |f| %>
+
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+
+      <%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
+    <% end %>
+    -->
+
+    <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+  </div>
+</div>

@@ -13,7 +13,7 @@ describe "Static pages" do
     click_link "Home"
     click_link "Sign up now!"
     page.should # fill in
-    click_link "sample app"
+    click_link "scuderia.com"
     page.should # fill in
   end
 
@@ -22,7 +22,7 @@ describe "Static pages" do
   describe "Home page" do
     before { visit root_path }
 
-    it { should have_selector('h1',    text: 'Sample App') }
+    it { should have_selector('h1',    text: 'Scuderia.com') }
     it { should have_selector('title', text: full_title('')) }
     it { should_not have_selector 'title', text: '| Home' }
   end
