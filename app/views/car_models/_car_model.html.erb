@@ -1,0 +1,15 @@
+<li>
+  <%= link_to car_model.car_model, car_model %> | <%= link_to car_model.year.car_year, car_model.year %>  
+  <label>Trims:</label>
+  <ul>
+    <%= render car_model.trims %>
+  </ul>
+  <label>Engines:</label>
+  <ul>
+    <%= render car_model.engines %>
+  </ul>
+  <label>Transmissions:</label>
+  <ul>
+    <%= render car_model.transmissions %>
+  </ul>
+</li>

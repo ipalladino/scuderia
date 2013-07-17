@@ -1,0 +1,22 @@
+<% provide(:title, 'New Transmission') %>
+<h1>Add new Transmission</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+      <%= form_tag transmissions_path do %>
+          
+          <%= label_tag :name, "Transmission" %>
+          <%= text_field_tag :name, %>
+        
+          <%= label_tag :year_selection, "Year" %>
+          <%= select_tag :year_selection, options_from_collection_for_select(@years, :id, :car_year), :prompt => "Years" %>
+          
+          <div id="car_model">
+            
+          </div>
+          
+          <%= submit_tag "New Transmission", class: "btn btn-large btn-primary", style: "position:relative;top:10px;" %>
+
+      <% end %>
+  </div>
+</div>

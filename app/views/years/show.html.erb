@@ -1,0 +1,19 @@
+<% provide(:title, @year.car_year) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= @year.car_year %>
+      </h1>
+    </section>
+  </aside>
+  <div class="span8">
+      <% if @year.car_models.any? %>
+          <h3>Ferrari Models (<%= @year.car_models.count %>)</h3>
+          <ol class="microposts">
+            <%= render @carmodels %>
+          </ol>
+          <%= will_paginate @carmodels %>
+      <% end %>
+  </div>
+</div>
