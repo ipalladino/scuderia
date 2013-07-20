@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130716081925) do
+ActiveRecord::Schema.define(:version => 20130718081207) do
 
   create_table "car_models", :force => true do |t|
     t.string   "car_model"
@@ -31,6 +31,27 @@ ActiveRecord::Schema.define(:version => 20130716081925) do
   end
 
   add_index "engines", ["car_model_id"], :name => "index_engines_on_car_model_id"
+
+  create_table "ferraris", :force => true do |t|
+    t.integer  "year_id"
+    t.integer  "engine_id"
+    t.integer  "transmission_id"
+    t.integer  "trim_id"
+    t.integer  "car_model_id"
+    t.string   "title"
+    t.string   "description"
+    t.integer  "mileage"
+    t.float    "price"
+    t.string   "color"
+    t.string   "interior_color"
+    t.string   "vin"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "user_id"
+  end
+
+  add_index "ferraris", ["user_id"], :name => "index_ferraris_on_user_id"
+  add_index "ferraris", ["year_id", "car_model_id", "engine_id"], :name => "index_ferraris_on_year_id_and_car_model_id_and_engine_id"
 
   create_table "microposts", :force => true do |t|
     t.string   "content"

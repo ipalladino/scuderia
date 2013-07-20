@@ -1,0 +1,8 @@
+<%= label_tag :ferrari_engine_id,"Engine" %>
+<%= select_tag :ferrari_engine_id, options_from_collection_for_select(@engines, :id, :name), :prompt=>"Engine", :default => nil, :name => "ferrari[engine_id]" %>
+
+<%= label_tag :ferrari_trim_id,"Trim" %>
+<%= select_tag :ferrari_trim_id, options_from_collection_for_select(@trims, :id, :car_trim), :prompt=>"Trims", :default => nil, :name => "ferrari[trim_id]" %>
+
+<%= label_tag :transmission_id,"Transmission" %>
+<%= select_tag :transmission_id, options_from_collection_for_select(@transmissions, :id, :name), :prompt=>"Transmissions", :default => nil, :name => "ferrari[transmission_id]" %>

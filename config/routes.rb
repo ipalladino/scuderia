@@ -1,4 +1,10 @@
 SampleApp::Application.routes.draw do
+  resources :ferraris do
+    member do
+      get :year_selection, :model_selection
+    end
+  end
+  
   resources :users do
     member do
       get :following, :followers
@@ -27,6 +33,8 @@ SampleApp::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
+
+  match '/myferraris', to: 'ferraris#my'
 
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
