@@ -6,7 +6,7 @@
       <%= form_tag transmissions_path do %>
           
           <%= label_tag :name, "Transmission" %>
-          <%= text_field_tag :name, %>
+          <%= text_field_tag :name %>
         
           <%= label_tag :year_selection, "Year" %>
           <%= select_tag :year_selection, options_from_collection_for_select(@years, :id, :car_year), :prompt => "Years" %>

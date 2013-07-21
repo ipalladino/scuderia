@@ -6,10 +6,10 @@
       <%= form_tag trims_path do %>
           
           <%= label_tag :car_trim, "Trim" %>
-          <%= text_field_tag :car_trim, %>
+          <%= text_field_tag :car_trim %>
         
           <%= label_tag :year_selection, "Year" %>
-          <%= select_tag :year_selection, options_from_collection_for_select(@years, :id, :car_year), :prompt => "Years" %>
+          <%= select_tag :year_selection, options_from_collection_for_select(@years, :id, :car_year) , :prompt => "Years" %>
           
           <div id="car_model">
             
