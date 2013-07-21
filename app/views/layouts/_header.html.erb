@@ -13,6 +13,14 @@
                 Account <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
+                 <% if current_user.admin? %>
+                    <li><%= link_to "Add new year", new_year_path %></li>
+                    <li><%= link_to "Add new Model", new_car_model_path %></li>
+                    <li><%= link_to "Add new Trim", new_trim_path %></li>
+                    <li><%= link_to "Add new Engine", new_engine_path %></li>
+                    <li><%= link_to "Add new Transmission", new_transmission_path %></li>
+                 <% end %>
+                <li><%= link_to "Add new ferrari", new_ferrari_path %></li>
                 <li><%= link_to "My Ferraris for sale", myferraris_path %></li>
                 <li><%= link_to "Profile", current_user %></li>
                 <li><%= link_to "Settings", edit_user_path(current_user) %></li>

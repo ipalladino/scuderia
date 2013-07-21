@@ -4,16 +4,21 @@
       <section>
         <%= render 'shared/user_info' %>
       </section>
+      <section>
+        <%= render 'shared/stats' %>
+      </section>
+      <section>
+        <%= render 'shared/micropost_form' %>
+      </section>
     </aside>
-
+    
     <div class="span8">
-      <h3>Ferraris</h3>
-      <%= render 'ferraris/list' %>
+      <h3>Micropost Feed</h3>
+      <%= render 'shared/feed' %>
     </div>
-</div>
-
+  </div>  
 <% else %>
-    <div class="center hero-unit">
+  <div class="center hero-unit">
     <h1>scuderia.com</h1>
 
     <h2>
@@ -24,7 +29,7 @@
 
     <%= link_to "Sign up now!", signup_path, 
                                 class: "btn btn-large btn-primary" %>
-    </div>
+  </div>
 
-    <%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+  <%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
 <% end %>
