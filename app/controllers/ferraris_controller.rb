@@ -1,6 +1,5 @@
 class FerrarisController < ApplicationController
   before_filter :signed_in_user, only: [:create, :destroy, :my]
-  before_filter :admin_user,     only: [:destroy, :create, :edit, :new]
   before_filter :correct_user,   only: [:destroy]
   
   def index

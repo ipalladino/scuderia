@@ -11,12 +11,12 @@ class EnginesController < ApplicationController
   end
   
   def create
-    if(!params[:car_model_selection] || params[:name].blank?)
+    if(!params[:ferrari][:car_model_id] || params[:name].blank?)
       flash[:error] = "Fields cannot be blank!"
       redirect_to new_engine_path
     else
       begin
-        carmodel = CarModel.find(params[:car_model_selection])
+        carmodel = CarModel.find(params[:ferrari][:car_model_id])
         @engine = carmodel.engines.build(name: params[:name])
         if @engine.save
           flash[:success] = "Car engine added!"

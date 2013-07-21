@@ -11,12 +11,13 @@ class TrimsController < ApplicationController
   end
   
   def create
-    if(!params[:car_model_selection] || params[:car_trim].blank?)
+    puts
+    if(!params[:ferrari][:car_model_id] || params[:car_trim].blank?)
       flash[:error] = "Fields cannot be blank!"
       redirect_to new_trim_path
     else
       begin
-        carmodel = CarModel.find(params[:car_model_selection])
+        carmodel = CarModel.find(params[:ferrari][:car_model_id])
         @trim = carmodel.trims.build(car_trim: params[:car_trim])
         if @trim.save
           flash[:success] = "Car trim added!"

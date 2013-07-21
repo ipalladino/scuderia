@@ -11,12 +11,12 @@ class TransmissionsController < ApplicationController
   end
   
   def create
-    if(!params[:car_model_selection] || params[:name].blank?)
+    if(!params[:ferrari][:car_model_id] || params[:name].blank?)
       flash[:error] = "Fields cannot be blank!"
       redirect_to new_transmission_path
     else
       begin
-        carmodel = CarModel.find(params[:car_model_selection])
+        carmodel = CarModel.find(params[:ferrari][:car_model_id])
         @transmission = carmodel.transmissions.build(name: params[:name])
         if @transmission.save
           flash[:success] = "Car Transmission added!"
