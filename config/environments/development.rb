@@ -1,4 +1,6 @@
 SampleApp::Application.configure do
+  
+  Paperclip.options[:image_magick_path] = '/usr/local/Cellar/imagemagick/6.7.7-6'
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on

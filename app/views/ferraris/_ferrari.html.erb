@@ -1,13 +1,12 @@
-<h4><%= ferrari.title %></h4>
-
-<div> <%= ferrari.car_model.car_model %> </div>
-<div> <%= ferrari.trim.car_trim %> </div>
-<div> <%= ferrari.year.car_year %> </div>
-<div> <%= ferrari.engine.name %> </div>
-<div> <%= ferrari.transmission.name %> </div>
-<div> <%= ferrari.interior_color %> </div>
-<div> <%= ferrari.mileage %> </div>
-<div> <%= ferrari.price %> </div>
-<div> <%= ferrari.title %> </div>
-<div> <%= ferrari.vin %> </div>
-<div> <%= ferrari.color %> </div>
+<div class="row ferrari-line">
+    <div class="span8 details">
+        [<%= link_to ferrari.year.car_year , ferrari.year %>] | 
+        <%= link_to ferrari.car_model.car_model, ferrari.car_model %> |
+        <%= link_to ferrari.title, ferrari %>
+        </div>
+    <div class="span4 thumbnails">
+        <% ferrari.assets.each do |asset| %>
+            <%= link_to( image_tag(asset.image.url(:thumb)), asset.image.url(:original) ) %>
+        <% end %>
+    </div>
+</div>

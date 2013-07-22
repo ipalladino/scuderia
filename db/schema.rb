@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130718081207) do
+ActiveRecord::Schema.define(:version => 20130722011510) do
+
+  create_table "assets", :force => true do |t|
+    t.integer  "ferrari_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+  end
 
   create_table "car_models", :force => true do |t|
     t.string   "car_model"
@@ -31,6 +40,17 @@ ActiveRecord::Schema.define(:version => 20130718081207) do
   end
 
   add_index "engines", ["car_model_id"], :name => "index_engines_on_car_model_id"
+
+  create_table "ferrari_images", :force => true do |t|
+    t.string   "caption"
+    t.integer  "ferrari_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+  end
 
   create_table "ferraris", :force => true do |t|
     t.integer  "year_id"

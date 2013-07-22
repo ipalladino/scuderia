@@ -45,17 +45,37 @@ class FerrarisController < ApplicationController
   end
   
   def edit
+    @years = Year.all
+    @ferrari = Ferrari.find(params[:id])
+    puts @ferrari.year_id
+    @car_models = CarModel.where({ year_id: @ferrari.year_id})
+    puts @car_models
+    @trims = Trim.where({ car_model_id: @ferrari.car_model_id})
+    @engines = Engine.where({ car_model_id: @ferrari.car_model_id})
+    @transmissions = Transmission.where({ car_model_id: @ferrari.car_model_id})
+    5.times { @ferrari.assets.build }
   end
 
   def update
+    @ferrari = Ferrari.find(params[:id])
+    if @ferrari.update_attributes(params[:ferrari])
+      flash[:success] = "The Ferrari post was updated"
+      redirect_to @ferrari
+    else
+      @years = Year.all
+      render 'new'
+    end
   end
   
   def destroy
+    @ferrari.destroy
+    redirect_to root_url
   end
 
   def new
     @years = Year.all
     @ferrari = Ferrari.new
+    5.times { @ferrari.assets.build }
   end
   
   private 
@@ -64,7 +84,7 @@ class FerrarisController < ApplicationController
     end
     
     def correct_user
-      @micropost = current_user.microposts.find_by_id(params[:id])
-      redirect_to root_url if @micropost.nil?
+      @ferrari = current_user.ferraris.find_by_id(params[:id])
+      redirect_to root_url if @ferrari.nil?
     end
 end

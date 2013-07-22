@@ -1,4 +1,4 @@
-<h1><%= @ferrari.title %></h1>
+<h1><%= link_to @ferrari.title, @ferrari %></h1>
 
 <div> <%= @ferrari.car_model.car_model %> </div>
 <div> <%= @ferrari.trim.car_trim %> </div>
@@ -11,3 +11,13 @@
 <div> <%= @ferrari.title %> </div>
 <div> <%= @ferrari.vin %> </div>
 <div> <%= @ferrari.color %> </div>
+<div> <% @ferrari.assets.each do |asset| %> 
+            <%= link_to( image_tag(asset.image.url(:thumb)), asset.image.url(:original) ) %>
+      <% end %>
+</div>
+<% if current_user?(@ferrari.user) %>
+   <%= link_to "delete", @ferrari, method: :delete,
+                                data: { confirm: "You sure?" },
+                                title: @ferrari.title %>
+    <%= link_to "edit", edit_ferrari_path(:id => @ferrari.id) %>
+<% end %>

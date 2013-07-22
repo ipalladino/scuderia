@@ -1,44 +1,4 @@
-<% provide(:title, 'Sign up') %>
+<% provide(:title, 'New') %>
 <h1>New Ferrari</h1>
 
-<div class="row">
-  <div class="span6 offset3">
-    <%= form_for(@ferrari) do |f| %>
-      <%= render 'shared/error_messages', object: f.object %>
-
-      <%= f.label :year_id %>
-      <%= f.select :year_id, options_from_collection_for_select(@years, :id, :car_year) , {:include_blank => true, :default => nil} %>
-      
-      <div id="car_model">
-          <%= hidden_field("", :transmission_id) %>
-      </div>
-      
-      <div id="engine-tran-trim">
-         <%= hidden_field("", :engine_id) %>
-         <%= hidden_field("", :trim_id) %>
-         <%= hidden_field("", :transmission_id) %>
-      </div>
-      
-      <%= f.label :title %>
-      <%= f.text_field :title %>
-      
-      <%= f.label :color %>
-      <%= f.text_field :color %>
-      
-      <%= f.label :interior_color %>
-      <%= f.text_field :interior_color %>
-      
-      <%= f.label :mileage %>
-      <%= f.text_field :mileage %>
-      
-      <%= f.label :vin %>
-      <%= f.text_field :vin %>
-      
-      <%= f.label :price %>
-      <%= f.text_field :price %>
-      
-
-      <%= f.submit "Create a Ferrari for sale", class: "btn btn-large btn-primary" %>
-    <% end %>
-  </div>
-</div>
+<%= render 'ferraris/form' %>
