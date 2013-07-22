@@ -8,6 +8,7 @@ class FerrarisController < ApplicationController
   
   def show
     @ferrari = Ferrari.find(params[:id])
+    @ferrari.ferrari_images.build
   end
   
   def create
@@ -48,6 +49,15 @@ class FerrarisController < ApplicationController
   end
 
   def update
+    @ferrari = Ferrari.find(params[:id])
+
+      if @ferrari.update_attributes(params[:ferrari])
+        flash[:notice] = "Successfully updated."
+        redirect_to @ferrari
+      else
+        raise "Impossible to update ferrari"
+      end
+
   end
   
   def destroy

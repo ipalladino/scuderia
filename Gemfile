@@ -8,6 +8,12 @@ gem 'faker', '1.0.1'
 gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
 gem 'jquery-rails', '2.0.2'
+gem "paperclip", "~> 3.5.0"
+gem 'aws-s3', '0.6.2', :require => 'aws/s3'
+gem 'aws-sdk'
+gem "rmagick", "2.12.0", :require => 'RMagick'
+gem "remotipart", "~> 1.2.1"
+
 
 group :development do
   gem 'pg', '0.12.2'

@@ -11,3 +11,20 @@
 <div> <%= @ferrari.title %> </div>
 <div> <%= @ferrari.vin %> </div>
 <div> <%= @ferrari.color %> </div>
+
+
+    <%= form_for (@ferrari) do |f| %>
+
+        <%= f.fields_for :ferrari_images do |builder| %>
+
+            <%= builder.label :caption, "Image Caption" %>
+            <%= builder.text_field :caption %>
+
+            <%= builder.label :photo, "Image File" %>
+            <%= builder.file_field :photo %>
+
+        <% end %>
+        
+        <%= f.submit "Submit" %>
+    <% end %>
+    

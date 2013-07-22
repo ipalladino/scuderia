@@ -11,6 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//= require jquery.remotipart
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .

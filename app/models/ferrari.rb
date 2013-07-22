@@ -1,5 +1,8 @@
 class Ferrari < ActiveRecord::Base
-  attr_accessible :car_model_id, :color, :description, :engine_id, :interior_color, :mileage, :price, :title, :transmission_id, :trim_id, :vin, :year_id
+  attr_accessible :car_model_id, :color, :description, :engine_id, :interior_color, :mileage, :price, :title, :transmission_id, :trim_id, :vin, :year_id, :ferrari_images_attributes, :ferrari_images
+  
+  has_many :ferrari_images, :dependent => :destroy
+  
   belongs_to :user
   belongs_to :year
   belongs_to :car_model
@@ -19,5 +22,7 @@ class Ferrari < ActiveRecord::Base
   validates :vin, presence: true
   validates :color, presence: true
   validates :user, presence: true
+  
+  accepts_nested_attributes_for :ferrari_images, :reject_if => lambda { |t| t['ferrari_image'].nil? }
   
 end

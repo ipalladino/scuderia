@@ -41,4 +41,11 @@
       <%= f.submit "Create a Ferrari for sale", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
+  
+  <div class="span6 offset3">
+      <%= form_tag('/images/add_ferrari_image', remote: true, multipart: true) do %>
+        <%= file_field_tag "file" %>
+        <%= submit_tag("Add image") %>
+      <% end %>
+    </div>
 </div>

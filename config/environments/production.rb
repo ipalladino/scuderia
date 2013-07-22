@@ -1,4 +1,16 @@
 SampleApp::Application.configure do
+  
+  #paperclip
+  #should use env vars
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => 'scuderia-ferrari-images', #ENV['AWS_BUCKET'],
+      :access_key_id => 'AKIAJAUJEY2OAAI3HQ2A',#ENV['AWS_ACCESS_KEY_ID'],
+      :secret_access_key => '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' #ENV['AWS_SECRET_ACCESS_KEY']
+    }
+  }
+  
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
