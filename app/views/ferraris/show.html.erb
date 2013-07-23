@@ -1,20 +1,43 @@
-<h1><%= link_to @ferrari.title, @ferrari %></h1>
-
-<div> <%= @ferrari.car_model.car_model %> </div>
-<div> <%= @ferrari.trim.car_trim %> </div>
-<div> <%= @ferrari.year.car_year %> </div>
-<div> <%= @ferrari.engine.name %> </div>
-<div> <%= @ferrari.transmission.name %> </div>
-<div> <%= @ferrari.interior_color %> </div>
-<div> <%= @ferrari.mileage %> </div>
-<div> <%= @ferrari.price %> </div>
-<div> <%= @ferrari.title %> </div>
-<div> <%= @ferrari.vin %> </div>
-<div> <%= @ferrari.color %> </div>
-<div> <% @ferrari.assets.each do |asset| %> 
-            <%= link_to( image_tag(asset.image.url(:thumb)), asset.image.url(:original) ) %>
-      <% end %>
+<% unless @ferrari.assets.length == 0 %>
+<div id="myCarousel" class="carousel slide">
+    <!-- Carousel items -->
+    <div class="carousel-inner">
+        <% @ferrari.assets.each_with_index do |asset, index| %>
+            <% if(index == 0) %>
+            <div class="item active">
+                <%= image_tag(asset.image.url(:original)) %>
+            </div>
+            <% else %>
+            <div class="item">
+                <%= image_tag(asset.image.url(:original)) %>
+            </div>
+            <% end %>
+        <% end %>
+    </div>
+    <!-- Carousel nav -->
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
 </div>
+<% end %>
+
+<table class="table table-striped">
+    <tr><td>Year</td><td><%= @ferrari.year.car_year %></td></tr>
+    <tr><td>Model</td><td><%= @ferrari.car_model.car_model %></td></tr>
+    <tr><td>Trim</td><td><%= @ferrari.trim.car_trim %></td></tr>
+    <tr><td>Engine</td><td><%= @ferrari.engine.name %></td></tr>
+    <tr><td>Transmission</td><td><%= @ferrari.transmission.name %></td></tr>
+    <tr><td>Color</td><td><%= @ferrari.color %></td></tr>
+    <tr><td>Interior Color</td><td><%= @ferrari.interior_color %></td></tr>
+    <tr><td>Mileage</td><td><%= @ferrari.mileage %></td></tr>
+    <tr><td>Price</td><td><%= @ferrari.price %></td></tr>
+    <tr><td>VIN</td><td><%= @ferrari.vin %></td></tr>
+</table>
+<div>
+    <h3><%= @ferrari.title %></h3>
+    <p><%= @ferrari.description %></p>
+</div>
+
+
 <% if current_user?(@ferrari.user) %>
    <%= link_to "delete", @ferrari, method: :delete,
                                 data: { confirm: "You sure?" },
