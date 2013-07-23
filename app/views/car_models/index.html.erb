@@ -1,10 +1,19 @@
-<% provide(:title, 'All models') %>
-<h1>All Ferrari models</h1>
-
+<h1>Models</h1>
 <%= will_paginate %>
-
-<ul class="users">
-  <%= render @car_models %>
-</ul>
+<table class="table table-striped">
+    <% @car_models.each do |car_model| %>
+        <tr><td><%= link_to car_model.car_model, car_model %> | <%= link_to car_model.year.car_year, car_model.year %></td>
+            <% if current_user.admin? %>
+                <td> <%= link_to "delete", car_model, method: :delete,
+                                              data: { confirm: "You sure?" },
+                                              car_model: car_model %>
+                    </td>
+                <td> <%= link_to "edit", edit_car_model_path(:id => car_model.id) %>
+                    </td>
+              <% end %>
+        </tr>
+    <% end %>
+</table>
+    
 
 <%= will_paginate %>

@@ -1,4 +1,4 @@
-<div class="row ferrari-line">
+<div class="ferrari-line span12">
     <div class="span8 details">
         <ul class="nav nav-pills">
           <li><%= link_to ferrari.year.car_year , "#", class: "year-popover", :data => { title: ferrari.year.car_year , :content => "<ul class=\"unstyled\"><li><a href=\"/years/#{ferrari.year_id}\">More Ferraris</a></li><li><a href=\"/years/#{ferrari.year_id}\">Year details</a></li></ul>" } %></li>
@@ -10,39 +10,38 @@
         <% ferrari.assets.each do |asset| %>
             <%= image_tag(asset.image.url(:thumb), { data: {toggle: "modal", target: "#myModal#{ferrari.id}"}}) %>
         <% end %>
-        
-        <div id="myModal<%= ferrari.id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="myModalLabel"><%= ferrari.title %></h3>
-          </div>
-          <div class="modal-body">
-              <div id="myCarousel" class="carousel slide">
-                <!-- Carousel items -->
-                <div class="carousel-inner">
-                    <% ferrari.assets.each_with_index do |asset, index| %>
-                        <% if(index == 0) %>
-                        <div class="item active">
-                            <%= image_tag(asset.image.url(:original)) %>
-                        </div>
-                        <% else %>
-                        <div class="item">
-                            <%= image_tag(asset.image.url(:original)) %>
-                        </div>
-                        <% end %>
-                    <% end %>
-                </div>
-                <!-- Carousel nav -->
-                <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-                <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
-              </div>
-          </div>
-          <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-          </div>
-        </div>
     </div>
-    
-    
-    
+</div>
+
+<!-- MODAL PART -->
+
+<div id="myModal<%= ferrari.id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel"><%= ferrari.title %></h3>
+  </div>
+  <div class="modal-body">
+      <div id="myCarousel<%= ferrari.id %>" class="carousel slide">
+        <!-- Carousel items -->
+        <div class="carousel-inner">
+            <% ferrari.assets.each_with_index do |asset, index| %>
+                <% if(index == 0) %>
+                <div class="item active">
+                    <%= image_tag(asset.image.url(:modal)) %>
+                </div>
+                <% else %>
+                <div class="item">
+                    <%= image_tag(asset.image.url(:modal)) %>
+                </div>
+                <% end %>
+            <% end %>
+        </div>
+        <!-- Carousel nav -->
+        <a class="carousel-control left" href="#myCarousel<%= ferrari.id %>" data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#myCarousel<%= ferrari.id %>" data-slide="next">&rsaquo;</a>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
 </div>

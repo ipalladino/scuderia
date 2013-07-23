@@ -5,11 +5,11 @@
         <% @ferrari.assets.each_with_index do |asset, index| %>
             <% if(index == 0) %>
             <div class="item active">
-                <%= image_tag(asset.image.url(:original)) %>
+                <%= image_tag(asset.image.url(:slideshow)) %>
             </div>
             <% else %>
             <div class="item">
-                <%= image_tag(asset.image.url(:original)) %>
+                <%= image_tag(asset.image.url(:slideshow)) %>
             </div>
             <% end %>
         <% end %>

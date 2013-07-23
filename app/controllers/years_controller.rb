@@ -2,7 +2,7 @@ class YearsController < ApplicationController
   before_filter :admin_user,     only: [:destroy, :create, :edit, :new]
   
   def index
-    @years = Year.paginate(page: params[:page])
+    @years = Year.order("car_year ASC").paginate(page: params[:page])
   end
   
   def show
@@ -28,7 +28,9 @@ class YearsController < ApplicationController
   
   def destroy
     @year = Year.find(params[:id])
-    @year.destroy
+    if @year.destroy
+      flash[:success] = "Year removed successfully"
+    end
     redirect_to years_path
   end
 

@@ -5,6 +5,7 @@ class Asset < ActiveRecord::Base
       :styles => {
         :thumb=> "100x100#",
         :small  => "300x300>",
-        :large => "600x600>"
+        :modal => "770x378#",
+        :slideshow => "940x462#"
   }
 end

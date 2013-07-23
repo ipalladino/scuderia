@@ -1,11 +1,11 @@
-<% provide(:title, 'New Trim') %>
-<h1>Add new trim</h1>
+<% provide(:title, 'New Body Type') %>
+<h1>Add new Body Type</h1>
 
 <div class="row">
   <div class="span6 offset3">
       <%= form_tag trims_path do %>
           
-          <%= label_tag :car_trim, "Trim" %>
+          <%= label_tag :car_trim, "Body type" %>
           <%= text_field_tag :car_trim %>
         
           <%= label_tag :year_selection, "Year" %>
@@ -15,7 +15,7 @@
             
           </div>
           
-          <%= submit_tag "New Trim", class: "btn btn-large btn-primary", style: "position:relative;top:10px;" %>
+          <%= submit_tag "New Body Type", class: "btn btn-large btn-primary", style: "position:relative;top:10px;" %>
 
       <% end %>
   </div>

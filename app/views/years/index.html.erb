@@ -1,5 +1,6 @@
+<h1>Years</h1>
 <%= will_paginate %>
-<table>
+<table class="table table-striped">
     <% @years.each do |year| %>
         <tr><td><%= link_to year.car_year, year %></td>
             <% if current_user.admin? %>

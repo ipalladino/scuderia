@@ -1,18 +1,13 @@
 <% provide(:title, @year.car_year) %>
 <div class="row">
-  <aside class="span4">
-    <section>
-      <h1>
-        <%= @year.car_year %>
-        <% if current_user.admin? %>
-            | <%= link_to "delete", @year, method: :delete,
-                                          data: { confirm: "You sure?" },
-                                          id: @year.id %>
-          <% end %>
-      </h1>
-    </section>
-  </aside>
-  <div class="span8">
+  <div class="span12">
+      <h2><%= @year.car_year %>
+      <% if current_user.admin? %>
+          | <%= link_to "delete", @year, method: :delete,
+                                        data: { confirm: "You sure?" },
+                                        id: @year.id %>
+      <% end %>
+      </h2>
       <% if @year.car_models.any? %>
           <h3>Ferrari Models (<%= @year.car_models.count %>)</h3>
           <ol class="microposts">
