@@ -73,7 +73,7 @@ class FerrarisController < ApplicationController
   end
 
   def new
-    @years = Year.all
+    @years = Year.order("car_year ASC").all
     @ferrari = Ferrari.new
     5.times { @ferrari.assets.build }
   end

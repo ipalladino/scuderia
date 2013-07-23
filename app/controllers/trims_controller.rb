@@ -53,7 +53,7 @@ class TrimsController < ApplicationController
   end
 
   def new
-    @years = Year.all
+    @years = Year.order("car_year ASC").all
     @trim = Trim.new
   end
   

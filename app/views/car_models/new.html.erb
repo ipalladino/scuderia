@@ -10,7 +10,7 @@
       <%= f.text_field :car_model %>
       
       <%= f.label :year_id %>
-      <%= collection_select(:car_model, :year_id, Year.all, :id, :car_year) %>
+      <%= collection_select(:car_model, :year_id, Year.order("car_year ASC").all, :id, :car_year) %>
       
       <%= f.submit "Add new model", class: "btn btn-large btn-primary" %>
     <% end %>
