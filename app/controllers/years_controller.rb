@@ -27,6 +27,9 @@ class YearsController < ApplicationController
   end
   
   def destroy
+    @year = Year.find(params[:id])
+    @year.destroy
+    redirect_to years_path
   end
 
   def new

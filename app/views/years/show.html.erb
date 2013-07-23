@@ -4,6 +4,11 @@
     <section>
       <h1>
         <%= @year.car_year %>
+        <% if current_user.admin? %>
+            | <%= link_to "delete", @year, method: :delete,
+                                          data: { confirm: "You sure?" },
+                                          id: @year.id %>
+          <% end %>
       </h1>
     </section>
   </aside>

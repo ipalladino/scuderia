@@ -1,0 +1,16 @@
+<%= will_paginate %>
+<table>
+    <% @years.each do |year| %>
+        <tr><td><%= link_to year.car_year, year %></td>
+            <% if current_user.admin? %>
+                <td> <%= link_to "delete", year, method: :delete,
+                                              data: { confirm: "You sure?" },
+                                              id: year.id %>
+                    </td>
+              <% end %>
+        </tr>
+    <% end %>
+</table>
+    
+
+<%= will_paginate %>
