@@ -1,1 +1,21 @@
-<%= render @car_model %>
+<% unless @car_model.generic_images.length == 0 %>
+<div id="myCarousel" class="carousel slide">
+    <!-- Carousel items -->
+    <div class="carousel-inner">
+        <% @car_model.generic_images.each_with_index do |asset, index| %>
+            <% if(index == 0) %>
+            <div class="item active">
+                <%= image_tag(asset.image.url(:slideshow)) %>
+            </div>
+            <% else %>
+            <div class="item">
+                <%= image_tag(asset.image.url(:slideshow)) %>
+            </div>
+            <% end %>
+        <% end %>
+    </div>
+    <!-- Carousel nav -->
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>
+<% end %>

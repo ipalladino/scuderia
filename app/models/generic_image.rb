@@ -1,6 +1,6 @@
-class Asset < ActiveRecord::Base
-  attr_accessible :image
-  belongs_to :ferrari
+class GenericImage < ActiveRecord::Base
+  attr_accessible :image, :caption
+  belongs_to :car_model
   
   has_attached_file :image,
       :styles => {

@@ -15,7 +15,9 @@ class CarModelsController < ApplicationController
   
   def create
     year = Year.find(params[:car_model][:year_id])
-    @carmodel = year.car_models.build(car_model: params[:car_model][:car_model])
+    params[:car_model].delete :year_id
+
+    @carmodel = year.car_models.build(params[:car_model])
     if @carmodel.save
       flash[:success] = "Car model added!"
       redirect_to car_models_path
@@ -41,7 +43,7 @@ class CarModelsController < ApplicationController
 
   def new
     @carmodel = CarModel.new
-    #5.times { @carmodel.assets.build }
+    5.times { @carmodel.generic_images.build }
   end
   
   private 
