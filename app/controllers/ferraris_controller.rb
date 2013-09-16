@@ -1,5 +1,5 @@
 class FerrarisController < ApplicationController
-  before_filter :signed_in_user, only: [:create, :destroy, :my]
+  before_filter :signed_in_user, only: [:create, :destroy, :my, :new]
   before_filter :correct_user,   only: [:destroy]
   
   def index
@@ -45,11 +45,9 @@ class FerrarisController < ApplicationController
   end
   
   def edit
-    @years = Year.all
+    @years = Year.order("car_year ASC").all
     @ferrari = Ferrari.find(params[:id])
-    puts @ferrari.year_id
     @car_models = CarModel.where({ year_id: @ferrari.year_id})
-    puts @car_models
     @trims = Trim.where({ car_model_id: @ferrari.car_model_id})
     @engines = Engine.where({ car_model_id: @ferrari.car_model_id})
     @transmissions = Transmission.where({ car_model_id: @ferrari.car_model_id})

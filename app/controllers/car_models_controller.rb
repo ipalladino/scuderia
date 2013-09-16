@@ -28,9 +28,22 @@ class CarModelsController < ApplicationController
   end
   
   def edit
+    @years = Year.all
+    @carmodel = CarModel.find(params[:id])
+    5.times { @carmodel.generic_images.build }
   end
 
   def update
+    @carmodel = CarModel.find(params[:id])
+    if @carmodel.update_attributes(params[:car_model])
+      flash[:success] = "The Ferrari post was updated"
+      redirect_to @carmodel
+    else
+      @years = Year.all
+      @carmodel = CarModel.find(params[:id])
+      5.times { @carmodel.generic_images.build }
+      render 'new'
+    end
   end
   
   def destroy
@@ -43,6 +56,7 @@ class CarModelsController < ApplicationController
 
   def new
     @carmodel = CarModel.new
+    @years = Year.order("car_year ASC").all
     5.times { @carmodel.generic_images.build }
   end
   

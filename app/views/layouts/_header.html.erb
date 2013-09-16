@@ -5,22 +5,24 @@
       <nav>
         <ul class="nav pull-right">
           <li><%= link_to "Home", root_path %></li>
-          <li><%= link_to "Help", help_path %></li>
+          <li><%= link_to "Ferraris For Sale", ferraris_path %></li>
+          <li><%= link_to "Sell Your Ferrari", new_ferrari_path %></li>
+          <li id="fat-menu" class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              History <b class="caret"></b>
+            </a>
+              <ul class="dropdown-menu">
+                  <li><%= link_to "Collection", new_ferrari_path %></li>
+                  <li><%= link_to "Enzo", myferraris_path %></li>
+                  <li><%= link_to "Company", current_user %></li>
+              </ul>
+          </li>
           <% if signed_in? %>
-            <li><%= link_to "Users", users_path %></li>
             <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Account <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                 <% if current_user.admin? %>
-                    <li><%= link_to "Add new year", new_year_path %></li>
-                    <li><%= link_to "Add new Model", new_car_model_path %></li>
-                    <li><%= link_to "Add new Body Type", new_trim_path %></li>
-                    <li><%= link_to "Add new Engine", new_engine_path %></li>
-                    <li><%= link_to "Add new Transmission", new_transmission_path %></li>
-                 <% end %>
-                <li><%= link_to "Add new ferrari", new_ferrari_path %></li>
                 <li><%= link_to "My Ferraris for sale", myferraris_path %></li>
                 <li><%= link_to "Profile", current_user %></li>
                 <li><%= link_to "Settings", edit_user_path(current_user) %></li>
@@ -30,6 +32,21 @@
                 </li>
               </ul>
             </li>
+            <li id="fat-menu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Admin <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+              <% if current_user.admin? %>
+                    <li><%= link_to "Add new year", new_year_path %></li>
+                    <li><%= link_to "Add new Model", new_car_model_path %></li>
+                    <li><%= link_to "Add new Body Type", new_trim_path %></li>
+                    <li><%= link_to "Add new Engine", new_engine_path %></li>
+                    <li><%= link_to "Add new Transmission", new_transmission_path %></li>
+              <% end %>
+              </ul>
+            </li>
+            
           <% else %>
             <li><%= link_to "Sign in", signin_path %></li>
           <% end %>
