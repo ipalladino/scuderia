@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@carmodel, :html => { :multipart => true }) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.label :car_model %>
+      <%= f.text_field :car_model %>
+      
+      <%= f.label :year_id %>
+      <% if(@carmodel.year_id.blank?) %>
+            <%= f.select :year_id, options_from_collection_for_select(@years, :id, :car_year) , {:include_blank => true, :default => nil} %>
+        <% else %>
+            <%= f.select :year_id, options_from_collection_for_select(@years, :id, :car_year) , {:default => @carmodel.year_id} %>
+        <% end %>
+      
+      <div class="newPaperclipFiles">
+
+        <%= f.fields_for :generic_images do |asset| %>
+
+            <% if asset.object.new_record? %>
+                <%= asset.file_field :image %>
+            <% end %>
+
+        <% end %>
+
+      </div>
+
+      <div class="existingPaperclipFiles">
+
+      <%= f.fields_for :generic_images do |asset| %>
+
+          <% unless asset.object.new_record? %>
+
+              <div class="thumbnail">
+                <%= link_to( image_tag(asset.object.image.url(:thumb)), asset.object.image.url(:original) ) %>
+                <%= asset.check_box :_destroy %>
+              </div>
+
+          <% end %>        
+
+      <% end %>
+      </div>
+      
+      
+      <% if(@carmodel.new_record?) %>
+            <%= f.submit "Create", class: "btn btn-large btn-primary" %>
+        <% else %>
+            <%= f.submit "Edit", class: "btn btn-large btn-primary" %>
+        <% end %>
+    <% end %>
+  </div>
+</div>
