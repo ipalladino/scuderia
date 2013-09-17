@@ -2,9 +2,11 @@ class StaticPagesController < ApplicationController
   def home
     if signed_in?
       @micropost  = current_user.microposts.build
-      @ferraris = Ferrari.paginate(page: params[:page])
       @feed_items = current_user.feed.paginate(page: params[:page])
     end
+    @ferraris = Ferrari.paginate(page: params[:page])
+    @featured = Ferrari.last(3)
+    
   end
 
   def help

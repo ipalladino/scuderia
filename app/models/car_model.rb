@@ -1,5 +1,5 @@
 class CarModel < ActiveRecord::Base
-  attr_accessible :car_model , :year_id,:generic_images_attributes, :generic_images #generic_images and :generic_images_attributes, both are needed
+  attr_accessible :car_model , :year_id,:generic_images_attributes, :generic_images
   has_many :trims, dependent: :destroy
   has_many :engines, dependent: :destroy
   has_many :transmissions, dependent: :destroy

@@ -10,6 +10,54 @@ class FerrarisController < ApplicationController
     @ferrari = Ferrari.find(params[:id])
   end
   
+  def crawl
+    agent = Mechanize.new
+    page = agent.get "http://www.ferraridatabase.com/The_Cars/Cars.htm"
+    links = page.links
+    links.shift
+
+    links.each do |l|
+      year_page = l.click
+      year_string = l.text
+      
+      year = Year.find_by_car_year(year_string)
+      if !year
+        #create
+        year = Year.new({car_year: year_string})
+        year.save
+      end
+      
+      ferraris_nodes = year_page.search("p//font//i")
+      ferraris_nodes.each do |ferrari|
+        ferrari_model = ferrari.children.text.strip
+        puts "Creating ferrari model: "+ferrari_model
+        car_model = year.car_models.build({car_model: ferrari_model})
+        car_model.save
+      end
+      
+      ferraris_nodes = year_page.search("td//font//font//i")
+      ferraris_nodes.each do |ferrari|
+        ferrari_model = ferrari.children.text.strip
+        puts "Creating ferrari model: "+ferrari_model
+        car_model = year.car_models.build({car_model: ferrari_model})
+        car_model.save
+      end
+      
+      ferraris_nodes = year_page.search("td//font//i")
+      ferraris_nodes.each do |ferrari|
+        ferrari_model = ferrari.children.text.strip
+        puts "Creating ferrari model: "+ferrari_model
+        car_model = year.car_models.build({car_model: ferrari_model})
+        car_model.save
+      end
+      
+    end
+    
+    
+    
+    redirect_to ferraris_path
+  end
+  
   def create
     @ferrari = current_user.ferraris.build(params[:ferrari])
     if @ferrari.save
@@ -17,6 +65,9 @@ class FerrarisController < ApplicationController
       redirect_to @ferrari
     else
       @years = Year.all
+      @trims = Trim.all
+      @engines = Engine.all
+      @transmissions = Transmission.all
       render 'new'
     end
   end
@@ -33,24 +84,24 @@ class FerrarisController < ApplicationController
     end
   end
   
-  def model_selection
-    @model = CarModel.find(params[:model])
-    @trims = @model.trims
-    @engines = @model.engines
-    @transmissions = @model.transmissions
+  #def model_selection
+  #  @model = CarModel.find(params[:model])
+  #  @trims = @model.trims
+  #  @engines = @model.engines
+  #  @transmissions = @model.transmissions
     
-    respond_to do |format|
-        format.js {  }
-    end
-  end
+  #  respond_to do |format|
+  #      format.js {  }
+  #  end
+  #end
   
   def edit
     @years = Year.order("car_year ASC").all
     @ferrari = Ferrari.find(params[:id])
     @car_models = CarModel.where({ year_id: @ferrari.year_id})
-    @trims = Trim.where({ car_model_id: @ferrari.car_model_id})
-    @engines = Engine.where({ car_model_id: @ferrari.car_model_id})
-    @transmissions = Transmission.where({ car_model_id: @ferrari.car_model_id})
+    @trims = Trim.all
+    @engines = Engine.all
+    @transmissions = Transmission.all
     5.times { @ferrari.assets.build }
   end
 
@@ -71,8 +122,11 @@ class FerrarisController < ApplicationController
   end
 
   def new
-    @years = Year.order("car_year ASC").all
     @ferrari = Ferrari.new
+    @years = Year.order("car_year ASC").all
+    @trims = Trim.all
+    @engines = Engine.all
+    @transmissions = Transmission.all
     5.times { @ferrari.assets.build }
   end
   

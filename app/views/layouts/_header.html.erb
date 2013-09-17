@@ -1,7 +1,6 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="navbar-inner">
     <div class="container">
-      <%= link_to "scuderia.com", root_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
           <li><%= link_to "Home", root_path %></li>
@@ -32,24 +31,31 @@
                 </li>
               </ul>
             </li>
-            <li id="fat-menu" class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Admin <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu">
-              <% if current_user.admin? %>
+            
+            <% if current_user.admin? %>
+                <li id="fat-menu" class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Admin <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
                     <li><%= link_to "Add new year", new_year_path %></li>
                     <li><%= link_to "Add new Model", new_car_model_path %></li>
                     <li><%= link_to "Add new Body Type", new_trim_path %></li>
                     <li><%= link_to "Add new Engine", new_engine_path %></li>
                     <li><%= link_to "Add new Transmission", new_transmission_path %></li>
-              <% end %>
-              </ul>
-            </li>
+                </ul>
+                </li>
+           <% end %>
+              
             
           <% else %>
             <li><%= link_to "Sign in", signin_path %></li>
           <% end %>
+            <li>
+            <form class="navbar-search pull-left">
+              <input type="text" class="search-query" placeholder="Search">
+            </form>
+            </li>
         </ul>
       </nav>
     </div>

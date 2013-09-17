@@ -7,53 +7,41 @@ class TrimsController < ApplicationController
   
   def show
     @trim = Trim.find(params[:id])
-    @carmodels = Carmodel.find_by_trim(@trim).paginate(page: params[:page])
   end
   
   def create
-    puts
-    if(!params[:ferrari][:car_model_id] || params[:car_trim].blank?)
-      flash[:error] = "Fields cannot be blank!"
-      redirect_to new_trim_path
+    @trim = Trim.new(params[:trim])
+    if @trim.save
+      flash[:success] = "The body type was created"
+      redirect_to @trim
     else
-      begin
-        carmodel = CarModel.find(params[:ferrari][:car_model_id])
-        @trim = carmodel.trims.build(car_trim: params[:car_trim])
-        if @trim.save
-          flash[:success] = "Car trim added!"
-          redirect_to car_models_path
-        else
-          render 'new'
-        end
-      rescue
-        flash[:error] = "Error #{$!}"
-        redirect_to new_trim_path
-        success = false
-      end
-    end
-  end
-  
-  def year_selection
-    @year = Year.find(params[:year])
-    @carmodels = @year.car_models
-    puts @carmodels
-    
-    respond_to do |format|
-        format.js {  }
+      flash[:error] = "Error creating body type"
+      render 'new'
     end
   end
   
   def edit
+    @trim = Trim.find(params[:id])
   end
 
   def update
+    @trim = Trim.find(params[:id])
+    if @trim.update_attributes(params[:trim])
+      flash[:success] = "The body type was updated"
+      redirect_to @trim
+    else
+      @trim = Trim.find(params[:id])
+      render 'new'
+    end
   end
   
   def destroy
+    Trim.find(params[:id]).destroy
+    flash[:success] = "Body type destroyed."
+    redirect_to trims_url
   end
 
   def new
-    @years = Year.order("car_year ASC").all
     @trim = Trim.new
   end
   

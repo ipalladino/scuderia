@@ -34,6 +34,7 @@ SampleApp::Application.routes.draw do
   resources :microposts, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
 
+  match '/crawl', to: 'ferraris#crawl'
   match '/myferraris', to: 'ferraris#my'
 
   match '/signup',  to: 'users#new'

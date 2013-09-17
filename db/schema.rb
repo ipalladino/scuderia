@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130723071649) do
+ActiveRecord::Schema.define(:version => 20130916042012) do
 
   create_table "assets", :force => true do |t|
     t.integer  "ferrari_id"
@@ -38,8 +38,6 @@ ActiveRecord::Schema.define(:version => 20130723071649) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
-
-  add_index "engines", ["car_model_id"], :name => "index_engines_on_car_model_id"
 
   create_table "ferrari_images", :force => true do |t|
     t.string   "caption"
@@ -110,16 +108,12 @@ ActiveRecord::Schema.define(:version => 20130723071649) do
     t.datetime "updated_at",   :null => false
   end
 
-  add_index "transmissions", ["car_model_id"], :name => "index_transmissions_on_car_model_id"
-
   create_table "trims", :force => true do |t|
     t.string   "car_trim"
     t.integer  "car_model_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
-
-  add_index "trims", ["car_model_id"], :name => "index_trims_on_car_model_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"

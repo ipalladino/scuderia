@@ -1,16 +1,18 @@
 <div class="ferrari-line span12">
-    <div class="span8 details">
-        <ul class="nav nav-pills">
-          <li><%= link_to ferrari.year.car_year , "#", class: "year-popover", :data => { title: ferrari.year.car_year , :content => "<ul class=\"unstyled\"><li><a href=\"/years/#{ferrari.year_id}\">More Ferraris</a></li><li><a href=\"/years/#{ferrari.year_id}\">Year details</a></li></ul>" } %></li>
-          <li><%= link_to ferrari.car_model.car_model, ferrari.car_model %></li>
-          <li><%= link_to ferrari.title, ferrari %></li>
-        </ul>            
+    <div class="span12 details">
+        <div class="span4 thumbnails">
+                <%= image_tag(ferrari.assets[0].image.url(:modal), { data: {toggle: "modal", target: "#myModal#{ferrari.id}"}}) %>
+        </div>
+        <div class="span8 text-details">
+            <table class="table table-striped">
+                <tr><td>Year</td><td style="min-width:100px;"><%= link_to ferrari.year.car_year , "#", class: "year-popover", :data => { title: ferrari.year.car_year , :content => "<ul class=\"unstyled\"><li><a href=\"/years/#{ferrari.year_id}\">More Ferraris</a></li><li><a href=\"/years/#{ferrari.year_id}\">Year details</a></li></ul>" } %></td></tr>
+                <tr><td>Model</td><td><%= link_to ferrari.car_model.car_model, ferrari.car_model %></td></tr>
+                <tr><td>Title</td><td><%= link_to ferrari.title, ferrari %></td></tr>
+                <tr><td>Body Type</td><td><%= link_to ferrari.trim.car_trim, ferrari %></td></tr>
+            </table>
+        </div>
     </div>
-    <div class="span4 thumbnails">
-        <% ferrari.assets.each do |asset| %>
-            <%= image_tag(asset.image.url(:thumb), { data: {toggle: "modal", target: "#myModal#{ferrari.id}"}}) %>
-        <% end %>
-    </div>
+    
 </div>
 
 <!-- MODAL PART -->

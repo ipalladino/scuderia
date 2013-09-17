@@ -2,58 +2,46 @@ class EnginesController < ApplicationController
   before_filter :admin_user,     only: [:destroy, :create, :edit, :new]
   
   def index
-    @trims = Trim.paginate(page: params[:page])
+    @engines = Engine.paginate(page: params[:page])
   end
   
   def show
-    @trim = Trim.find(params[:id])
-    @carmodels = Carmodel.find_by_trim(@trim).paginate(page: params[:page])
+    @engine = Engine.find(params[:id])
   end
   
   def create
-    if(!params[:ferrari][:car_model_id] || params[:name].blank?)
-      flash[:error] = "Fields cannot be blank!"
-      redirect_to new_engine_path
+    @engine = Engine.new(params[:engine])
+    if @engine.save
+      flash[:success] = "The engine was created"
+      redirect_to engines_url
     else
-      begin
-        carmodel = CarModel.find(params[:ferrari][:car_model_id])
-        @engine = carmodel.engines.build(name: params[:name])
-        if @engine.save
-          flash[:success] = "Car engine added!"
-          redirect_to car_models_path
-        else
-          render 'new'
-        end
-      rescue
-        flash[:error] = "Error #{$!}"
-        redirect_to new_engine_path
-        success = false
-      end
-    end
-  end
-  
-  def year_selection
-    @year = Year.find(params[:year])
-    @carmodels = @year.car_models
-    puts @carmodels
-    
-    respond_to do |format|
-        format.js {  }
+      render 'new'
     end
   end
   
   def edit
+    @engine = Engine.find(params[:id])
   end
 
   def update
+    @engine = Engine.find(params[:id])
+    if @engine.update_attributes(params[:engine])
+      flash[:success] = "The Engine was updated"
+      redirect_to @engine
+    else
+      @engine = Engine.find(params[:id])
+      render 'new'
+    end
   end
   
   def destroy
+    Engine.find(params[:id]).destroy
+    flash[:success] = "Transmission destroyed."
+    redirect_to engines_url
   end
 
   def new
-    @years = Year.order("car_year ASC").all
-    @trim = Trim.new
+    @engine = Engine.new
   end
   
   private 

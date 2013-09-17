@@ -2,60 +2,47 @@ class TransmissionsController < ApplicationController
   before_filter :admin_user,     only: [:destroy, :create, :edit, :new]
   
   def index
-    @trims = Trim.paginate(page: params[:page])
+    @transmissions = Transmission.paginate(page: params[:page])
   end
   
   def show
-    @trim = Trim.find(params[:id])
-    @carmodels = Carmodel.find_by_trim(@trim).paginate(page: params[:page])
+    @transmission = Transmission.find(params[:id])
   end
   
   def create
-    if(!params[:ferrari][:car_model_id] || params[:name].blank?)
-      flash[:error] = "Fields cannot be blank!"
-      redirect_to new_transmission_path
-    else
-      begin
-        carmodel = CarModel.find(params[:ferrari][:car_model_id])
-        @transmission = carmodel.transmissions.build(name: params[:name])
-        if @transmission.save
-          flash[:success] = "Car Transmission added!"
-          redirect_to car_models_path
-        else
-          render 'new'
-        end
-      rescue
-        flash[:error] = "Error #{$!}"
-        redirect_to new_transmission_path
-        success = false
-      end
-    end
-  end
-  
-  def year_selection
-    @year = Year.find(params[:year])
-    @carmodels = @year.car_models
-    puts @carmodels
-    
-    respond_to do |format|
-        format.js {  }
+    @transmission = Transmission.new(params[:transmission])
+    begin
+      @transmission.save
+      redirect_to @transmission
+    rescue
+      flash[:error] = "Error #{$!}"
+      render 'new'
     end
   end
   
   def edit
+    @transmission = Transmission.find(params[:id])
   end
 
   def update
+    @transmission = Transmission.find(params[:id])
+    if @transmission.update_attributes(params[:transmission])
+      flash[:success] = "The Transmission was updated"
+      redirect_to @transmission
+    else
+      @transmission = Transmission.find(params[:id])
+      render 'new'
+    end
   end
   
   def destroy
-    @transmission.destroy
-    redirect_to root_url
+    Transmission.find(params[:id]).destroy
+    flash[:success] = "Transmission destroyed."
+    redirect_to transmissions_url
   end
 
   def new
-    @years = Year.order("car_year ASC").all
-    @trim = Trim.new
+    @transmission = Transmission.new
   end
   
   private 

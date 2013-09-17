@@ -7,7 +7,7 @@
       <% if(@ferrari.car_model_id.blank?) %>
           <%= f.select :year_id, options_from_collection_for_select(@years, :id, :car_year) , {:include_blank => true, :default => nil} %>
       <% else %>
-          <%= f.select :year_id, options_from_collection_for_select(@years, :id, :car_year) , {:default => @ferrari.year_id} %>
+          <%= f.select :year_id, options_from_collection_for_select(@years, :id, :car_year, @ferrari.year_id)%>
       <% end %>
       <div id="car_model">
           <% if(@ferrari.car_model_id.blank?) %>
@@ -20,26 +20,14 @@
       </div>
       
       <div id="engine-tran-trim">
-          <% if(@ferrari.engine_id.blank?) %>
-                <%= hidden_field("", :engine_id) %>
-          <% else %>
-            <%= label_tag :engine_id,"Car Model" %>
-            <%= f.select :engine_id, options_from_collection_for_select(@engines, :id, :name, @ferrari.engine_id)  %>
-          <% end %>
-          
-          <% if(@ferrari.transmission_id.blank?) %>
-            <%= hidden_field("", :transmission_id) %>
-          <% else %>
-            <%= label_tag :transmission_id,"Car Model" %>
-            <%= f.select :transmission_id, options_from_collection_for_select(@transmissions, :id, :name, @ferrari.transmission_id) %>
-          <% end %>
-          
-          <% if(@ferrari.trim_id.blank?) %>
-            <%= hidden_field("", :trim_id) %>
-          <% else %>
-            <%= label_tag :trim_id,"Car Model" %>
-            <%= f.select :trim_id, options_from_collection_for_select(@trims, :id, :car_trim, @ferrari.trim_id) %>
-          <% end %>
+          <%= label_tag :ferrari_engine_id,"Engine" %>
+          <%= f.select :engine_id, options_from_collection_for_select(@engines, :id, :name, @ferrari.engine_id) %>
+
+          <%= label_tag :ferrari_trim_id,"Trim" %>
+          <%= f.select :trim_id, options_from_collection_for_select(@trims, :id, :car_trim, @ferrari.trim_id) %>
+
+          <%= label_tag :transmission_id,"Transmission" %>
+          <%= f.select :transmission_id, options_from_collection_for_select(@transmissions, :id, :name, @ferrari.transmission_id) %>
       </div>
       
       <%= f.label :title %>

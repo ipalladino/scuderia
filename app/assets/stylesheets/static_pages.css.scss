@@ -3,17 +3,26 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .ferrari-line {
-    height:110px !important;    
     border-bottom: 1px solid #8FBCDB;
 }
 
 .ferrari-line img {
-    box-shadow: 2px 5px 8px #000000;
 }
 
 .details {
+    position:relative;
     font-size:30px;
-    line-height:80px;
+    height:150px;
+    font-size:14px;
+}
+
+.text-details {
+    position:relative;
+    line-height:23px;
+    
+    .description {
+        font-size:14px;
+    }
 }
 
 .thumbnails {
@@ -23,4 +32,8 @@
 .modal {
     width: 800px;
     margin-left: -400px; /* - width/2 */
+}
+
+#slideshow {
+    box-shadow: 4px 1px 29px 7px #000000;
 }
