@@ -29,26 +29,41 @@ class FerrarisController < ApplicationController
       
       ferraris_nodes = year_page.search("p//font//i")
       ferraris_nodes.each do |ferrari|
-        ferrari_model = ferrari.children.text.strip
+        ferrari_model = ferrari.children.text.strip.gsub("\u00A0", "")
         puts "Creating ferrari model: "+ferrari_model
-        car_model = year.car_models.build({car_model: ferrari_model})
-        car_model.save
+        if(ferrari_model.split("the Cars").length == 1)
+          car_model = year.car_models.find_by_car_model(ferrari_model)
+          if(!car_model)
+            car_model = year.car_models.build({car_model: ferrari_model})
+            car_model.save
+          end
+        end
       end
       
       ferraris_nodes = year_page.search("td//font//font//i")
       ferraris_nodes.each do |ferrari|
-        ferrari_model = ferrari.children.text.strip
+        ferrari_model = ferrari.children.text.strip.gsub("\u00A0", "")
         puts "Creating ferrari model: "+ferrari_model
-        car_model = year.car_models.build({car_model: ferrari_model})
-        car_model.save
+        if(ferrari_model.split("the Cars").length == 1)
+          car_model = year.car_models.find_by_car_model(ferrari_model)
+          if(!car_model)
+            car_model = year.car_models.build({car_model: ferrari_model})
+            car_model.save
+          end
+        end
       end
       
       ferraris_nodes = year_page.search("td//font//i")
       ferraris_nodes.each do |ferrari|
-        ferrari_model = ferrari.children.text.strip
+        ferrari_model = ferrari.children.text.strip.gsub("\u00A0", "")
         puts "Creating ferrari model: "+ferrari_model
-        car_model = year.car_models.build({car_model: ferrari_model})
-        car_model.save
+        if(ferrari_model.split("the Cars").length == 1)
+          car_model = year.car_models.find_by_car_model(ferrari_model)
+          if(!car_model)
+            car_model = year.car_models.build({car_model: ferrari_model})
+            car_model.save
+          end
+        end
       end
       
     end

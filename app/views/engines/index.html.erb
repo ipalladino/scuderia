@@ -1,0 +1,18 @@
+<h1>Engines</h1>
+<%= will_paginate %>
+<table class="table table-striped">
+    <% @engines.each do |engine| %>
+        <tr><td><%= engine.name %></td>
+            <% if current_user.admin? %>
+                <td> <%= link_to "delete", engine, method: :delete,
+                                              data: { confirm: "You sure?" } %>
+                    </td>
+                <td> <%= link_to "edit", edit_engine_path(:id => engine.id) %>
+                    </td>
+              <% end %>
+        </tr>
+    <% end %>
+</table>
+    
+
+<%= will_paginate %>
