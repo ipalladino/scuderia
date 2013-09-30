@@ -8,7 +8,22 @@
 
       <%= f.label :name %>
       <%= f.text_field :name %>
-
+      
+      <%= f.label :phone %>
+      <%= f.text_field :phone %>
+      
+      <%= f.label :state %>
+      <%= select_tag :state, options_for_select(us_states) %> 
+      
+      <%= f.label :address %>
+      <%= f.text_field :address %>
+      
+      <%= f.label :zip %>
+      <%= f.text_field :zip %>
+      
+      <%= check_box_tag(:is_dealer) %>
+      <%= label_tag(:is_dealer, "Dealership") %>
+      
       <%= f.label :email %>
       <%= f.text_field :email %>
 

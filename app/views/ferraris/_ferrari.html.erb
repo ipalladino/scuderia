@@ -3,12 +3,11 @@
         <div class="span4 thumbnails">
                 <%= image_tag(ferrari.assets[0].image.url(:modal), { data: {toggle: "modal", target: "#myModal#{ferrari.id}"}}) %>
         </div>
-        <div class="span8 text-details">
+        <div class="span8 text-details ferrari" data-id=<%= ferrari.id %>>
             <table class="table table-striped">
-                <tr><td>Year</td><td style="min-width:100px;"><%= link_to ferrari.year.car_year , "#", class: "year-popover", :data => { title: ferrari.year.car_year , :content => "<ul class=\"unstyled\"><li><a href=\"/years/#{ferrari.year_id}\">More Ferraris</a></li><li><a href=\"/years/#{ferrari.year_id}\">Year details</a></li></ul>" } %></td></tr>
-                <tr><td>Model</td><td><%= link_to ferrari.car_model.car_model, ferrari.car_model %></td></tr>
+                <tr><td>Year</td><td style="min-width:100px;"><%= ferrari.year.car_year %> </td></tr>
+                <tr><td>Model</td><td><%= ferrari.car_model.car_model %></td></tr>
                 <tr><td>Title</td><td><%= link_to ferrari.title, ferrari %></td></tr>
-                <tr><td>Body Type</td><td><%= link_to ferrari.trim.car_trim, ferrari %></td></tr>
             </table>
         </div>
     </div>

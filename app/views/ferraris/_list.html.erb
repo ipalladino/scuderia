@@ -5,3 +5,11 @@
     $('.year-popover').popover({title: "Hi" , content: "Ho", trigger: "click"});
 </script>
 <%= will_paginate @ferraris %>
+
+<script type="text/javascript" charset="utf-8">
+    $(".ferrari").click(function(e){
+        var id = e.currentTarget.dataset.id;
+        var redirectUrl = "http://"+window.location.host+"/ferraris/"+id;
+        window.location.href = redirectUrl;
+    });
+</script>

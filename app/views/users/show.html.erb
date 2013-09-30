@@ -8,9 +8,28 @@
       </h1>
     </section>
   </aside>
-  <div class="span8">
-      <% if @user.ferraris.any? %>
-        <%= render partial: 'ferraris/ferrari', collection: @user.ferraris %>
-      <% end %>    
+  
+  <div class="span12">
+      <table class="table table-striped">
+          <tr><td>Name</td><td><%= @user.name %></td></tr>
+          <tr><td>Email</td><td><%= @user.email %></td></tr>
+          <tr><td>Phone</td><td><%= @user.phone %></td></tr>
+          <tr><td>State</td><td><%= @user.state %></td></tr>
+          <tr><td>Address</td><td><%= @user.address %></td></tr>
+          <tr><td>Zipcode</td><td><%= @user.zip %></td></tr>
+          <tr><td>Dealership</td><td>
+              <% if(@user.is_dealer) %>
+                  YES
+              <% else %>
+                  NO
+              <% end %>
+          </td></tr>
+      </table>
   </div>
+      
+</div>
+<div class="row">
+<% if @user.ferraris.any? %>
+    <%= render partial: 'ferraris/ferrari', collection: @user.ferraris %>
+<% end %>
 </div>

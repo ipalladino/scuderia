@@ -10,7 +10,7 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :name, :email, :password, :password_confirmation
+  attr_accessible :name, :email, :password, :password_confirmation, :address, :zip, :state, :is_dealer, :phone
   has_secure_password
   has_many :microposts, dependent: :destroy
   has_many :ferraris, dependent: :destroy
