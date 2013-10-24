@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130930020047) do
+ActiveRecord::Schema.define(:version => 20131024082130) do
 
   create_table "assets", :force => true do |t|
     t.integer  "ferrari_id"
@@ -20,7 +20,20 @@ ActiveRecord::Schema.define(:version => 20130930020047) do
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
+    t.string   "imageable_type"
+    t.integer  "imageable_id"
   end
+
+  create_table "blogs", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "user_id"
+    t.integer  "blogtype"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "blogs", ["user_id"], :name => "index_blogs_on_user_id"
 
   create_table "car_models", :force => true do |t|
     t.string   "car_model"

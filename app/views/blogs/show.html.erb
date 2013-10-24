@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @blog.title %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%= @blog.body %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @blog.user_id %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= @blog.blogtype %>
+</p>
+
+<% unless @blog.assets.length == 0 %>
+<div id="myCarousel" class="carousel slide">
+    <!-- Carousel items -->
+    <div class="carousel-inner">
+        <% @blog.assets.each_with_index do |asset, index| %>
+            <% if(index == 0) %>
+            <div class="item active">
+                <%= image_tag(asset.image.url(:slideshow)) %>
+            </div>
+            <% else %>
+            <div class="item">
+                <%= image_tag(asset.image.url(:slideshow)) %>
+            </div>
+            <% end %>
+        <% end %>
+    </div>
+    <!-- Carousel nav -->
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>
+<% end %>
+
+
+<%= link_to 'Edit', edit_blog_path(@blog) %> |
+<%= link_to 'Back', blogs_path %>

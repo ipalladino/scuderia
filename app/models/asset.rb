@@ -1,6 +1,6 @@
 class Asset < ActiveRecord::Base
   attr_accessible :image
-  belongs_to :ferrari
+  belongs_to :imageable, :polymorphic => true
   
   has_attached_file :image,
       :styles => {
@@ -10,4 +10,5 @@ class Asset < ActiveRecord::Base
         :modal => "770x378#",
         :slideshow => "940x462#"
   }
+  
 end

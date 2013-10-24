@@ -6,7 +6,7 @@ class Ferrari < ActiveRecord::Base
   belongs_to :engine
   belongs_to :trim
   belongs_to :transmission
-  has_many :assets, :dependent => :destroy
+  has_many :assets, :dependent => :destroy, as: :imageable
   
   validates :car_model_id, presence: true
   validates :trim_id, presence: true

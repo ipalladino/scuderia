@@ -6,6 +6,7 @@ class StaticPagesController < ApplicationController
     end
     @ferraris = Ferrari.paginate(page: params[:page])
     @featured = Ferrari.last(3)
+    #debugger
     
   end
 

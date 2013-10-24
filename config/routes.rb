@@ -1,4 +1,7 @@
 SampleApp::Application.routes.draw do
+  resources :blogs
+
+
   resources :ferraris do
     member do
       get :year_selection, :model_selection
