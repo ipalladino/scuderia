@@ -2,22 +2,26 @@
   <!-- Carousel items -->
   <div class="carousel-inner">
       <% @featured.each_with_index do |ferrari, index| %>
-          <% if(index == 0) %>
-          <div class="item active">
-              <%= image_tag(ferrari.assets.first.image.url(:slideshow)) %>
-              <div class="carousel-caption">
-                  <h4><%= ferrari.year.car_year %> | <%= ferrari.car_model.car_model %> | <%= ferrari.title %></h4>
-                  <p><%= ferrari.description %></p>
+          <% if ferrari.assets.first %>
+              <% if(index == 0) %>
+              <div class="item active">
+              
+                  <%= image_tag(ferrari.assets.first.image.url(:slideshow)) %>
+                  <div class="carousel-caption">
+                      <h4><%= ferrari.year.car_year %> | <%= ferrari.car_model.car_model %> | <%= ferrari.title %></h4>
+                      <p><%= ferrari.description %></p>
+                  </div>
+              
               </div>
-          </div>
-          <% else %>
-          <div class="item">
-              <%= image_tag(ferrari.assets.first.image.url(:slideshow)) %>
-              <div class="carousel-caption">
-                  <h4><%= ferrari.year.car_year %> | <%= ferrari.car_model.car_model %> | <%= ferrari.title %></h4>
-                  <p><%= ferrari.description %></p>
+              <% else %>
+              <div class="item">
+                  <%= image_tag(ferrari.assets.first.image.url(:slideshow)) %>
+                  <div class="carousel-caption">
+                      <h4><%= ferrari.year.car_year %> | <%= ferrari.car_model.car_model %> | <%= ferrari.title %></h4>
+                      <p><%= ferrari.description %></p>
+                  </div>
               </div>
-          </div>
+              <% end %>
           <% end %>
       <% end %>
   </div>

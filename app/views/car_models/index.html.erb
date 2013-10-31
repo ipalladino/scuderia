@@ -27,12 +27,14 @@
         <div>
             
         </div>
-            <% if current_user.admin? %>
-                <%= link_to "delete", car_model, method: :delete,
-                                              data: { confirm: "You sure?" },
-                                              car_model: car_model %>
-                    | <%= link_to "edit", edit_car_model_path(:id => car_model.id) %>
-              <% end %>
+            <% if signed_in? %>
+                <% if current_user.admin? %>
+                    <%= link_to "delete", car_model, method: :delete,
+                                                  data: { confirm: "You sure?" },
+                                                  car_model: car_model %>
+                        | <%= link_to "edit", edit_car_model_path(:id => car_model.id) %>
+                <% end %>
+            <% end %>
     </div>
         
     <% end %>
