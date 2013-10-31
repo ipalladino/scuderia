@@ -1,5 +1,7 @@
 class CarModel < ActiveRecord::Base
   attr_accessible :car_model , :year_id,:generic_images_attributes, :generic_images
+  attr_accessible :designation, :msrp, :total_production, :engine_designer, :engine_configuration,  :number_of_cylinders, :engine_location, :cylinder_bore, :stroke, :displacement, :engine_material, :compression_ratio, :horse_power, :torque,  :redline, :timing,  :fuel_delivery, :lubrication, :body_designer, :seating, :body_material, :chassis_construction, :overall_length,  :overall_width, :height,  :wheelbase, :steering, :fuel_capacity, :wheel_type, :wheel_size_front, :wheel_size_rear, :tire_size_front, :tire_size_rear,  :tire_type, :front_brakes,  :front_rotor_dimension, :rear_brakes, :rear_rotor_dimension, :drive_type, :gear_box, :clutch, :differential, :first_gear_ratio, :second_gear_ratio, :third_gear_ratio, :foruth_gear_ratio, :fifth_gear_ratio, :final_drive_ratio, :zero_sixty, :zero_hundred, :one_fourth_mile, :top_speed, :fuel_consumption
+  
   has_many :trims, dependent: :destroy
   has_many :engines, dependent: :destroy
   has_many :transmissions, dependent: :destroy

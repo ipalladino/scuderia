@@ -1,3 +1,7 @@
+<h1>
+    <%= @car_model.car_model %>
+</h1>
+
 <% unless @car_model.generic_images.length == 0 %>
 <div id="myCarousel" class="carousel slide">
     <!-- Carousel items -->
@@ -19,3 +23,60 @@
     <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
 </div>
 <% end %>
+
+<table class="table table-striped">
+    <tr><td>Manufacture year</td><td><%= @car_model.year.car_year %></td></tr>
+    <tr><td>designation</td><td><%= @car_model.designation %></td></tr>
+    <tr><td>msrp</td><td><%= @car_model.msrp %></td></tr>
+    <tr><td>total_production</td><td><%= @car_model.total_production %></td></tr>
+    <tr><td>engine_designer</td><td><%= @car_model.engine_designer %></td></tr>
+    <tr><td>engine_configuration</td><td><%= @car_model.engine_configuration %></td></tr>
+    <tr><td>number_of_cylinders</td><td><%= @car_model.number_of_cylinders %></td></tr>
+    <tr><td>engine_location</td><td><%= @car_model.engine_location %></td></tr>
+    <tr><td>cylinder_bore</td><td><%= @car_model.cylinder_bore %></td></tr>
+    <tr><td>stroke</td><td><%= @car_model.stroke %></td></tr>
+    <tr><td>displacement</td><td><%= @car_model.displacement %></td></tr>
+    <tr><td>engine_material</td><td><%= @car_model.engine_material %></td></tr>
+    <tr><td>compression_ratio</td><td><%= @car_model.compression_ratio %></td></tr>
+    <tr><td>horse_power</td><td><%= @car_model.horse_power %></td></tr>
+    <tr><td>torque</td><td><%= @car_model.torque %></td></tr>
+    <tr><td>redline</td><td><%= @car_model.redline %></td></tr>
+    <tr><td>timing</td><td><%= @car_model.timing %></td></tr>
+    <tr><td>fuel_delivery</td><td><%= @car_model.fuel_delivery %></td></tr>
+    <tr><td>lubrication</td><td><%= @car_model.lubrication %></td></tr>
+    <tr><td>body_designer</td><td><%= @car_model.body_designer %></td></tr>
+    <tr><td>seating</td><td><%= @car_model.seating %></td></tr>
+    <tr><td>body_material</td><td><%= @car_model.body_material %></td></tr>
+    <tr><td>chassis_construction</td><td><%= @car_model.chassis_construction %></td></tr>
+    <tr><td>overall_length</td><td><%= @car_model.overall_length %></td></tr>
+    <tr><td>overall_width</td><td><%= @car_model.overall_width %></td></tr>
+    <tr><td>height</td><td><%= @car_model.height %></td></tr>
+    <tr><td>wheelbase</td><td><%= @car_model.wheelbase %></td></tr>
+    <tr><td>steering</td><td><%= @car_model.steering %></td></tr>
+    <tr><td>fuel_capacity</td><td><%= @car_model.fuel_capacity %></td></tr>
+    <tr><td>wheel_type</td><td><%= @car_model.wheel_type %></td></tr>
+    <tr><td>wheel_size_front</td><td><%= @car_model.wheel_size_front %></td></tr>
+    <tr><td>wheel_size_rear</td><td><%= @car_model.wheel_size_rear %></td></tr>
+    <tr><td>tire_size_front</td><td><%= @car_model.tire_size_front %></td></tr>
+    <tr><td>tire_size_rear</td><td><%= @car_model.tire_size_rear %></td></tr>
+    <tr><td>tire_type</td><td><%= @car_model.tire_type %></td></tr>
+    <tr><td>front_brakes</td><td><%= @car_model.front_brakes %></td></tr>
+    <tr><td>front_rotor_dimension</td><td><%= @car_model.front_rotor_dimension %></td></tr>
+    <tr><td>rear_brakes</td><td><%= @car_model.rear_brakes %></td></tr>
+    <tr><td>rear_rotor_dimension</td><td><%= @car_model.rear_rotor_dimension %></td></tr>
+    <tr><td>drive_type</td><td><%= @car_model.drive_type %></td></tr>
+    <tr><td>gear_box</td><td><%= @car_model.gear_box %></td></tr>
+    <tr><td>clutch</td><td><%= @car_model.clutch %></td></tr>
+    <tr><td>differential</td><td><%= @car_model.differential %></td></tr>
+    <tr><td>first_gear_ratio</td><td><%= @car_model.first_gear_ratio %></td></tr>
+    <tr><td>second_gear_ratio</td><td><%= @car_model.second_gear_ratio %></td></tr>
+    <tr><td>third_gear_ratio</td><td><%= @car_model.third_gear_ratio %></td></tr>
+    <tr><td>foruth_gear_ratio</td><td><%= @car_model.foruth_gear_ratio %></td></tr>
+    <tr><td>fifth_gear_ratio</td><td><%= @car_model.fifth_gear_ratio %></td></tr>
+    <tr><td>final_drive_ratio</td><td><%= @car_model.final_drive_ratio %></td></tr>
+    <tr><td>zero_sixty</td><td><%= @car_model.zero_sixty %></td></tr>
+    <tr><td>zero_hundred</td><td><%= @car_model.zero_hundred %></td></tr>
+    <tr><td>one_fourth_mile</td><td><%= @car_model.one_fourth_mile %></td></tr>
+    <tr><td>top_speed</td><td><%= @car_model.top_speed %></td></tr>
+    <tr><td>fuel_consumption</td><td><%= @car_model.fuel_consumption %></td></tr>
+</table>

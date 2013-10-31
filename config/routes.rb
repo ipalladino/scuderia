@@ -1,7 +1,12 @@
 SampleApp::Application.routes.draw do
   resources :blogs
 
-
+  resources :car_models do
+    member do
+      get :filter_by_year
+    end
+  end
+  
   resources :ferraris do
     member do
       get :year_selection, :model_selection
@@ -31,7 +36,7 @@ SampleApp::Application.routes.draw do
       get :year_selection
     end
   end
-  resources :car_models
+
   resources :years
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]

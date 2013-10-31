@@ -2,8 +2,24 @@ class CarModelsController < ApplicationController
   before_filter :admin_user,     only: [:destroy, :create, :edit, :new]
   
   def index
-    @car_models = CarModel.joins(:year).order("car_year ASC").paginate(page: params[:page])
+    @paginate = false
+    if(params[:from] && params[:to].blank?)
+      year = Year.find_by_car_year(params[:from])
+      @car_models = CarModel.where(year_id: year.id)
+    elsif(params[:from] && params[:to])
+      @car_models = CarModel.joins(:year).find(:all, :conditions => ['car_year >= ? AND car_year <= ?', params[:from], params[:to]])
+    else
+      @paginate = true
+      @car_models = CarModel.joins(:year).order("car_year ASC").paginate(page: params[:page])
+    end
+    
     #@car_models = CarModel.paginate(page: params[:page])
+  end
+  
+  def filter_by_year
+    debugger
+    @car_models = CarModel.all
+
   end
   
   def show

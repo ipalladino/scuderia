@@ -5,6 +5,9 @@ class StaticPagesController < ApplicationController
       @feed_items = current_user.feed.paginate(page: params[:page])
     end
     @ferraris = Ferrari.paginate(page: params[:page])
+    
+    @blogs = Blog.last(2)
+    
     @featured = Ferrari.last(3)
     #debugger
     

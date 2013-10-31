@@ -7,12 +7,119 @@
       <%= f.text_field :car_model %>
       
       <%= f.label :year_id %>
-      <% if(@carmodel.year_id.blank?) %>
-            <%= f.select :year_id, options_from_collection_for_select(@years, :id, :car_year) , {:include_blank => true, :default => nil} %>
-        <% else %>
-            <%= f.select :year_id, options_from_collection_for_select(@years, :id, :car_year) , {:default => @carmodel.year_id} %>
-        <% end %>
+        <% if(@carmodel.year_id.blank?) %>
+              <%= f.select :year_id, options_from_collection_for_select(@years, :id, :car_year) , {:include_blank => true, :default => nil} %>
+          <% else %>
+              <%= f.select :year_id, options_from_collection_for_select(@years, :id, :car_year) , {:default => @carmodel.year_id} %>
+          <% end %>
       
+      <%= f.label :designation %>
+      <%= f.text_field :designation %> 
+      <%= f.label :msrp %>
+      <%= f.text_field :msrp %> 
+      <%= f.label :total_production %>
+      <%= f.text_field :total_production %> 
+      <%= f.label :engine_designer %>
+      <%= f.text_field :engine_designer %> 
+      <%= f.label :engine_configuration %>
+      <%= f.text_field :engine_configuration %> 
+      <%= f.label :number_of_cylinders %>
+      <%= f.text_field :number_of_cylinders %>  
+      <%= f.label :engine_location %>
+      <%= f.text_field :engine_location %> 
+      <%= f.label :cylinder_bore %>
+      <%= f.text_field :cylinder_bore %> 
+      <%= f.label :stroke %>
+      <%= f.text_field :stroke %> 
+      <%= f.label :displacement %>
+      <%= f.text_field :displacement %> 
+      <%= f.label :engine_material %>
+      <%= f.text_field :engine_material %> 
+      <%= f.label :compression_ratio %>
+      <%= f.text_field :compression_ratio %> 
+      <%= f.label :horse_power %>
+      <%= f.text_field :horse_power %> 
+      <%= f.label :torque %>
+      <%= f.text_field :torque %> 
+      <%= f.label :redline %>
+      <%= f.text_field :redline %>  
+      <%= f.label :timing %>
+      <%= f.text_field :timing %> 
+      <%= f.label :fuel_delivery %>
+      <%= f.text_field :fuel_delivery %> 
+      <%= f.label :lubrication %>
+      <%= f.text_field :lubrication %>  
+      <%= f.label :body_designer %>
+      <%= f.text_field :body_designer %> 
+      <%= f.label :seating %>
+      <%= f.text_field :seating %> 
+      <%= f.label :body_material %>
+      <%= f.text_field :body_material %> 
+      <%= f.label :chassis_construction %>
+      <%= f.text_field :chassis_construction %> 
+      <%= f.label :overall_length %>
+      <%= f.text_field :overall_length %> 
+      <%= f.label :overall_width %>
+      <%= f.text_field :overall_width %> 
+      <%= f.label :height %>
+      <%= f.text_field :height %>   
+      <%= f.label :wheelbase %>
+      <%= f.text_field :wheelbase %> 
+      <%= f.label :steering %>
+      <%= f.text_field :steering %> 
+      <%= f.label :fuel_capacity %>
+      <%= f.text_field :fuel_capacity %> 
+      <%= f.label :wheel_type %>
+      <%= f.text_field :wheel_type %> 
+      <%= f.label :wheel_size_front %>
+      <%= f.text_field :wheel_size_front %> 
+      <%= f.label :wheel_size_rear %>
+      <%= f.text_field :wheel_size_rear %>  
+      <%= f.label :tire_size_front %>
+      <%= f.text_field :tire_size_front %> 
+      <%= f.label :tire_size_rear %>
+      <%= f.text_field :tire_size_rear %> 
+      <%= f.label :tire_type %>
+      <%= f.text_field :tire_type %> 
+      <%= f.label :front_brakes %>
+      <%= f.text_field :front_brakes %> 
+      <%= f.label :front_rotor_dimension %>
+      <%= f.text_field :front_rotor_dimension %> 
+      <%= f.label :rear_brakes %>
+      <%= f.text_field :rear_brakes %>  
+      <%= f.label :rear_rotor_dimension %>
+      <%= f.text_field :rear_rotor_dimension %> 
+      <%= f.label :drive_type %>
+      <%= f.text_field :drive_type %>   
+      <%= f.label :gear_box %>
+      <%= f.text_field :gear_box %> 
+      <%= f.label :clutch %>
+      <%= f.text_field :clutch %>,
+      <%= f.label :differential %>
+      <%= f.text_field :differential %> 
+      <%= f.label :first_gear_ratio %>
+      <%= f.text_field :first_gear_ratio %>,
+      <%= f.label :second_gear_ratio %>
+      <%= f.text_field :second_gear_ratio %>    
+      <%= f.label :third_gear_ratio %>
+      <%= f.text_field :third_gear_ratio %> 
+      <%= f.label :foruth_gear_ratio %>
+      <%= f.text_field :foruth_gear_ratio %> 
+      <%= f.label :fifth_gear_ratio %>
+      <%= f.text_field :fifth_gear_ratio %> 
+      <%= f.label :final_drive_ratio %>
+      <%= f.text_field :final_drive_ratio %>,
+      <%= f.label :zero_sixty %>
+      <%= f.text_field :zero_sixty %>   
+      <%= f.label :zero_hundred %>
+      <%= f.text_field :zero_hundred %> 
+      <%= f.label :one_fourth_mile %>
+      <%= f.text_field :one_fourth_mile %> 
+      <%= f.label :top_speed %>
+      <%= f.text_field :top_speed %> 
+      <%= f.label :fuel_consumption %>
+      <%= f.text_field :fuel_consumption %> 
+
       <div class="newPaperclipFiles">
 
         <%= f.fields_for :generic_images do |asset| %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131024082130) do
+ActiveRecord::Schema.define(:version => 20131030231916) do
 
   create_table "assets", :force => true do |t|
     t.integer  "ferrari_id"
@@ -38,8 +38,61 @@ ActiveRecord::Schema.define(:version => 20131024082130) do
   create_table "car_models", :force => true do |t|
     t.string   "car_model"
     t.integer  "year_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.string   "designation"
+    t.string   "msrp"
+    t.string   "total_production"
+    t.string   "engine_designer"
+    t.string   "engine_configuration"
+    t.string   "number_of_cylinders"
+    t.string   "engine_location"
+    t.string   "cylinder_bore"
+    t.string   "stroke"
+    t.string   "displacement"
+    t.string   "engine_material"
+    t.string   "compression_ratio"
+    t.string   "horse_power"
+    t.string   "torque"
+    t.string   "redline"
+    t.string   "timing"
+    t.string   "fuel_delivery"
+    t.string   "lubrication"
+    t.string   "body_designer"
+    t.string   "seating"
+    t.string   "body_material"
+    t.string   "chassis_construction"
+    t.string   "overall_length"
+    t.string   "overall_width"
+    t.string   "height"
+    t.string   "wheelbase"
+    t.string   "steering"
+    t.string   "fuel_capacity"
+    t.string   "wheel_type"
+    t.string   "wheel_size_front"
+    t.string   "wheel_size_rear"
+    t.string   "tire_size_front"
+    t.string   "tire_size_rear"
+    t.string   "tire_type"
+    t.string   "front_brakes"
+    t.string   "front_rotor_dimension"
+    t.string   "rear_brakes"
+    t.string   "rear_rotor_dimension"
+    t.string   "drive_type"
+    t.string   "gear_box"
+    t.string   "clutch"
+    t.string   "differential"
+    t.string   "first_gear_ratio"
+    t.string   "second_gear_ratio"
+    t.string   "third_gear_ratio"
+    t.string   "foruth_gear_ratio"
+    t.string   "fifth_gear_ratio"
+    t.string   "final_drive_ratio"
+    t.string   "zero_sixty"
+    t.string   "zero_hundred"
+    t.string   "one_fourth_mile"
+    t.string   "top_speed"
+    t.string   "fuel_consumption"
   end
 
   add_index "car_models", ["year_id", "created_at"], :name => "index_car_models_on_year_id_and_created_at"

@@ -1,19 +1,42 @@
 <h1>Models</h1>
-<%= will_paginate %>
-<table class="table table-striped">
+<% if @paginate %>
+    <%= will_paginate %>
+<% end  %>   
+<div class="row">
+    <div class="span12">
+        <form method="get" accept-charset="utf-8">
+            <label for="from">From</label><input type="text" name="from" value="" id="from">
+            <label for="to">To</label><input type="text" name="to" value="" id="to">
+            <p><input type="submit" value="Search"></p>
+        </form>
+    </div>
+</div>
+<div class="row">
     <% @car_models.each do |car_model| %>
-        <tr><td><%= link_to car_model.car_model, car_model %> | <%= link_to car_model.year.car_year, car_model.year %></td>
+    <div class="span4" style="height:300px;">
+        <div>
+            <% if car_model.generic_images.length != 0 %>
+                <%= image_tag(car_model.generic_images[0].image.url(:small)) %>
+            <% else %>
+            <img src="http://www.examiner.com/images/blog/replicate/EXID9044/images/resized_steve_mcqueen_ferrari_stolen_jalopnik.jpg" style="height:226px">
+            <% end %>
+        </div>
+        <div>
+            <%= link_to car_model.car_model, car_model %> | <%= link_to car_model.year.car_year, car_model.year %>
+        </div>
+        <div>
+            
+        </div>
             <% if current_user.admin? %>
-                <td> <%= link_to "delete", car_model, method: :delete,
+                <%= link_to "delete", car_model, method: :delete,
                                               data: { confirm: "You sure?" },
                                               car_model: car_model %>
-                    </td>
-                <td> <%= link_to "edit", edit_car_model_path(:id => car_model.id) %>
-                    </td>
+                    | <%= link_to "edit", edit_car_model_path(:id => car_model.id) %>
               <% end %>
-        </tr>
+    </div>
+        
     <% end %>
-</table>
-    
-
-<%= will_paginate %>
+</div>
+<% if @paginate %>
+    <%= will_paginate %>
+<% end  %>
