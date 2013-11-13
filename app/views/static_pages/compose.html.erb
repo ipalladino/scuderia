@@ -1,0 +1,18 @@
+<h1>Reply</h1>
+
+<%= form_tag("/inbox/send_message", method: "post") do %>
+  <% if(@receipt == nil) %>
+        <%= label_tag(:subject, "Subject:") %>
+        <%= text_field_tag(:subject) %>
+  <% end %>
+  
+  <%= label_tag(:message, "Message:") %>
+  <%= text_field_tag(:message) %>
+  <% if(@receipt != nil) %>
+      <%= hidden_field_tag(:receipt, "#{@receipt.id}") %>
+  <% else %>
+      <%= hidden_field_tag(:recipient_id, "#{@recipient.id}") %>
+  <% end %>
+  
+  <%= submit_tag("Send") %>
+<% end %>

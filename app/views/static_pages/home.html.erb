@@ -5,7 +5,7 @@
           <% if ferrari.assets.first && ferrari.assets.first.image %>
               <% if(index == 0) %>
               <div class="item active">
-                  <%= image_tag(ferrari.assets.first.image.url(:slideshow)) %>
+                  <%= image_tag(ferrari.assets.first.image.url(:homepage)) %>
                   <div class="carousel-caption">
                       <h4><%= ferrari.year.car_year %> | <%= ferrari.car_model.car_model %> | <%= ferrari.title %></h4>
                       <p><%= ferrari.description %></p>
@@ -14,7 +14,7 @@
               </div>
               <% else %>
               <div class="item">
-                  <%= image_tag(ferrari.assets.first.image.url(:slideshow)) %>
+                  <%= image_tag(ferrari.assets.first.image.url(:homepage)) %>
                   <div class="carousel-caption">
                       <h4><%= ferrari.year.car_year %> | <%= ferrari.car_model.car_model %> | <%= ferrari.title %></h4>
                       <p><%= ferrari.description %></p>

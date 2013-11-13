@@ -12,3 +12,23 @@
  *= require_tree .
  */
 
+table a:hover {
+    color: #333333;
+    background-color:transparent;
+}
+
+header, .navbar-inner .header {
+    min-height:70px !important;
+}
+
+.header {
+    background-color:#1b1b1b !important;
+    background-image: linear-gradient(to bottom, #222222, #111111);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF222222', endColorstr='#FF111111', GradientType=0);
+    border-color: #252525;
+}
+
+.container {
+    background-color:#f0f0f0;
+}

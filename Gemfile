@@ -11,6 +11,7 @@ gem 'jquery-rails', '2.0.2'
 gem 'paperclip'
 gem 'aws-sdk'
 gem "mechanize", "~> 2.7.2"
+gem "mailboxer"
 
 group :development do
   gem 'pg', '0.12.2'

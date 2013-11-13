@@ -1,0 +1,19 @@
+<h1>CONVERSATION</h1>
+<table class="table">
+    <tr><th>FROM</th><th>Subject</th><th>Body</th></tr>
+<% @receipts.each do |m| %>
+    <tr><td><%= m.message.sender.name %><td><%= m.message.subject %></td><td><%= m.message.body %></td></tr>
+<% end %>    
+</table>
+
+
+<% if(@receipts.first != nil) %>
+    <%= form_tag("/inbox/send_message", method: "post") do %>
+        <%= label_tag(:message, "Message:") %>
+        <%= text_field_tag(:message) %>
+        <%= hidden_field_tag(:receipt, "#{@receipts.first.id}") %>
+        <%= submit_tag("Send") %>
+    <% end %>
+<% end %>
+  
+  

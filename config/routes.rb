@@ -51,6 +51,10 @@ SampleApp::Application.routes.draw do
   
   root to: 'static_pages#home'
 
+  match '/inbox/send_message',   to: 'static_pages#send_message'
+  match '/inbox/compose',   to: 'static_pages#compose'
+  match '/inbox/conversation',   to: 'static_pages#conversation'
+  match '/inbox',   to: 'static_pages#inbox'
   match '/help',    to: 'static_pages#help'
   match '/about',   to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'

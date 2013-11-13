@@ -1,9 +1,12 @@
-<div class="span8 offset2">
-    <h1>
-        <%= blog.title %>
-    </h1>
+<div class="span8 blog">
     <div>
         <img src=<%= blog.assets[0].image.url(:modal) %> />
+    </div>
+    <div id="blog-date">
+        <%= blog.created_at %>
+    </div>
+    <div id="blog-title">
+        <%= blog.title %>
     </div>
     <div id="name">
         <%= blog.body %>

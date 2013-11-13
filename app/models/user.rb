@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
+  acts_as_messageable
   
   def feed
     Micropost.from_users_followed_by(self)

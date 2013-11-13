@@ -1,0 +1,26 @@
+<h1>CONVERSATIONS</h1>
+<table class="table">
+    <tr><th>Participants</th><th>Subject</th><th>Created at</th><th>Trash</th></tr>
+<% @inbox.each do |m| %>
+    <% if(!m.is_trashed?(current_user) or m.is_unread?(current_user)) %>
+    <tr>
+        <td><% m.participants.each.with_index do |x,i| %>
+                <%= x.name %>
+                <% if(i < m.participants.length-1) %>
+                    ,
+                <% end %>
+            <% end %>
+        </td>
+        <td>
+        <% if(m.is_unread?(current_user)) %>
+            <%= link_to m.subject+"(unread)", "/inbox/conversation?id=#{m.id}", style: "font-weight:bold;" %>
+        <% else %>
+            <%= link_to m.subject, "/inbox/conversation?id=#{m.id}" %>
+        <% end %>
+        </td>
+        <td><%= m.created_at %></td>
+        <td><%= link_to raw("<i class='icon-trash'></i>") , "/inbox/conversation?id=#{m.id}&delete=1" %></td>
+    </tr>
+    <% end %>
+<% end %>    
+</table>

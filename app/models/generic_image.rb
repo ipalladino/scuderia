@@ -8,5 +8,6 @@ class GenericImage < ActiveRecord::Base
         :small  => "300x300>",
         :modal => "770x378#",
         :slideshow => "940x462#"
+        :homepage => "1203x462#"
   }
 end
