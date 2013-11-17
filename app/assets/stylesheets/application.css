@@ -9,8 +9,18 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
+ *= require_tree ./all
  */
+
+body {
+    color:#FCD112 !important;
+    font-family:"Conv_GothamNarrow-Light",sans-serif !important;
+    background-color: #FCD112 !important;
+    background-size: 2000px;
+    background-position-y: 493px;
+    background-repeat: no-repeat;
+    /*background-image: url(http://farm2.staticflickr.com/1123/5115716409_58657498f6_o.jpg);*/
+}
 
 table a:hover {
     color: #333333;
@@ -31,4 +41,8 @@ header, .navbar-inner .header {
 
 .container {
     background-color:#f0f0f0;
+}
+
+select {
+    width:100px;
 }

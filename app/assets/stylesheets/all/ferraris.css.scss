@@ -1,0 +1,63 @@
+.item img{
+    margin:0 auto;
+}
+
+.ferrari {
+    cursor: pointer;
+}
+
+.ferrari-line {
+    height: 155px;
+    background-color: #E4E4E4;
+    margin-bottom: 10px;
+    overflow:hidden;
+}
+
+.ferrari-line img {
+        height: 155px !important;
+}
+
+.modal {
+    width: 800px;
+    margin-left: -400px; /* - width/2 */
+}
+
+.ferrari-list-details {
+    background-color:#E4E4E4;
+    color:#626262;
+    height:155px;
+    div {
+        float:left;
+    }
+    none{}
+    /* ROWS */
+    #top-row, #mid-row {
+        height:40px;
+        border-bottom:1px solid #CCCCCC;
+        line-height: 43px;
+    }
+    #bot-row {
+        padding-top: 10px;
+        height: 50px;
+        font-size: 0.9em;
+        overflow: hidden;
+    }
+    
+    #left-col {
+        width:120px;
+        font-family: "Conv_GothamNarrow-Book",sans-serif;
+    }
+    
+    #mid-col {
+        width:310px;
+    }
+    
+    #right-col {
+        width:190px;
+    }
+    
+    #desc-col {
+        width:500px;
+    }
+    
+}

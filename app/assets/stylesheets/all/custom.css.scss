@@ -243,3 +243,187 @@ aside {
     margin-bottom: 5px;
   }
 }
+
+/* HEADER SPECIFIC CLASSES AND OVERRIDES */
+.caret {
+    top: 16px;
+    position: relative;
+}
+
+.navbar .nav > li {
+    float: left;
+    line-height: 50px;
+}
+
+.navbar-search .search-query {
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    height: 40px !important;
+    position: relative;
+    top: 4px;
+}
+.search-box-icon {
+    position: relative;
+    font-size: 2em;
+    color:#000000;
+}
+
+.search-box-icon-container {
+    width: 26px;
+    height: 26px;
+    background-color: #FCD112;
+    float: left;
+    padding: 6px;
+    line-height: 28px;
+    text-indent: 1px;
+    position: relative;
+    top: 16px;
+}
+
+.search-li {
+    width:213px;
+}
+
+/* HOME SLIDER AND CAPTION STYLES */
+
+.details {
+    position:relative;
+    font-size:30px;
+    height:150px;
+    font-size:14px;
+}
+
+.text-details {
+    position:relative;
+    line-height:23px;
+    
+    .description {
+        font-size:14px;
+    }
+}
+
+.carousel-caption {
+    width: 81%;
+    margin: 0 auto;
+    height: 85px;
+    font-size:2em;
+}
+
+.home-price {
+    color: #f0f0f0;
+}
+
+.home-title {
+    font-family:"Conv_GothamNarrow-Light",sans-serif;
+}
+
+/* BLOGS HOMEPAGE */
+
+.blog {
+    margin-left:0px;
+}
+
+.news_tab-content {
+    margin-top:-20px;
+}
+
+/* BLOGS NAVS */
+.nav-tabs {
+    background-color:gray !important;
+    height:60px;
+    border-bottom:2px solid #FCD112 !important;
+    border:none;
+}
+
+.nav-tabs li, .nav-tabs .active li{
+    color:#f0f0f0;
+    background-color:gray !important;
+    border:none;
+    border-radius:0;
+}
+
+.nav-tabs > li > a, .nav-tabs > li > a:hover {
+    background-color:gray;
+    color:#f0f0f0 !important;
+    border:none;
+    border-bottom:4px solid gray;
+    border-radius:0;
+    padding: 18px;
+    width: 80px;
+    text-align: center;
+}
+
+.nav-tabs > .active > a, .nav-tabs > .active > a:hover {
+    background-color:black;
+    color:#FCD112 !important;
+    border:none;
+    border-bottom:4px solid #FCD112 !important;
+    border-radius:0;
+}
+
+/**** BLOG DETAILS *****/
+
+#blog-date {
+    background-color: #FCD112;
+    display: inline-block;
+    width: 150px;
+    color: black;
+    padding: 10px;
+    padding-left: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#blog-title {
+    font-size:2em;
+    color:#303030;
+    text-indent:15px;
+    margin-bottom:15px;
+}
+
+#blog-description {
+    font-size:1em;
+    color:#303030;
+    padding-left:15px;
+    margin-bottom:15px;
+    text-align:justify;
+}
+
+#blog-readmore {
+    position: relative !important;
+    left: 363px;
+    display:inline-block;
+    margin-top: -53px;
+    background-color: #303030;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+/* ADS */
+
+.ad-container-square {
+    margin-bottom:10px;
+    height:250px;
+    background-color:black;
+}
+
+/* Ferrari list homepage */
+
+#forsale-homepage-header {
+    color:#303030;
+    background-color: #FCD112;
+    .title {
+        background-color: #303030;
+        color: #FCD112;
+        height: 45px;
+        font-size: 2em;
+        line-height: 44px;
+        text-indent: 52px;
+        font-family: "Conv_GothamNarrow-Book",sans-serif;
+    }
+    .sort-title {
+        font-size: 1.3em;
+        line-height: 43px;
+    }
+}

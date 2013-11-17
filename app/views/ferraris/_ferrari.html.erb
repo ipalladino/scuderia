@@ -9,13 +9,48 @@
                 end
              %>
         </div>
-        <div class="span8 text-details ferrari" data-id=<%= ferrari.id %>>
+        <div class="span8 ferrari-list-details">
+            <div id="top-row">
+                <div id="left-col">
+                    Year:
+                </div>
+                <div id="mid-col">
+                    <%= ferrari.year.car_year %>
+                </div>
+                <div id="right-col">
+                    Contact Buyer
+                </div>
+            </div>
+            <div id="mid-row">
+                <div id="left-col">
+                    Model:
+                </div>
+                <div id="mid-col">
+                    <%= ferrari.car_model.car_model %>
+                </div>
+                <div id="right-col">
+                    Share on
+                </div>
+            </div>
+            <div id="bot-row">
+                <div id="left-col">
+                    Description:
+                </div>
+                <div id="desc-col">
+                    <%= ferrari.description %>
+                </div>
+            </div>
+            
+            
+        </div>
+        
+        <!-- div class="span8 text-details ferrari" data-id=<%= ferrari.id %>>
             <table class="table table-striped">
-                <tr><td>Year</td><td style="min-width:100px;"><%= ferrari.year.car_year %> </td></tr>
-                <tr><td>Model</td><td><%= ferrari.car_model.car_model %></td></tr>
+                <tr><td>Year</td><td style="min-width:100px;"> </td></tr>
+                <tr><td>Model</td><td></td></tr>
                 <tr><td>Title</td><td><%= link_to ferrari.title, ferrari %></td></tr>
             </table>
-        </div>
+        </div -->
     </div>
     
 </div>

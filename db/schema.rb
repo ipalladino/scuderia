@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131107091164) do
+ActiveRecord::Schema.define(:version => 20131113072620) do
 
   create_table "assets", :force => true do |t|
     t.integer  "ferrari_id"
@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(:version => 20131107091164) do
     t.integer  "trim_id"
     t.integer  "car_model_id"
     t.string   "title"
-    t.string   "description"
+    t.text     "description"
     t.integer  "mileage"
     t.float    "price"
     t.string   "color"

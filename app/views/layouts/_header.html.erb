@@ -52,8 +52,10 @@
           <% else %>
             <li><%= link_to "Sign in", signin_path %></li>
           <% end %>
-            <li>
-            <form class="navbar-search pull-left">
+            <li class="search-li">
+                <span class="search-box-icon-container"><i class="icon-magnifying search-box-icon"></i>
+                </span>
+            <form class="navbar-search">
               <input type="text" class="search-query" placeholder="Search">
             </form>
             </li>

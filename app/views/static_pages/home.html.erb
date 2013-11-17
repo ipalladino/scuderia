@@ -7,7 +7,7 @@
               <div class="item active">
                   <%= image_tag(ferrari.assets.first.image.url(:homepage)) %>
                   <div class="carousel-caption">
-                      <h4><%= ferrari.year.car_year %> | <%= ferrari.car_model.car_model %> | <%= ferrari.title %></h4>
+                      <div class="home-title"><%= ferrari.year.car_year %> | <%= ferrari.car_model.car_model %> | <span class="home-price">$<%= ferrari.price %></span></div>
                       <p><%= ferrari.description %></p>
                   </div>
               
@@ -16,7 +16,7 @@
               <div class="item">
                   <%= image_tag(ferrari.assets.first.image.url(:homepage)) %>
                   <div class="carousel-caption">
-                      <h4><%= ferrari.year.car_year %> | <%= ferrari.car_model.car_model %> | <%= ferrari.title %></h4>
+                      <div class="home-title"><%= ferrari.year.car_year %> | <%= ferrari.car_model.car_model %> | <span class="home-price">$<%= ferrari.price %></span></div>
                       <p><%= ferrari.description %></p>
                   </div>
               </div>
@@ -28,61 +28,85 @@
   <a class="carousel-control left" href="#slideshow" data-slide="prev">&lsaquo;</a>
   <a class="carousel-control right" href="#slideshow" data-slide="next">&rsaquo;</a>
 </div>
-<hr/>
-<div id="news">
-    
-    <ul class="nav nav-tabs" id="myTab">
-      <li class="active"><a href="#news" data-toggle="tab" data-target="news">News</a></li>
-      <li><a href="#racing" data-toggle="tab" data-target="racing">Racing</a></li>
-      <li><a href="#weekly" data-toggle="tab" data-target="weekly">Weekly</a></li>
-    </ul>
+<div class="row">
+    <div class="span8" id="news">
 
-    <div class="tab-content">
-      <div class="tab-pane active" id="news_content">
-          <% @blogs.each_with_index do |blog, index| %>
-                  <%= render 'blogs/blog' ,blog: blog %>
-            <% end %>
-      </div>
-      <div class="tab-pane" id="racing_content">
-        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni 
-      </div>
-      <div class="tab-pane" id="weekly_content">
-        adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit
-      </div>
+        <ul class="nav nav-tabs" id="myTab">
+          <li class="active disabled"><a href="#news" data-toggle="tab" data-target="news">News</a></li>
+          <li class="disabled"><a href="#racing" data-toggle="tab" data-target="racing">Racing</a></li>
+          <li class="disabled"><a href="#weekly" data-toggle="tab" data-target="weekly">Weekly</a></li>
+        </ul>
+
+        <div class="tab-content news_tab-content">
+          <div class="tab-pane active" id="news_content">
+              <% #@blogs.each_with_index do |blog, index| %>
+                      <%= render 'blogs/blog' ,blog: @blogs.first %>
+              <% #end %>
+          </div>
+          <div class="tab-pane" id="racing_content">
+              <% #@blogs.each_with_index do |blog, index| %>
+                        <%= render 'blogs/blog' ,blog: @blogs.second %>
+                <% #end %>
+          </div>
+          <div class="tab-pane" id="weekly_content">
+              <% #@blogs.each_with_index do |blog, index| %>
+                        <%= render 'blogs/blog' ,blog: @blogs.first %>
+                <% #end %>
+          </div>
+        </div>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+        var active = "news_content";
+        $('#myTab li:eq(0)').click(function (e) {
+          e.preventDefault();
+          $("#"+active).css("display", "none");
+          $("#news_content").css("display", "block");
+          active = "news_content";
+        })
+
+        $('#myTab li:eq(1)').click(function (e) {
+          e.preventDefault();
+          $("#"+active).css("display", "none");
+          $("#racing_content").css("display", "block");
+          active = "racing_content";
+        })
+
+        $('#myTab li:eq(2)').click(function (e) {
+          e.preventDefault();
+          $("#"+active).css("display", "none");
+          $("#weekly_content").css("display", "block");
+          active = "weekly_content";
+        })
+    </script>
+
+    <div class="span4 ad-container-square">
+        <img src="/assets/ad1.png" id="name" />
+    </div>
+
+    <div class="span4 ad-container-square">
+        <img src="/assets/ad2.png" id="name" />
     </div>
 </div>
-<script type="text/javascript" charset="utf-8">
-    var active = "news_content";
-    $('#myTab li:eq(0)').click(function (e) {
-      e.preventDefault();
-      $("#"+active).css("display", "none");
-      $("#news_content").css("display", "block");
-      active = "news_content";
-    })
-    
-    $('#myTab li:eq(1)').click(function (e) {
-      e.preventDefault();
-      $("#"+active).css("display", "none");
-      $("#racing_content").css("display", "block");
-      active = "racing_content";
-    })
-    
-    $('#myTab li:eq(2)').click(function (e) {
-      e.preventDefault();
-      $("#"+active).css("display", "none");
-      $("#weekly_content").css("display", "block");
-      active = "weekly_content";
-    })
-</script>
 
-<hr/>
+<div>
+    <div id="forsale">
+        <div class="row" id="forsale-homepage-header">
+            <div class="span4 title">
+                Ferraris For Sale
+            </div>
+            <div class="span3 offset5">
+                <div class="span1 sort-title">
+                    Sort By 
+                </div>
+                <select class="span1"><option>Year</option></select> 
+                <select class="span1"><option>Model</option></select> 
+            </div>
+        </div>
 
-<div id="forsale">
-    <h1>Ferraris For Sale</h1>
+        <%= will_paginate @ferraris %>
 
-    <%= will_paginate @ferraris %>
+        <%= render 'ferraris/list' %>
 
-    <%= render 'ferraris/list' %>
-
-    <%= will_paginate @ferraris %>
+        <%= will_paginate @ferraris %>
+    </div>
 </div>

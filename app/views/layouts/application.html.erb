@@ -3,6 +3,8 @@
   <head>
     <title><%= full_title(yield(:title)) %></title>
     <%= stylesheet_link_tag    "application", media: "all" %>
+    <%= stylesheet_link_tag    "screen/static_pages", media: "only screen and (min-device-width: 1280px)" %>
+    <%= stylesheet_link_tag    "device/static_pages", media: "print" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>    
