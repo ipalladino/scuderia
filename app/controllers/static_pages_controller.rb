@@ -10,7 +10,8 @@ class StaticPagesController < ApplicationController
     
     @blogs = Blog.last(2)
     
-    @featured = Ferrari.last(3)
+    @featured = Ferrari.last(3).sort()
+    @featured = @featured.sort_by { |obj| obj.created_at }.reverse
     #debugger
     
   end
