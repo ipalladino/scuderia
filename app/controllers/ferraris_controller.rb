@@ -22,6 +22,102 @@ class FerrarisController < ApplicationController
     @ferrari = Ferrari.find(params[:id])
   end
   
+  def search
+    yrfr_id = params[:yrfr_id]
+    yrto_id = params[:yrto_id]
+    modl_id = params[:modl_id]
+    prce_fr = params[:prce_fr]
+    prce_to = params[:prce_to]
+    
+    #debugger
+    if(yrfr_id && yrfr_id.empty?)
+      yrfr_id = nil
+    else
+      begin
+        yrfr = Year.find(yrfr_id).car_year
+      rescue
+        yrfr = nil
+      end
+    end
+    
+    if(yrto_id && yrto_id.empty?)
+      yrto_id = nil
+    else
+      begin
+        yrto = Year.find(yrto_id).car_year
+      rescue
+        yrto = nil
+      end
+    end
+    
+    if(modl_id && modl_id.empty?)
+      modl_id = nil
+    end
+    if(prce_to && prce_to.empty?)
+      prce_to = nil
+    end
+    if(prce_fr && prce_fr.empty?)
+      prce_fr = nil
+    end
+    
+    if(modl_id == nil && !prce_to && !prce_fr && !yrfr_id && !yrto_id)
+      ferraris = Ferrari.find(:all, order: "created_at DESC")
+    end
+    
+    if(modl_id)
+      #begin
+        fmodel = CarModel.find(modl_id)
+        if(fmodel && prce_to == nil && prce_fr == nil)
+          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ?",fmodel.car_model])
+        elsif(fmodel && prce_to && prce_fr)
+          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ? AND price >= ? AND price <= ?",fmodel.car_model, prce_fr, prce_to])
+        elsif(fmodel && prce_to && !prce_fr)
+          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ? AND price <= ?",fmodel.car_model, prce_to])
+        elsif(fmodel && !prce_to && prce_fr)
+          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ? AND price >= ?",fmodel.car_model, prce_fr])
+        end   
+      #rescue
+        print "invalid model"
+      #end
+    else
+        #debugger
+        query = ""
+        if(yrto && yrfr)
+          query = "car_year >= '#{yrfr}' AND car_year <= '#{yrto}'"
+        elsif(yrto && !yrfr)
+          query = "car_year = '#{yrto}'"
+        elsif(yrfr && !yrto)
+          query = "car_year = '#{yrfr}'"
+        end
+        
+        if(prce_to && prce_fr)
+          if(query.blank?)
+            query = query + "price >= #{prce_fr} AND price <= #{prce_to}"
+          else
+            query = query + " AND price >= #{prce_fr} AND price <= #{prce_to}"
+          end
+        elsif(prce_to && !prce_fr)
+          if(query.blank?)
+            query = query + "price <= #{prce_to}"
+          else
+            query = query + " AND price <= #{prce_to}"
+          end
+        elsif(!prce_to && prce_fr)
+          if(query.blank?)
+            query = query + "price >= #{prce_fr}"
+          else
+            query = query + " AND price >= #{prce_fr}"
+          end
+        end
+        
+        if(!query.blank?)
+          ferraris = Ferrari.joins(:year).find(:all, conditions: query)
+        end
+    end
+    
+    render json: ferraris.to_json(methods: [:assets_urls, :car_model_str, :car_year_str])
+  end
+  
   def crawl
     agent = Mechanize.new
     page = agent.get "http://www.ferraridatabase.com/The_Cars/Cars.htm"

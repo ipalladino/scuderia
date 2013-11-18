@@ -7,6 +7,7 @@ SampleApp::Application.routes.draw do
     end
   end
   match '/filter_car_models', to: 'car_models#filter_by_from_to'
+  match '/basic_search', to: 'ferraris#search'
   
   resources :ferraris do
     member do

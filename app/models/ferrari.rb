@@ -21,5 +21,20 @@ class Ferrari < ActiveRecord::Base
   validates :color, presence: true
   validates :user, presence: true
   
+  def assets_urls
+    urls = []
+    assets.each do |a|
+      urls.push({modal: a.image.url(:modal), list: a.image.url(:list)})
+    end
+    return urls
+  end
+  
+  def car_year_str
+    return year.car_year
+  end
+  def car_model_str
+    return car_model.car_model
+  end
+  
   accepts_nested_attributes_for :assets, :reject_if => lambda { |a| a[:image].blank? }, :allow_destroy => true
 end

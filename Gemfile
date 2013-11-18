@@ -12,6 +12,7 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem "mechanize", "~> 2.7.2"
 gem "mailboxer"
+gem "ejs"
 
 group :development do
   gem 'pg', '0.12.2'

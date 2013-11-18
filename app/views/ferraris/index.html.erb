@@ -1,5 +1,6 @@
 <script type="text/javascript" charset="utf-8">
-        var years = <%= raw @years %>;
+    var years = <%= raw @years %>;
+    var App = {};
 </script>
 
 <div class="row">
@@ -18,15 +19,15 @@
                 <input type="text" name="year-fr" value="Year Fr" id="year-fr" class="fromto"> 
                 <input type="text" name="year-to" value="Year To" id="year-to" class="fromto">
                 
-                <input type="hidden" name="year-fr-h" value="" id="year-fr-h"> 
-                <input type="hidden" name="year-to-h" value="" id="year-to-h">
+                <input type="hidden" name="yrfr_id" value="" id="yrfr_id"> 
+                <input type="hidden" name="yrto_id" value="" id="yrto_id">
             </div>
             <div id="filter-model">
                 <input type="text" name="model" value="Model" id="model"><a href="#" id='dropdown-models'><i class="icon-chevron_down"></i></a>
-                <input type="hidden" name="model-h" value="model-h" id="model-h">
+                <input type="hidden" name="modl_id" value="" id="modl_id">
             </div>
             <div id="filter-price">
-                <input type="text" name="price-fr" value="Price Fr" id="price-fr" class="fromto"> <input type="text" name="price-to" value="Price To" id="price-to" class="fromto">
+                <input type="text" name="prce_fr" value="Price Fr" id="prce_fr" class="fromto"> <input type="text" name="prce_to" value="Price To" id="prce_to" class="fromto">
             </div>
             <div id="filter-keywords">
                 <input type="text" name="keywords" value="Keywords" id="keywords">
@@ -41,11 +42,10 @@
     </div>
 </div>
 
-<%= will_paginate %>
+<div class="row" id="ferraris-bb-list">
+</div>
 
-<%= render 'ferraris/list' %>
 
-<%= will_paginate %>
 
 <script type="text/javascript" charset="utf-8">
     // Handler for .ready() called.
