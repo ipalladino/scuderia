@@ -4,6 +4,18 @@ class FerrarisController < ApplicationController
   
   def index
     @ferraris = Ferrari.paginate(page: params[:page])
+    years = Year.all(select: "car_year,id")
+    #MASSAGE FOR JS
+    yearsx = []
+    years.each do |y| 
+      yearsx.push(y.serializable_hash)
+    end
+    mappings = {"id" => "value", "car_year" => "label"}
+    yearsx.each do |y|
+      y.keys.each { |k| y[ mappings[k] ] = y.delete(k) if mappings[k] }
+    end
+    
+    @years = yearsx.to_json()
   end
   
   def show
@@ -67,8 +79,6 @@ class FerrarisController < ApplicationController
       end
       
     end
-    
-    
     
     redirect_to ferraris_path
   end

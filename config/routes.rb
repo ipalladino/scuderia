@@ -6,6 +6,7 @@ SampleApp::Application.routes.draw do
       get :filter_by_year
     end
   end
+  match '/filter_car_models', to: 'car_models#filter_by_from_to'
   
   resources :ferraris do
     member do

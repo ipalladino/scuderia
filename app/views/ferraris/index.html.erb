@@ -1,5 +1,52 @@
+<script type="text/javascript" charset="utf-8">
+        var years = <%= raw @years %>;
+</script>
+
+<div class="row">
+    <div class="span12 header-forsale">
+        <div id="title">
+            Ferraris For Sale
+        </div>
+        <div id="description">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+        </div>
+        <div id="query">
+            <div id="forsale-query-title">
+                Search For:
+            </div>
+            <div id="filter-year">
+                <input type="text" name="year-fr" value="Year Fr" id="year-fr" class="fromto"> 
+                <input type="text" name="year-to" value="Year To" id="year-to" class="fromto">
+                
+                <input type="hidden" name="year-fr-h" value="" id="year-fr-h"> 
+                <input type="hidden" name="year-to-h" value="" id="year-to-h">
+            </div>
+            <div id="filter-model">
+                <input type="text" name="model" value="Model" id="model"><a href="#" id='dropdown-models'><i class="icon-chevron_down"></i></a>
+                <input type="hidden" name="model-h" value="model-h" id="model-h">
+            </div>
+            <div id="filter-price">
+                <input type="text" name="price-fr" value="Price Fr" id="price-fr" class="fromto"> <input type="text" name="price-to" value="Price To" id="price-to" class="fromto">
+            </div>
+            <div id="filter-keywords">
+                <input type="text" name="keywords" value="Keywords" id="keywords">
+            </div>            
+            <div id="submit">
+                <input type="submit" name="submit" value="Filter" id="submit">
+            </div>
+            <div id="errorMessage" style="display:none;">
+                IMPORTANT: From should be less than To.
+            </div>
+        </div>
+    </div>
+</div>
+
 <%= will_paginate %>
 
 <%= render 'ferraris/list' %>
 
 <%= will_paginate %>
+
+<script type="text/javascript" charset="utf-8">
+    
+</script>
