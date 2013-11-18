@@ -92,10 +92,26 @@
         width: 173px;
         float: left;
         margin-top: 28px;
-        margin-left: 30px;
+        margin-left: 30px; 
+    }
+    .fromto {
+        width:80px;
     }
     #filter-model {
         margin-top: 28px;
+        #model {
+            width:120px;
+        }
+    }
+    #dropdown-models {
+        color: #FCD112;
+        position: relative;
+        top: -5px;
+        display: inline-block;
+        left: -1px;
+        border: 1px solid #FCD112;
+        padding: 5px;
+        padding-left: 8px;
     }
     #filter-price {
         float: left;
@@ -107,9 +123,15 @@
         margin-top:10px;
         float: left;
         width: 158px;
+        #keywords {
+            width:120px;
+        }
     }
     #submit {
         margin-top:10px;
+    }
+    #filter-year-advanced {
+        position:absolute;
     }
 }
 

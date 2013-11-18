@@ -12,5 +12,9 @@ class CarModel < ActiveRecord::Base
   validates :year_id, presence: true
   validates :car_model, presence: true, length: { maximum: 140 }
   
+  def actual_year
+    self.year.car_year
+  end
+  
   accepts_nested_attributes_for :generic_images, :reject_if => lambda { |a| a[:image].blank? }, :allow_destroy => true
 end
