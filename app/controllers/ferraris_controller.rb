@@ -4,7 +4,7 @@ class FerrarisController < ApplicationController
   
   def index
     @ferraris = Ferrari.paginate(page: params[:page])
-    years = Year.all(select: "car_year,id")
+    years = Year.all(select: "car_year,id", order: "car_year ASC")
     #MASSAGE FOR JS
     yearsx = []
     years.each do |y| 
