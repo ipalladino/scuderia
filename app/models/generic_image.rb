@@ -4,9 +4,9 @@ class GenericImage < ActiveRecord::Base
   
   has_attached_file :image,
       :styles => {
-        :thumb=> "100x100#",
-        :small  => "300x300>",
+        :list => "308x227#",
         :modal => "770x378#",
-        :slideshow => "940x462#"
+        :slideshow => "940x462#",
+        :homepage => "1128x433#"
   }
 end
