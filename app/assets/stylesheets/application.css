@@ -15,16 +15,23 @@
 body {
     color:#FCD112 !important;
     font-family:"Conv_GothamNarrow-Light",sans-serif !important;
-    background-color: #FCD112 !important;
-    background-size: 2000px;
+    background-color: #000000 !important;
     background-position-y: 502px;
     background-repeat: no-repeat;
-    background-image: url(/assets/background.jpg);*/
+    background-image: url(/assets/backgroundgradient.jpg);
 }
 
 table a:hover {
     color: #333333;
     background-color:transparent;
+}
+
+#back-yellow {
+    position: absolute;
+    width: 100%;
+    height: 432px;
+    background-color: #FCD112;
+    z-index: -1;
 }
 
 header, .navbar-inner .header {
