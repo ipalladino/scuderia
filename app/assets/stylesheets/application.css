@@ -17,9 +17,9 @@ body {
     font-family:"Conv_GothamNarrow-Light",sans-serif !important;
     background-color: #FCD112 !important;
     background-size: 2000px;
-    background-position-y: 493px;
+    background-position-y: 502px;
     background-repeat: no-repeat;
-    /*background-image: url(http://farm2.staticflickr.com/1123/5115716409_58657498f6_o.jpg);*/
+    background-image: url(/assets/background.jpg);*/
 }
 
 table a:hover {
@@ -47,7 +47,8 @@ select {
     width:100px;
 }
 
-.facebook {
+
+.share-button {
     padding: 0px;
     background-color: #FCD112;
     text-align: center;
@@ -58,4 +59,12 @@ select {
     display: inline-block;
     height: 42px;
     left: 12px;
+}
+
+.facebook {
+    background-color: #FCD112;
+}
+
+.twitter {
+    background-color: #cccccc;
 }
