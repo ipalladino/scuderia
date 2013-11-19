@@ -1,3 +1,8 @@
+<% provide(:meta_title, @ferrari.car_model_str) %>
+<% provide(:meta_year, @ferrari.car_year_str) %>
+<% provide(:meta_description, @ferrari.description) %>
+<% provide(:meta_image, @ferrari.assets_urls()[0][:modal]) %>
+
 <% unless @ferrari.assets.length == 0 %>
 <div id="myCarousel" class="carousel slide">
     <!-- Carousel items -->
