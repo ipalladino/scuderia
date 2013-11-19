@@ -29,41 +29,8 @@
 </div>
 
 <div class="row" id="collection-list">
-    
-</div>
-
-<% if @paginate %>
-    <%= will_paginate %>
-<% end  %>   
-
-<div class="row">
-    <% @car_models.each do |car_model| %>
-    <div class="span4" style="height:300px;">
-        <div>
-            <% if car_model.generic_images.length != 0 %>
-                <%= image_tag(car_model.generic_images[0].image.url(:small)) %>
-            <% else %>
-            <img src="http://www.examiner.com/images/blog/replicate/EXID9044/images/resized_steve_mcqueen_ferrari_stolen_jalopnik.jpg" style="height:226px">
-            <% end %>
-        </div>
-        <div>
-            <%= link_to car_model.car_model, car_model %> | <%= link_to car_model.year.car_year, car_model.year %>
-        </div>
-        <div>
-            
-        </div>
-            <% if signed_in? %>
-                <% if current_user.admin? %>
-                    <%= link_to "delete", car_model, method: :delete,
-                                                  data: { confirm: "You sure?" },
-                                                  car_model: car_model %>
-                        | <%= link_to "edit", edit_car_model_path(:id => car_model.id) %>
-                <% end %>
-            <% end %>
+    <div class="span12 ajax-loader" id="loader">
+        <span><img src="/assets/ajax-loader.gif" /></span>
     </div>
-        
-    <% end %>
 </div>
-<% if @paginate %>
-    <%= will_paginate %>
-<% end  %>
+
