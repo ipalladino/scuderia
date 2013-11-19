@@ -2,7 +2,6 @@ class CarModelsController < ApplicationController
   before_filter :admin_user,     only: [:destroy, :create, :edit, :new]
   
   def index
-    
     @paginate = false
     if(params[:from] && params[:to].blank?)
       year = Year.find_by_car_year(params[:from])
@@ -14,17 +13,35 @@ class CarModelsController < ApplicationController
       @car_models = CarModel.joins(:year).order("car_year ASC").paginate(page: params[:page])
     end
     
+    years = Year.all(select: "car_year,id", order: "car_year ASC")
+    #MASSAGE FOR JS
+    yearsx = []
+    years.each do |y| 
+      yearsx.push(y.serializable_hash)
+    end
+    mappings = {"id" => "value", "car_year" => "label"}
+    yearsx.each do |y|
+      y.keys.each { |k| y[ mappings[k] ] = y.delete(k) if mappings[k] }
+    end
+    
+    @years = yearsx.to_json()
     #@car_models = CarModel.paginate(page: params[:page])
   end
   
   def search
+    search_model = []
+    if(params[:model])
+      search_model = CarModel.find(:all, select: "year_id, car_models.id ,car_model", conditions: ["car_model like ?", "%#{params[:model]}%"])
+    end
     if(params[:from] && params[:to])
       car_models = CarModel.joins(:year).find(:all, select: "year_id, car_models.id ,car_model", :conditions => ['car_year >= ? AND car_year <= ?', params[:from], params[:to]], order: ['car_year ASC'])
     else
       car_models = CarModel.joins(:year).find(:all, select: "year_id,car_models.id,car_model", order: ['car_year ASC'])
     end
+    
+    search_model.concat car_models
       
-    render json: car_models.to_json(only: [ :id, :car_model ], methods: [:assets_urls, :car_model_str, :car_year_str])
+    render json: search_model.to_json(only: [ :id, :car_model ], methods: [:assets_urls, :car_model_str, :car_year_str])
   end
   
   def filter_by_year

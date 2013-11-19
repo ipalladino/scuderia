@@ -1,6 +1,79 @@
 $(function() {
 if(App.page != undefined){ if(App.page=="collection"){
 console.log("PAGE: "+App.page);
+var checkAndFilterModels = function(e) {
+      var yearfr = $("#year-fr").val().trim();
+      var yearto = $("#year-to").val().trim();
+      if(yearfr.match(/^\d{4}$/) != null && yearto.match(/^\d{4}$/) && Number(yearfr) <= Number(yearto)) {
+          $("#errorMessage").css("display", "none");
+          e.preventDefault();
+          $.ajax({
+            type: "POST",
+            url: "/filter_car_models",
+            data: { year_fr: $("#year-fr").attr("value"), year_to: $("#year-to").attr("value") }
+          })
+            .done(function(response) {
+                car_models = response;
+                $("#model").autocomplete({
+                    /* snip */
+                        minLength: 0,
+                        source: response,
+                        select: function(event, ui) {
+                            event.preventDefault();
+                            $("#model").val(ui.item.label);
+                            $("#modl_id").val(ui.item.value);
+                        },
+                        focus: function(event, ui) {
+                            event.preventDefault();
+                            $("#model").val(ui.item.label);
+                        },
+                        close: function(event, ui) {
+                            event.preventDefault();
+                            var yrfr = $("#model").val();
+                            for(i=0;i<car_models.length;i++) {
+                                if(car_models[i].label == yrfr) {
+                                    $("#modl_id").val(car_models[i].value);
+                                    break;
+                                }
+                                $("#modl_id").val("");
+                            }
+                        }
+                });
+          });
+      } else {
+          $("#errorMessage").css("display", "block");
+      }
+  }
+
+  $("#year-fr").on("blur", checkAndFilterModels);
+  $("#year-to").on("blur", checkAndFilterModels);
+    
+    $("#year-fr").autocomplete({
+      /* snip */
+      source: years,
+      select: function(event, ui) {
+          event.preventDefault();
+          $("#year-fr").val(ui.item.label);
+      },
+      focus: function(event, ui) {
+          event.preventDefault();
+          $("#year-fr").val(ui.item.label);
+      },
+  });
+
+  $("#year-to").autocomplete({
+      /* snip */
+      source: years,
+      select: function(event, ui) {
+          event.preventDefault();
+          $("#year-to").val(ui.item.label);
+      },
+      focus: function(event, ui) {
+          event.preventDefault();
+          $("#year-to").val(ui.item.label);
+      },
+  });
+
 
     App.ModelsColl = Backbone.Collection.extend({
         url : "/model_search",
@@ -45,8 +118,18 @@ console.log("PAGE: "+App.page);
             $("#search").on("click", function(){
                 var yearfr = $("#year-fr").val().trim();
                 var yearto = $("#year-to").val().trim();
+                var modelo = $("#model").val().trim();
+                
                 if(yearfr.match(/^\d{4}$/) != null && yearto.match(/^\d{4}$/) && Number(yearfr) <= Number(yearto)) {
-                    App.wrapModCol.loadCollection({from:yearfr,to:yearto});
+                    if(modelo != "Model" && modelo != "") {
+                        App.wrapModCol.loadCollection({from:yearfr,to:yearto, model: modelo});
+                    } else {
+                        App.wrapModCol.loadCollection({from:yearfr,to:yearto});
+                    }
+                } else {
+                    if(modelo != "Model" && modelo != "") {
+                        App.wrapModCol.loadCollection({model: modelo});
+                    }
                 }
             });
             

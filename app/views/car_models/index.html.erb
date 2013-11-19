@@ -1,4 +1,5 @@
 <script type="text/javascript" charset="utf-8">
+    var years = <%= raw @years %>;
     App.page = "collection"
 </script>
 <div class="row">
@@ -17,6 +18,7 @@
                 <!-- form method="get" accept-charset="utf-8" -->
                     <input type="text" name="from" value="Year Fr" id="year-fr" class="fromto"> 
                     <input type="text" name="to" value="Year To" id="year-to" class="fromto">
+                    <input type="text" name="model" value="Model" id="model"><a href="#" id='dropdown-models'><i class="icon-chevron_down"></i></a>
                     <p><input type="submit" value="Search" id="search"></p>
                 <!-- /form -->
             </div>

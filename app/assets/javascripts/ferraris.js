@@ -10,7 +10,8 @@ $('#ferrari_year_id').live('change', function(){
 
 
 $(function() {
-  if(App.page != undefined){ if(App.page=="ferraris"){
+  if(App.page != undefined){ 
+  if(App.page=="ferraris"){
   console.log("PAGE: "+App.page);
   $("#year-fr").on("focus", function(e) {
       if(e.currentTarget.value == "Year Fr")
@@ -64,7 +65,6 @@ $(function() {
   })
 
   $("#dropdown-models").on("click", function(){
-      console.log("dropdown-models click")
       $("#model").autocomplete("search", "");
   });
 
@@ -237,4 +237,3 @@ $(function() {
     App.carsColl.fetch({reset: true})
 }}    
 });
-
