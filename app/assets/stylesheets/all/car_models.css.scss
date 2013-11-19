@@ -38,3 +38,20 @@
     height:100px; 
     line-height:100px;
 }
+
+.collection-item-details {
+    background-color: #dddddd;
+    font-size: 1.1em;
+    padding-top: 1px;
+    font-family: "Conv_GothamNarrow-Book",sans-serif !important;
+    color: #303030;
+    
+    .share-button { 
+        left:0px;
+    }
+    .model-link, a:focus, a:hover {
+        font-family: "Conv_GothamNarrow-Medium",sans-serif !important;
+        background:transparent;
+        color:#303030;
+    }
+}

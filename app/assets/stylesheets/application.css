@@ -66,6 +66,7 @@ select {
     display: inline-block;
     height: 42px;
     left: 12px;
+    line-height:45px;
 }
 
 .facebook {

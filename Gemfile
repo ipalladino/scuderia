@@ -13,6 +13,7 @@ gem 'aws-sdk'
 gem "mechanize", "~> 2.7.2"
 gem "mailboxer"
 gem "ejs"
+gem "rails_12factor"
 
 group :development do
   gem 'pg', '0.12.2'
