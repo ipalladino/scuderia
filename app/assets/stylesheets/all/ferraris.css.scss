@@ -66,10 +66,8 @@
     overflow:hidden;
 }
 
-
-.header-forsale {
+.header-section {
     height:305px;
-    background-image: url("/assets/header-forsale.jpg");
     input {
         width:100px;
     }
@@ -84,13 +82,42 @@
         color:#cccccc;
         width:400px;
     }
-    
     #forsale-query-title {
         color: #f0f0f0;
         font-size: 2.1em;
         margin-top: 12px;
         margin-left: 30px;
     }
+}
+
+.header-collection {
+    background-image: url("/assets/header-collection.jpg");
+    #filter-year {
+        width: 400px;
+        float: left;
+        margin-top: 28px;
+        margin-left: 30px; 
+    }
+    .fromto {
+        width:163px;
+        padding:6px;
+    }
+    #year-to{
+        margin-left:5px;
+    }
+    
+    input[type="submit"] {
+        background-color:#FCD112;
+        border:none;
+        width:163px;
+        height:50px;
+        position:relative;
+        top:10px;
+    }
+}
+
+.header-forsale {
+    background-image: url("/assets/header-forsale.jpg");
     
     #filter-year {
         width: 173px;
