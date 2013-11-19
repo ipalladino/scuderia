@@ -1,5 +1,5 @@
 var car_models = [];
-
+        
 $('#ferrari_year_id').live('change', function(){
   $.ajax({
     url: "/ferraris/ferraris/year_selection",
@@ -10,6 +10,8 @@ $('#ferrari_year_id').live('change', function(){
 
 
 $(function() {
+  if(App.page != undefined){ if(App.page=="ferraris"){
+  console.log("PAGE: "+App.page);
   $("#year-fr").on("focus", function(e) {
       if(e.currentTarget.value == "Year Fr")
         e.currentTarget.value = "";
@@ -233,5 +235,6 @@ $(function() {
     App.carsView = new carsView({collection: App.carsColl});
     
     App.carsColl.fetch({reset: true})
-    
+}}    
 });
+

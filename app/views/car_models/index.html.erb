@@ -1,3 +1,6 @@
+<script type="text/javascript" charset="utf-8">
+    App.page = "collection"
+</script>
 <div class="row">
     <div class="span12 header-section header-collection">
         <div id="title">
@@ -11,11 +14,11 @@
                 Search For:
             </div>
             <div id="filter-year">
-                <form method="get" accept-charset="utf-8">
+                <!-- form method="get" accept-charset="utf-8" -->
                     <input type="text" name="from" value="Year Fr" id="year-fr" class="fromto"> 
                     <input type="text" name="to" value="Year To" id="year-to" class="fromto">
-                    <p><input type="submit" value="Search"></p>
-                </form>
+                    <p><input type="submit" value="Search" id="search"></p>
+                <!-- /form -->
             </div>
 
             <div id="errorMessage" style="display:none;">
@@ -25,14 +28,14 @@
     </div>
 </div>
 
+<div class="row" id="collection-list">
+    
+</div>
+
 <% if @paginate %>
     <%= will_paginate %>
 <% end  %>   
-<div class="row">
-    <div class="span12">
-        
-    </div>
-</div>
+
 <div class="row">
     <% @car_models.each do |car_model| %>
     <div class="span4" style="height:300px;">

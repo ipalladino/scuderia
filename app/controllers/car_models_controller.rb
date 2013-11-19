@@ -2,6 +2,7 @@ class CarModelsController < ApplicationController
   before_filter :admin_user,     only: [:destroy, :create, :edit, :new]
   
   def index
+    
     @paginate = false
     if(params[:from] && params[:to].blank?)
       year = Year.find_by_car_year(params[:from])
@@ -14,6 +15,16 @@ class CarModelsController < ApplicationController
     end
     
     #@car_models = CarModel.paginate(page: params[:page])
+  end
+  
+  def search
+    if(params[:from] && params[:to])
+      car_models = CarModel.joins(:year).find(:all, select: "year_id, car_models.id ,car_model", :conditions => ['car_year >= ? AND car_year <= ?', params[:from], params[:to]])
+    else
+      car_models = CarModel.find(:all, select: "year_id,id,car_model")
+    end
+      
+    render json: car_models.to_json(only: [ :id, :car_model ], methods: [:assets_urls, :car_model_str, :car_year_str])
   end
   
   def filter_by_year

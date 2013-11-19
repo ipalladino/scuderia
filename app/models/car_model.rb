@@ -16,5 +16,17 @@ class CarModel < ActiveRecord::Base
     self.year.car_year
   end
   
+  def assets_urls
+    urls = []
+    generic_images.each do |a|
+      urls.push({modal: a.image.url(:modal), list: a.image.url(:list)})
+    end
+    return urls
+  end
+  
+  def car_year_str
+    return year.car_year
+  end
+  
   accepts_nested_attributes_for :generic_images, :reject_if => lambda { |a| a[:image].blank? }, :allow_destroy => true
 end

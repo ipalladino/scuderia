@@ -7,13 +7,14 @@ SampleApp::Application.routes.draw do
     end
   end
   match '/filter_car_models', to: 'car_models#filter_by_from_to'
-  match '/basic_search', to: 'ferraris#search'
-  
+  match '/model_search', to: 'car_models#search'
+
   resources :ferraris do
     member do
       get :year_selection, :model_selection
     end
   end
+  match '/basic_search', to: 'ferraris#search'
   
   resources :users do
     member do
