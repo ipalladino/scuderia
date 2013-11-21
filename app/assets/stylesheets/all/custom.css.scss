@@ -244,12 +244,22 @@ aside {
 .carousel-caption {
     width: 81%;
     margin: 0 auto;
-    height: 85px;
+    height: 70px;
     font-size:2em;
+    background: rgba(0, 0, 0, 0.4) !important;
 }
 
 .home-price {
     color: #f0f0f0;
+}
+.home-description {
+    height: 49px;
+    display: block;
+    overflow: hidden;
+    font-size: 0.54em;
+    color: #acacac;
+    font-family: "Conv_Gotham-Book",sans-serif !important;
+    line-height: 15px;
 }
 
 .home-title {
@@ -362,5 +372,18 @@ aside {
     .sort-title {
         font-size: 1.3em;
         line-height: 43px;
+        text-align: right;
+    }
+    
+    #sort {
+        position: relative;
+        top: 7px;
+        left: 9px;
+        height: 29px;
+        overflow: hidden;
+        border: 1px solid #FCD112;
+        background-color: #303030;
+        color: #fcd112;
+        border-radius: 0;
     }
 }

@@ -36,20 +36,29 @@ $(function() {
       }
   })
 
+  //model
+  $("#model").on("focus", function(e) {
+      if(e.currentTarget.value == "Model")
+        e.currentTarget.value = "";
+  })
+  $("#model").on("blur", function(e) {
+      if(e.currentTarget.value == "")
+        e.currentTarget.value = "Model";
+  })
   //PRICE
-  $("#price-fr").on("focus", function(e) {
+  $("#prce_fr").on("focus", function(e) {
       if(e.currentTarget.value == "Price Fr")
           e.currentTarget.value = "";
   })
-  $("#price-fr").on("blur", function(e) {
+  $("#prce_fr").on("blur", function(e) {
         if(e.currentTarget.value == "")
             e.currentTarget.value = "Price Fr";
   })
-  $("#price-to").on("focus", function(e) {
+  $("#prce_to").on("focus", function(e) {
       if(e.currentTarget.value == "Price To")
           e.currentTarget.value = "";
   })
-  $("#price-to").on("blur", function(e) {
+  $("#prce_to").on("blur", function(e) {
       if(e.currentTarget.value == "")
           e.currentTarget.value = "Price To";
   })
@@ -194,46 +203,10 @@ $(function() {
       }})
   });
   
-  var carsView = Backbone.View.extend({
-        template : JST['ferrari_list_item_template'],
-        el: $('#ferraris-bb-list'),
-        initialize: function(){
-            this.collection.on("reset", this.render, this);
-        },
-
-        render: function(){
-            $(this.el).html("");
-            this.collection.each(function(item){
-                var html = this.template(item.toJSON());
-                $(this.el).append(html);  
-            }, this);
-          
-            $('#twitterbtn-link,#facebookbtn-link').click(function(event) {
-                var width  = 575,
-                    height = 400,
-                    left   = ($(window).width()  - width)  / 2,
-                    top    = ($(window).height() - height) / 2,
-                    url    = this.href,
-                    opts   = 'status=1' +
-                             ',width='  + width  +
-                             ',height=' + height +
-                             ',top='    + top    +
-                             ',left='   + left;
-
-                    window.open(event.currentTarget.attributes[2].nodeValue, 'twitter', opts);
-
-                return false;
-            });
-        }
-    });
-
-    var carsColl = Backbone.Collection.extend({
-        url : "/basic_search",
-    });
-    
-    App.carsColl = new carsColl();
-    App.carsView = new carsView({collection: App.carsColl});
-    
-    App.carsColl.fetch({reset: true})
-}}    
+  
+  App.ferrarisModel = new App.FerrarisModel();
+  App.carsView = new App.CarsView({el : $('#ferraris-bb-list'), model: App.ferrarisModel});
+  App.ferrarisModel.loadCollection();
+  
+}}
 });

@@ -16,5 +16,7 @@
 //= require bootstrap
 //= require underscore
 //= require backbone
-//= require_tree .
 //= require_tree ../templates
+//= require ferraris_list
+//= require_tree .
+

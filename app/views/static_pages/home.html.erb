@@ -1,3 +1,7 @@
+<script type="text/javascript" charset="utf-8">
+    App.page = "homepage"
+</script>
+
 <div id="slideshow" class="carousel slide">
   <!-- Carousel items -->
   <div class="carousel-inner">
@@ -17,7 +21,7 @@
                   <%= image_tag(ferrari.assets.first.image.url(:homepage)) %>
                   <div class="carousel-caption">
                       <div class="home-title"><%= ferrari.year.car_year %> | <%= ferrari.car_model.car_model %> | <span class="home-price">$<%= ferrari.price %></span></div>
-                      <p><%= ferrari.description %></p>
+                      <div class="home-description"><%= ferrari.description %></div>
                   </div>
               </div>
               <% end %>
@@ -40,17 +44,17 @@
         <div class="tab-content news_tab-content">
           <div class="tab-pane active" id="news_content">
               <% #@blogs.each_with_index do |blog, index| %>
-                      <%= render 'blogs/blog' ,blog: @blogs.first %>
+                      <%= render 'blogs/blog' ,blog: @blogs_news.first %>
               <% #end %>
           </div>
           <div class="tab-pane" id="racing_content">
               <% #@blogs.each_with_index do |blog, index| %>
-                        <%= render 'blogs/blog' ,blog: @blogs.second %>
+                        <%= render 'blogs/blog' ,blog: @blogs_rcng.first %>
                 <% #end %>
           </div>
           <div class="tab-pane" id="weekly_content">
               <% #@blogs.each_with_index do |blog, index| %>
-                        <%= render 'blogs/blog' ,blog: @blogs.first %>
+                        <%= render 'blogs/blog' ,blog: @blogs_wkly.first %>
                 <% #end %>
           </div>
         </div>
@@ -88,25 +92,9 @@
     </div>
 </div>
 
-<div>
-    <div id="forsale">
-        <div class="row" id="forsale-homepage-header">
-            <div class="span4 title">
-                Ferraris For Sale
-            </div>
-            <div class="span3 offset5">
-                <div class="span1 sort-title">
-                    Sort By 
-                </div>
-                <select class="span1"><option>Year</option></select> 
-                <select class="span1"><option>Model</option></select> 
-            </div>
-        </div>
+<div style="overflow:hidden">
+    <div class="row" id="forsale-homepage">
 
-        <%= will_paginate @ferraris %>
-
-        <%= render 'ferraris/list' %>
-
-        <%= will_paginate @ferraris %>
     </div>
 </div>
+

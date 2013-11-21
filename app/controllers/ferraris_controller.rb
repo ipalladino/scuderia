@@ -28,6 +28,7 @@ class FerrarisController < ApplicationController
     modl_id = params[:modl_id]
     prce_fr = params[:prce_fr]
     prce_to = params[:prce_to]
+    sort_by = params[:sort_by]
     
     #debugger
     if(yrfr_id && yrfr_id.empty?)
@@ -60,21 +61,27 @@ class FerrarisController < ApplicationController
       prce_fr = nil
     end
     
-    if(modl_id == nil && !prce_to && !prce_fr && !yrfr_id && !yrto_id)
-      ferraris = Ferrari.find(:all, order: "created_at DESC")
+    if(sort_by == nil)
+      sort_by = "created_at:DESC".split(":")
+    else
+      sort_by = sort_by.split(":")
+    end
+    
+    if(modl_id == nil && !prce_to && !prce_fr && !yrfr_id && !yrto_id)   
+        ferraris = Ferrari.find(:all, order: "#{sort_by[0]} #{sort_by[1]}")
     end
     
     if(modl_id)
       #begin
         fmodel = CarModel.find(modl_id)
         if(fmodel && prce_to == nil && prce_fr == nil)
-          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ?",fmodel.car_model])
+          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ?",fmodel.car_model], order: "#{sort_by[0]} #{sort_by[1]}")
         elsif(fmodel && prce_to && prce_fr)
-          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ? AND price >= ? AND price <= ?",fmodel.car_model, prce_fr, prce_to])
+          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ? AND price >= ? AND price <= ?",fmodel.car_model, prce_fr, prce_to], order: "#{sort_by[0]} #{sort_by[1]}")
         elsif(fmodel && prce_to && !prce_fr)
-          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ? AND price <= ?",fmodel.car_model, prce_to])
+          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ? AND price <= ?",fmodel.car_model, prce_to], order: "#{sort_by[0]} #{sort_by[1]}")
         elsif(fmodel && !prce_to && prce_fr)
-          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ? AND price >= ?",fmodel.car_model, prce_fr])
+          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ? AND price >= ?",fmodel.car_model, prce_fr], order: "#{sort_by[0]} #{sort_by[1]}")
         end   
       #rescue
         print "invalid model"
@@ -111,7 +118,7 @@ class FerrarisController < ApplicationController
         end
         
         if(!query.blank?)
-          ferraris = Ferrari.joins(:year).find(:all, conditions: query)
+          ferraris = Ferrari.joins(:year).find(:all, conditions: query, order: "#{sort_by[0]} #{sort_by[1]}")
         end
     end
     

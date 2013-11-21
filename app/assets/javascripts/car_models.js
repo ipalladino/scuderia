@@ -44,6 +44,41 @@ var checkAndFilterModels = function(e) {
           $("#errorMessage").css("display", "block");
       }
   }
+  $("#model").on("focus", function(e) {
+        if(e.currentTarget.value == "Model")
+          e.currentTarget.value = "";
+    })
+    $("#model").on("blur", function(e) {
+        if(e.currentTarget.value == "")
+          e.currentTarget.value = "Model";
+    })
+  
+  $("#year-fr").on("focus", function(e) {
+        if(e.currentTarget.value == "Year Fr")
+          e.currentTarget.value = "";
+    })
+    $("#year-fr").on("blur", function(e) {
+        if(e.currentTarget.value == "") {
+            e.currentTarget.value = "Year Fr";
+            $("#yrfr_id").val("");
+        }
+
+    })
+
+    $("#year-to").on("focus", function(e) {
+        if(e.currentTarget.value == "Year To")
+            e.currentTarget.value = "";
+    })
+    $("#year-to").on("blur", function(e) {
+        if(e.currentTarget.value == "") {
+          e.currentTarget.value = "Year To";
+          $("#yrto_id").val("");
+        }
+    })
+    
+    $("#dropdown-models").on("click", function(){
+        $("#model").autocomplete("search", "");
+    });
 
   $("#year-fr").on("blur", checkAndFilterModels);
   $("#year-to").on("blur", checkAndFilterModels);

@@ -8,7 +8,9 @@ class StaticPagesController < ApplicationController
     end
     @ferraris = Ferrari.paginate(page: params[:page])
     
-    @blogs = Blog.last(2)
+    @blogs_news = Blog.where(blogtype: 0).order("created_at DESC")
+    @blogs_rcng = Blog.where(blogtype: 1).order("created_at DESC")
+    @blogs_wkly = Blog.where(blogtype: 2).order("created_at DESC")
     
     @featured = Ferrari.last(3).sort()
     @featured = @featured.sort_by { |obj| obj.created_at }.reverse

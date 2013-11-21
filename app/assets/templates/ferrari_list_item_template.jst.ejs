@@ -1,41 +1,59 @@
-<div class="ferrari-line span12">
-    <div class="span12 details">
-        <div class="span4 thumbnails">
-          <img src="<%= assets_urls[0].modal %>" >
-        </div>
-        <div class="span8 ferrari-list-details">
-            <div id="top-row">
-                <div id="left-col">
-                    Year:
-                </div>
-                <div id="mid-col">
-                    <%= car_year_str %>
-                </div>
-                <div id="right-col">
-                    Contact Buyer
-                </div>
+<div id="forsale-homepage-header">
+    <div class="span4 title">
+        Ferraris For Sale
+    </div>
+    <div class="span2 offset4 sort-title">
+        Sort By:  
+    </div>
+    <select name="sort" id="sort" class="span2">
+        <option value="created_at:DESC">Recent</option>
+        <option value="price:ASC">Price: Higher to Lower</option>
+        <option value="price:DESC">Price: Lower to Higher</option>
+        <option value="mileage:ASC">Mileage: Higher to Lower</option>
+        <option value="mileage:DESC">Mileage: Lower to Higher</option>
+    </select> 
+</div>
+
+<% _.each(items, function(item) { %>
+    <div class="ferrari-line span12">
+        <div class="span12 details">
+            <div class="span4 thumbnails">
+              <img src="<%= item.assets_urls[0].modal %>" >
             </div>
-            <div id="mid-row">
-                <div id="left-col">
-                    Model:
+            <div class="span8 ferrari-list-details">
+                <div id="top-row">
+                    <div id="left-col">
+                        Year:
+                    </div>
+                    <div id="mid-col">
+                        <%= item.car_year_str %> | Mileage:<%= item.mileage%> | $ <%= item.price %>
+                    </div>
+                    <div id="right-col">
+                        Contact Buyer
+                    </div>
                 </div>
-                <div id="mid-col">
-                    <%= car_model_str %>
+                <div id="mid-row">
+                    <div id="left-col">
+                        Model:
+                    </div>
+                    <div id="mid-col">
+                        <%= item.car_model_str %>
+                    </div>
+                    <div id="right-col">
+                        Share on
+                        <span id="facebookbtn-link" class="share-button facebook" href="http://www.facebook.com/sharer/sharer.php?u=http://scuderia.herokuapp.com/ferraris/<%= item.id %>"><i class="icon-facebook"></i></span>
+                        <span id="twitterbtn-link" class="share-button twitter" href="http://twitter.com/share?text=Check out this Ferrari <%= item.car_model_str %> from <%= item.car_year_str %>&hashtags=scuderia,ferrari&url=http://scuderia.herokuapp.com/ferraris/<%= item.id %>"><i class="icon-twitter"></i></span>
+                    </div>
                 </div>
-                <div id="right-col">
-                    Share on
-                    <span id="facebookbtn-link" class="share-button facebook" href="http://www.facebook.com/sharer/sharer.php?u=http://scuderia.herokuapp.com/ferraris/<%= id %>"><i class="icon-facebook"></i></span>
-                    <span id="twitterbtn-link" class="share-button twitter" href="http://twitter.com/share?text=Check out this Ferrari <%= car_model_str %> from <%= car_year_str %>&hashtags=scuderia,ferrari&url=http://scuderia.herokuapp.com/ferraris/<%= id %>"><i class="icon-twitter"></i></span>
-                </div>
-            </div>
-            <div id="bot-row">
-                <div id="left-col">
-                    Description:
-                </div>
-                <div id="desc-col">
-                    <%= description %>
+                <div id="bot-row">
+                    <div id="left-col">
+                        Description:
+                    </div>
+                    <div id="desc-col">
+                        <%= item.description %>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+<% }) %>

@@ -10,9 +10,6 @@
     <%= render 'layouts/shim' %>    
     
     <%= yield :head %>
-    <script type="text/javascript" charset="utf-8">
-        var App = {};
-    </script>
     <meta property="og:title" content="SCUDERIA.COM | <%= get_meta_title(yield(:meta_title), yield(:meta_year)) %>" />
     <meta property="og:description" content="<%= get_meta(yield(:meta_description), "description") %>" />
     <meta property="og:image" content="<%= get_meta(yield(:meta_image), "image") %>" />
