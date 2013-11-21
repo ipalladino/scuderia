@@ -12,7 +12,7 @@
                   <%= image_tag(ferrari.assets.first.image.url(:homepage)) %>
                   <div class="carousel-caption">
                       <div class="home-title"><%= ferrari.year.car_year %> | <%= ferrari.car_model.car_model %> | <span class="home-price">$<%= ferrari.price %></span></div>
-                      <p><%= ferrari.description %></p>
+                      <div class="home-description"><%= ferrari.description %></div>
                   </div>
               
               </div>
