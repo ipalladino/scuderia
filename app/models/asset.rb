@@ -6,7 +6,7 @@ class Asset < ActiveRecord::Base
       :styles => {
         :list  => "305x155#",
         :modal => "770x378#",
-        :slideshow => "940x462#",
+        :slideshow => "940x485#",
         :homepage => "1128x433#"
   }  
 end

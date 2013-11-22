@@ -3,7 +3,10 @@ var App = {};
 App.CarsView = Backbone.View.extend({
     template : JST['ferrari_list_item_template'],
     events: {
-        "change #sort"     : "sort"
+        "change #sort"            : "sort",
+        "mouseenter  .ferrari-line" : "mouseOver",
+        "mouseleave  .ferrari-line" : "mouseOut",
+        "click .ferrari-line" : "navigateFerrari"
     },
     initialize: function(){
         this.model.on("loaded", this.render, this);
@@ -34,6 +37,27 @@ App.CarsView = Backbone.View.extend({
             return false;
         });
         document.querySelector("#sort").selectedIndex = this.model.get("selectedSelectIndex");
+    },
+    
+    navigateFerrari : function (e) {
+        console.log("CarsView.navigateFerrari");
+        //console.log(e.currentTarget.dataset.id);
+        e.preventDefault();
+        var id = e.currentTarget.dataset.id;
+        var url = 'http://'+window.location.host+'/ferraris/'+id;
+        window.location.href = url;
+    },
+    
+    mouseOut : function (e) {
+        console.log("CarsView.mouseOut");
+        $(e.currentTarget).removeClass("ferrari-line-hover");
+        $(e.currentTarget).find(".ferrari-list-details").removeClass("ferrari-line-hover");
+    },
+    
+    mouseOver : function (e) {
+        console.log("CarsView.mouseOver");
+        $(e.currentTarget).addClass("ferrari-line-hover");
+        $(e.currentTarget).find(".ferrari-list-details").addClass("ferrari-line-hover");
     },
     
     sort : function (e) {

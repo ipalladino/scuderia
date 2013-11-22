@@ -1,0 +1,62 @@
+.bold {
+    font-family:"Conv_GothamNarrow-Medium",sans-serif !important;
+}
+
+.ferrari-view {
+    color:#626262;
+    .ferrari-view-model {
+        background-color:#fcd112;
+        color:#303030;
+        padding: 10px;
+    }
+    .ferrari-view-price {
+        background-color:#000000;
+        color:#fcd112;
+        padding: 10px;
+    }
+    .ferrari-view-year{
+        padding: 10px;
+        border-right: 1px solid #B9B9B9;
+    }
+    .ferrari-view-seller{
+        padding: 10px;
+    }
+    
+    .ferrari-view-description {
+        padding:30px;
+    }
+    .ferrari-view-cntsell {
+        padding:10px;
+        background-color:#8B8B8B;
+        color:#fcd112;
+        margin-top:10px;
+    }
+     .ferrari-view-share {
+         background-color:#8B8B8B;
+         color:#fcd112;
+         margin-top:10px;
+         padding-left:10px;
+         .share-button {
+             position:relative;
+             top:0px;
+             color:#303030;
+             left:10px;
+         }
+     }
+}
+
+.ferrari-specs-header {
+    .ferrari-specs-title {
+        padding:10px;
+        color:#303030;
+        background-color:#Fcd112;
+    }
+    .ferrari-specs-full {
+        padding:10px;
+        background-color:#000000;
+        color:#fcd112;
+    }
+}
+.ferrari-specs-table {
+    color:#303030;
+}

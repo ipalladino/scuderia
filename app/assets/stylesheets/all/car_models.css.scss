@@ -94,5 +94,12 @@
         font-family: "Conv_GothamNarrow-Medium",sans-serif !important;
         background:transparent;
         color:#303030;
+        max-width: 156px;
+        display: inline-block;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        position: relative;
+        top: 3px;
     }
 }

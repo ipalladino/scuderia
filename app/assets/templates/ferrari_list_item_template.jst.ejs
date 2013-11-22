@@ -15,7 +15,7 @@
 </div>
 
 <% _.each(items, function(item) { %>
-    <div class="ferrari-line span12">
+    <div class="ferrari-line span12" data-id=<%= item.id %>>
         <div class="span12 details">
             <div class="span4 thumbnails">
               <img src="<%= item.assets_urls[0].modal %>" >
