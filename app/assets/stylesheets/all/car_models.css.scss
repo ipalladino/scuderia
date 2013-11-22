@@ -80,6 +80,17 @@
     line-height:100px;
 }
 
+.ferrari-model-overlay{
+    display:none;
+    background-color:rgba(0,0,0,0.5);
+    position: absolute;
+    font-size: 7em;
+    padding: 102px;
+    height: 22px;
+    width: 96px;
+    color: #cccccc;
+}
+
 .collection-item-details {
     background-color: #dddddd;
     font-size: 1.1em;

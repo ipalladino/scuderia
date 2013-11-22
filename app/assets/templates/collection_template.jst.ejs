@@ -16,8 +16,11 @@
 </div>
 
 <% _.each(items, function(item) { %>
-<div class="span4" style="height:300px;">
+<div class="span4 ferrari-model-item" style="height:300px;" data-id=<%= item.id %>>
     <div>
+        <div class="ferrari-model-overlay">
+            <i class="icon-magnifying"></i>
+        </div>
         <% if(item.assets_urls.length > 0) { %>
             <img src="<%= item.assets_urls[0].list %>" style="height:226px">
         <% } else { %>

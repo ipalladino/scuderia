@@ -146,6 +146,9 @@ var checkAndFilterModels = function(e) {
             "click .dopage"     : "setPage",
             "click .doright"    : "right",
             "click .doleft"     : "left",
+            "mouseenter .ferrari-model-item"    : "mouseOver",
+            "mouseleave .ferrari-model-item"    : "mouseOut",
+            "click .ferrari-model-item"         : "navigateToModel"
         },
         initialize: function(){
             this.model.on("loaded", this.render, this);
@@ -188,6 +191,27 @@ var checkAndFilterModels = function(e) {
             var html = this.template(data);
             $(this.el).html(html);
         },
+        
+        navigateToModel : function (e) {
+            console.log("ModelsView.navigateToModel");
+            e.preventDefault();
+            var id = e.currentTarget.dataset.id;
+            var url = 'http://'+window.location.host+'/car_models/'+id;
+            window.location.href = url;
+        },
+        
+        mouseOver : function (e) {
+            console.log("ModelsView.mouseOver");
+            console.log(e);
+            $(e.currentTarget).find(".ferrari-model-overlay").css("display", "block");
+        },
+        
+        mouseOut : function (e) {
+            console.log("ModelsView.mouseOver");
+            console.log(e);
+            $(e.currentTarget).find(".ferrari-model-overlay").css("display","none");
+        },
+        
         setPage : function (e) {
             var page = e.currentTarget.dataset.page;
             this.model.set("page",Number(page));

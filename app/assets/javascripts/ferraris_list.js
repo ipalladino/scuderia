@@ -41,7 +41,6 @@ App.CarsView = Backbone.View.extend({
     
     navigateFerrari : function (e) {
         console.log("CarsView.navigateFerrari");
-        //console.log(e.currentTarget.dataset.id);
         e.preventDefault();
         var id = e.currentTarget.dataset.id;
         var url = 'http://'+window.location.host+'/ferraris/'+id;
