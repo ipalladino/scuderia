@@ -1,3 +1,4 @@
+require 'wikipedia'
 class CarModelsController < ApplicationController
   before_filter :admin_user,     only: [:destroy, :create, :edit, :new]
   
@@ -103,6 +104,18 @@ class CarModelsController < ApplicationController
   
   def show
     @car_model = CarModel.find(params[:id])
+    ferrari = "Ferrari " + @car_model.car_model
+    ferrari_words = ferrari.split(" ")
+    while(ferrari_words.length > 0) do
+      @wikipedia = Wikipedia.find(ferrari)
+      if @wikipedia.content == nil
+        ferrari_words.pop
+        ferrari = ferrari_words.join(" ")
+      else
+        break
+      end
+    end
+    
     #@trims = @carmodel.car_models.paginate(page: params[:page])
     #@engines = @carmodel.car_models.paginate(page: params[:page])
     #@transmissions = @carmodel.car_models.paginate(page: params[:page])

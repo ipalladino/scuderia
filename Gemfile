@@ -14,6 +14,7 @@ gem "mechanize", "~> 2.7.2"
 gem "mailboxer"
 gem "ejs"
 gem "rails_12factor"
+gem  "wikipedia-client", :github => "kenpratt/wikipedia-client"
 
 group :development do
   gem 'pg', '0.12.2'

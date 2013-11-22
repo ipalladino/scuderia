@@ -1,7 +1,3 @@
-<h1>
-    <%= @car_model.car_model %>
-</h1>
-
 <% unless @car_model.generic_images.length == 0 %>
 <div id="myCarousel" class="carousel slide">
     <!-- Carousel items -->
@@ -23,6 +19,17 @@
     <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
 </div>
 <% end %>
+
+<div class="row-fluid ferrari-view" >
+    <div class="span3 ferrari-view-model" >
+        <span class="bold">Model:</span> <%= @car_model.car_model %>
+    </div>
+</div>
+
+
+<div class="wikipedia">
+    <%= raw(@wikipedia.sanitized_content) %>
+</div>
 
 <table class="table table-striped">
     <tr><td>Manufacture year</td><td><%= @car_model.year.car_year %></td></tr>
