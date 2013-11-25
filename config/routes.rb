@@ -8,6 +8,7 @@ SampleApp::Application.routes.draw do
   end
   match '/filter_car_models', to: 'car_models#filter_by_from_to'
   match '/model_search', to: 'car_models#search'
+  match '/get_model', to: 'car_models#get_model'
 
   resources :ferraris do
     member do

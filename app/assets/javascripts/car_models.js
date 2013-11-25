@@ -151,25 +151,39 @@ var checkAndFilterModels = function(e) {
             "click .ferrari-model-item"         : "navigateToModel"
         },
         initialize: function(){
-            this.model.on("loaded", this.render, this);
             this.model.on("change:page", this.render, this);
-            $("#search").on("click", function(){
+            //this.model.on("loaded", this.render, this);
+            var scope = this;
+            
+            var searchHandler = function(){
+                console.log("#search.on:click");
                 var yearfr = $("#year-fr").val().trim();
                 var yearto = $("#year-to").val().trim();
                 var modelo = $("#model").val().trim();
                 
                 if(yearfr.match(/^\d{4}$/) != null && yearto.match(/^\d{4}$/) && Number(yearfr) <= Number(yearto)) {
                     if(modelo != "Model" && modelo != "") {
+                        scope.model.once("loaded", scope.render, scope);
                         App.wrapModCol.loadCollection({from:yearfr,to:yearto, model: modelo});
                     } else {
+                        scope.model.once("loaded", scope.render, scope);
                         App.wrapModCol.loadCollection({from:yearfr,to:yearto});
                     }
                 } else {
                     if(modelo != "Model" && modelo != "") {
+                        scope.model.once("loaded", scope.render, scope);
                         App.wrapModCol.loadCollection({model: modelo});
                     }
                 }
+            }
+            
+            $("input").keyup(function (e) {
+                if (e.keyCode == 13) {
+                    searchHandler();
+                    App.router.navigate("car_models");
+                }
             });
+            $("#search").on("click", searchHandler);
             
         },
 
@@ -196,8 +210,16 @@ var checkAndFilterModels = function(e) {
             console.log("ModelsView.navigateToModel");
             e.preventDefault();
             var id = e.currentTarget.dataset.id;
-            var url = 'http://'+window.location.host+'/car_models/'+id;
-            window.location.href = url;
+            el = e.currentTarget;
+            var spinner = new Spinner({
+                color : '#f0f0f0'
+            }).spin();
+            spinner.el.style.position = "absolute";
+            el.appendChild(spinner.el);
+            
+            App.router.navigate("model/"+id, {trigger:true});
+            //var url = 'http://'+window.location.host+'/car_models/'+id;
+            //window.location.href = url;
         },
         
         mouseOver : function (e) {
@@ -228,8 +250,45 @@ var checkAndFilterModels = function(e) {
         }
     });
     
-    App.wrapModCol = new App.WrapModCol();
-    App.modelsView = new App.ModelsView({model:App.wrapModCol});
-    App.wrapModCol.loadCollection();
+    App.Router = Backbone.Router.extend({
+        routes: {
+            "start"                       : "start",
+            "car_models"                  : "collectionRender",
+            "model/:id":    "showFerrariModel",    // #help
+          },
+          
+          start : function() {
+              App.wrapModCol = new App.WrapModCol();
+              App.wrapModCol.once("loaded", function(){
+                    console.log("App.Router App.wrapModCol, once:loaded");
+                    App.router.navigate("car_models", {trigger:true})
+                }, this);
+              App.modelsView = new App.ModelsView({model:App.wrapModCol});
+              App.wrapModCol.loadCollection();
+          },
+          
+          collectionRender : function () {
+              console.log("Router.collectionRender");
+              if(App.modelsView == undefined) {
+                  this.start();
+              } else {
+                  App.modelsView.render();
+              }
+              
+          },
+
+          showFerrariModel: function(id) {
+              console.log("Router.showFerrariModel");
+              $.ajax({
+                  url: "/car_models/"+id,
+                  type: "GET",
+                  data: {'format' : 'js' }
+              });
+          }
+    })
+    
+    App.router = new App.Router();
+    Backbone.history.start()
+    App.router.start();
 }}
 });

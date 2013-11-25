@@ -76,3 +76,11 @@ select {
 .twitter {
     background-color: #cccccc;
 }
+
+.spinner {
+    position: absolute !important;
+    width: 0px;
+    z-index: 2000000000;
+    top: 10%;
+    left: 10%;
+}

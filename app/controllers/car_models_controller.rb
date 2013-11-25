@@ -102,20 +102,52 @@ class CarModelsController < ApplicationController
     
   end
   
+  def get_model
+    if(params[:id])
+      render json: CarModel.find(params[:id]).to_json(methods: [:assets_urls, :car_model_str, :car_year_str])
+    else
+      render json: {response: "not found"}
+    end
+  end
+  
+  def model_selection
+    if(params[:id])
+      carmodel = CarModel.find(params[:id])
+      render json: CarModel.find(params[:id]).to_json(methods: [:assets_urls, :car_model_str, :car_year_str])
+    else
+      render json: {response: "not found"}
+    end
+  end
+  
+  
   def show
     @car_model = CarModel.find(params[:id])
     ferrari = "Ferrari " + @car_model.car_model
     ferrari_words = ferrari.split(" ")
+    @modelFound = nil;
     while(ferrari_words.length > 0) do
       @wikipedia = Wikipedia.find(ferrari)
       if @wikipedia.content == nil
         ferrari_words.pop
         ferrari = ferrari_words.join(" ")
       else
+        @modelFound = ferrari
         break
       end
     end
     
+    if(@modelFound.strip! == "Ferrari")
+      @modelFound = nil
+    end
+    
+    dat = @wikipedia.page['revisions'][0]["*"]
+    wiki = WikiCloth::Parser.new(:data => dat)
+    @html = wiki.to_html({noedit: true})
+    
+    respond_to do |format|
+        format.js {  }
+        format.html {  }
+    end
     #@trims = @carmodel.car_models.paginate(page: params[:page])
     #@engines = @carmodel.car_models.paginate(page: params[:page])
     #@transmissions = @carmodel.car_models.paginate(page: params[:page])
