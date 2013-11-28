@@ -161,6 +161,8 @@ var checkAndFilterModels = function(e) {
                 var yearto = $("#year-to").val().trim();
                 var modelo = $("#model").val().trim();
                 
+                $("#collection-list").html('<div class="span12 ajax-loader" id="loader"><span><img src="/assets/ajax-loader.gif" /></span></div>');
+                
                 if(yearfr.match(/^\d{4}$/) != null && yearto.match(/^\d{4}$/) && Number(yearfr) <= Number(yearto)) {
                     if(modelo != "Model" && modelo != "") {
                         scope.model.once("loaded", scope.render, scope);
@@ -218,8 +220,6 @@ var checkAndFilterModels = function(e) {
             el.appendChild(spinner.el);
             
             App.router.navigate("model/"+id, {trigger:true});
-            //var url = 'http://'+window.location.host+'/car_models/'+id;
-            //window.location.href = url;
         },
         
         mouseOver : function (e) {
