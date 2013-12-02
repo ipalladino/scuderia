@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require underscore
+//= require dropzone
 //= require backbone
 //= require spin
 //= require_tree ../templates

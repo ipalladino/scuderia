@@ -1,6 +1,11 @@
-<div class="span12">
+<% provide(:title, "Ferrari #{@car_model.car_model} | #{@car_model.car_year_str}") %>
+<% provide(:meta_title, @car_model.car_model) %>
+<% provide(:meta_year, @car_model.car_year_str) %>
+<% provide(:meta_description, "Find all the technical details for the #{@car_model.car_model} Ferrari") %>
+<% if(@car_model.assets_urls().length > 0) %>
+    <% provide(:meta_image, @car_model.assets_urls()[0][:modal]) %>
+<% end %>
     
-
 <% unless @car_model.generic_images.length == 0 %>
 <div id="myCarousel" class="carousel slide">
     <!-- Carousel items -->
@@ -134,6 +139,3 @@
     <tr><td>top_speed</td><td><%= @car_model.top_speed %></td></tr>
     <tr><td>fuel_consumption</td><td><%= @car_model.fuel_consumption %></td></tr>
 </table>
-
-
-</div>

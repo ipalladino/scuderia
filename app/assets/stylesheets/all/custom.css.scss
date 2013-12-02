@@ -84,10 +84,6 @@ input, textarea, select, .uneditable-input {
   @include box_sizing;
 }
 
-input {
-  height: auto !important;
-}
-
 #error_explanation {
   color: #f00;
   ul {
@@ -154,35 +150,28 @@ footer {
   }
 }
 
-/* microposts */
-
-.microposts {
-  list-style: none;
-  margin: 10px 0 0 0;
-
-  li {
-    padding: 10px 0;
-    border-top: 1px solid #e8e8e8;
-  }
-}
-.content {
-  display: block;
-}
-.timestamp {
-  color: $grayLight;
-}
-.gravatar {
-  float: left;
-  margin-right: 10px;
-}
-aside {
-  textarea {
-    height: 100px;
-    margin-bottom: 5px;
-  }
-}
-
 /* HEADER SPECIFIC CLASSES AND OVERRIDES */
+.header ul{
+    font-size:1.2em;
+    
+}
+.header .nav > li > a {
+    padding:10px 10px;
+}
+.header i {
+    font-size:1.3em;
+}
+
+.header {
+    .icons-caret {
+        left:10px;
+    }
+    .after-icon-text {
+        position:relative;
+        left:30px;
+    }
+}
+
 .caret {
     top: 16px;
     position: relative;
@@ -217,6 +206,7 @@ aside {
     text-indent: 1px;
     position: relative;
     top: 16px;
+    margin-left: 9px;
 }
 
 .search-li {
@@ -264,6 +254,7 @@ aside {
 
 .home-title {
     font-family:"Conv_GothamNarrow-Light",sans-serif;
+    color:#FCD112;
 }
 
 /* BLOGS HOMEPAGE */
@@ -282,6 +273,7 @@ aside {
     height:60px;
     border-bottom:2px solid #FCD112 !important;
     border:none;
+    font-size:1.3em;
 }
 
 .nav-tabs li, .nav-tabs .active li{
@@ -339,6 +331,7 @@ aside {
 }
 
 #blog-readmore {
+    color:#FCD112;
     position: relative !important;
     left: 363px;
     display:inline-block;

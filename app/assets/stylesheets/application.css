@@ -13,12 +13,14 @@
  */
 
 body {
-    color:#FCD112 !important;
     font-family:"Conv_GothamNarrow-Light",sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     background-color: #000000 !important;
     background-position-y: 502px;
     background-repeat: no-repeat;
     background-image: url(/assets/backgroundgradient.jpg);
+    color:#000000;
 }
 
 table a:hover {
@@ -35,7 +37,7 @@ table a:hover {
 }
 
 header, .navbar-inner .header {
-    min-height:70px !important;
+    /*min-height:70px !important;*/
 }
 
 .header {

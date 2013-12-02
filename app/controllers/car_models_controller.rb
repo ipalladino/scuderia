@@ -45,9 +45,9 @@ class CarModelsController < ApplicationController
     render json: search_model.to_json(only: [ :id, :car_model ], methods: [:assets_urls, :car_model_str, :car_year_str])
   end
   
-  def filter_by_year
-    #debugger
-    @car_models = CarModel.all
+  def list_models
+    years = Year.all
+    @car_models = CarModel.joins(:year).find(:all, order: ['car_year ASC'])
   end
   
   def filter_by_from_to
@@ -106,7 +106,7 @@ class CarModelsController < ApplicationController
     if(params[:id])
       render json: CarModel.find(params[:id]).to_json(methods: [:assets_urls, :car_model_str, :car_year_str])
     else
-      render json: {response: "not found"}
+      render json: {response: "The parameter :id is required"}
     end
   end
   
@@ -115,13 +115,15 @@ class CarModelsController < ApplicationController
       carmodel = CarModel.find(params[:id])
       render json: CarModel.find(params[:id]).to_json(methods: [:assets_urls, :car_model_str, :car_year_str])
     else
-      render json: {response: "not found"}
+      render json: {response: "The parameter :id is required"}
     end
   end
   
   
   def show
     @car_model = CarModel.find(params[:id])
+    @html = ""
+    
     ferrari = "Ferrari " + @car_model.car_model
     ferrari_words = ferrari.split(" ")
     @modelFound = nil;
@@ -148,9 +150,6 @@ class CarModelsController < ApplicationController
         format.js {  }
         format.html {  }
     end
-    #@trims = @carmodel.car_models.paginate(page: params[:page])
-    #@engines = @carmodel.car_models.paginate(page: params[:page])
-    #@transmissions = @carmodel.car_models.paginate(page: params[:page])
   end
   
   def create

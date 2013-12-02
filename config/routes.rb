@@ -1,6 +1,7 @@
 SampleApp::Application.routes.draw do
   resources :blogs
 
+  match 'car_models/list', to: 'car_models#list_models'
   resources :car_models do
     member do
       get :filter_by_year
@@ -12,7 +13,7 @@ SampleApp::Application.routes.draw do
 
   resources :ferraris do
     member do
-      get :year_selection, :model_selection
+      get :year_selection, :model_selection, :preview, :confirm
     end
   end
   match '/basic_search', to: 'ferraris#search'
@@ -34,17 +35,9 @@ SampleApp::Application.routes.draw do
       get :year_selection
     end
   end  
-  
-  resources :trims do
-    member do
-      get :year_selection
-    end
-  end
 
   resources :years
   resources :sessions, only: [:new, :create, :destroy]
-  resources :microposts, only: [:create, :destroy]
-  resources :relationships, only: [:create, :destroy]
 
   match '/crawl', to: 'ferraris#crawl'
   match '/myferraris', to: 'ferraris#my'

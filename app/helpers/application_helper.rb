@@ -28,7 +28,7 @@ module ApplicationHelper
     if(title.empty?)
       return "SCUDERIA.COM"
     else
-      return "#{year} | #{title}"
+      return "Ferrari #{year} | #{title}"
     end
   end
 end

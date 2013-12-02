@@ -1,8 +1,45 @@
-<% provide(:meta_title, "Ferrari for sale #{@ferrari.car_model_str}") %>
-<% provide(:meta_year, @ferrari.car_year_str) %>
-<% provide(:meta_description, @ferrari.description) %>
-<% provide(:meta_image, @ferrari.assets_urls()[0][:modal]) %>
-<% provide(:title, "Ferrari for sale #{@ferrari.car_model_str} | #{@ferrari.car_year_str}") %>
+<div id="sell-your-ferrari">
+    
+
+<div class="row">
+    <div class="span12 header-section header-sellferrari">
+        <div id="title">
+            Sell Your Ferrari
+        </div>
+        <div id="description">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+        </div>
+        <div class="secondary-title">
+            Three Simple Steps
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span4 padding-sellyour border-unselected">
+        Enter Vehicle Details
+    </div>
+    <div class="span4 padding-sellyour border-selected">
+        Review Your Detailed Ad
+    </div>
+    <div class="span4 padding-sellyour border-unselected">
+        Confirmation
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span12 span4 padding-sellyour">
+        Vehicle Details
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span12 span4 padding-sellyour">
+        Enter the vehicle information that you want to show prospective buyers on your ad "Vehicle Information" and "Contact Information" are the only required sections but the more details and photos you provide, the more shoppers will be attracted to your ad.
+    </div>
+</div>
+
+<% provide(:title, "Preview Ferrari for sale #{@ferrari.car_model_str} | #{@ferrari.car_year_str}") %>
 <% unless @ferrari.assets.length == 0 %>
 <div id="myCarousel" class="carousel slide">
     <!-- Carousel items -->
@@ -90,3 +127,29 @@
                                 title: @ferrari.title %>
     <%= link_to "edit", edit_ferrari_path(:id => @ferrari.id) %>
 <% end %>
+
+      
+<div id="for-sale-edit" class="btn btn-large btn-primary">
+    Edit
+</div>
+<div id="for-sale-proceed" class="btn btn-large btn-primary">
+    Proceed
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    $(function(){
+        if($("#for-sale-proceed").length != 0) {
+            var id = <%= @ferrari.id %>;
+            $("#for-sale-proceed").on("click", function(){
+                window.location.href = "/ferraris/"+id+"/confirm"
+            })
+        }
+
+        if($("#for-sale-edit").length != 0) {
+            var id = <%= @ferrari.id %>;
+            $("#for-sale-edit").on("click", function(){
+                window.location.href = "/ferraris/"+id+"/edit"
+            })
+        }
+    })
+</script>

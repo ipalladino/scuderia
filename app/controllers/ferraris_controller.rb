@@ -190,14 +190,21 @@ class FerrarisController < ApplicationController
     @ferrari = current_user.ferraris.build(params[:ferrari])
     if @ferrari.save
       flash[:success] = "The Ferrari post was created"
-      redirect_to @ferrari
+      redirect_to "/ferraris/#{@ferrari.id}/preview"
     else
       @years = Year.all
-      @trims = Trim.all
       @engines = Engine.all
       @transmissions = Transmission.all
       render 'new'
     end
+  end
+  
+  def preview
+    @ferrari = Ferrari.find(params[:id])
+  end
+  
+  def confirm
+    @ferrari = Ferrari.find(params[:id])
   end
   
   def my
@@ -214,7 +221,6 @@ class FerrarisController < ApplicationController
   
   #def model_selection
   #  @model = CarModel.find(params[:model])
-  #  @trims = @model.trims
   #  @engines = @model.engines
   #  @transmissions = @model.transmissions
     
@@ -227,7 +233,6 @@ class FerrarisController < ApplicationController
     @years = Year.order("car_year ASC").all
     @ferrari = Ferrari.find(params[:id])
     @car_models = CarModel.where({ year_id: @ferrari.year_id})
-    @trims = Trim.all
     @engines = Engine.all
     @transmissions = Transmission.all
     5.times { @ferrari.assets.build }
@@ -252,7 +257,6 @@ class FerrarisController < ApplicationController
   def new
     @ferrari = Ferrari.new
     @years = Year.order("car_year ASC").all
-    @trims = Trim.all
     @engines = Engine.all
     @transmissions = Transmission.all
     5.times { @ferrari.assets.build }

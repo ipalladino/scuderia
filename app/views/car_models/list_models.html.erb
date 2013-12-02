@@ -1,0 +1,40 @@
+<div class="row-fluid">
+    <div class="span12">
+        <span class="results"> Complete Ferrari Models List, total: <%= @car_models.length %></span>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span8 offset2">
+        <table class="table table-striped">
+            <tr>
+                <th><span class="bold">Model</span></th>
+                <% if(current_user.admin?) %>
+                    <th>Actions</th>
+                <% end %>
+            </tr>
+        <% model_year = 0 %>
+        <% @car_models.each do |m| %>
+            <% if(Integer(m.car_year_str) > model_year)
+                model_year = Integer(m.car_year_str) %>
+                <tr><td
+                    <% if(current_user.admin?) %>
+                        colspan="2" 
+                    <% end %>>
+                    <h1><%= model_year.to_int %> Ferraris</h1>
+                </td></tr>
+            <% end %>
+            <tr>
+                <td><%= link_to "Ferrari "+m.car_model, m %></td>
+                <% if(current_user.admin?) %>
+                    <td><%= link_to "edit", edit_car_model_path(:id => m.id) %>
+                    |     <%= link_to "delete", m, method: :delete,
+                                                        data: { confirm: "You sure?" },
+                                                        title: m.car_model %>
+                    </td>
+                <% end %>
+            </tr>
+        <% end %>
+        </table>
+    </div>
+</div>

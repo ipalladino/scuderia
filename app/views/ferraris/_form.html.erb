@@ -1,88 +1,128 @@
-<div class="row">
-  <div class="span6 offset3">
-    <%= form_for(@ferrari) do |f| %>
-      <%= render 'shared/error_messages', object: f.object %>
+<script type="text/javascript" charset="utf-8">
+    App.page = "sellferrari"
+</script>
 
-      <%= f.label :year_id %>
-      <% if(@ferrari.car_model_id.blank?) %>
-          <%= f.select :year_id, options_from_collection_for_select(@years, :id, :car_year) , {:include_blank => true, :default => nil} %>
-      <% else %>
-          <%= f.select :year_id, options_from_collection_for_select(@years, :id, :car_year, @ferrari.year_id)%>
-      <% end %>
-      <div id="car_model">
+<%= form_for @ferrari, html: { class: "" }  do |f| %>
+<%= render 'shared/error_messages', object: f.object %>
+<div class="row-fluid sell-ferrari-form">
+    <div class="span4 padding-sellyour">
+        <%= f.label :year_id %>
           <% if(@ferrari.car_model_id.blank?) %>
-                <%= hidden_field("", :car_model_id) %>
+              <%= f.select :year_id, options_from_collection_for_select(@years, :id, :car_year) , {:include_blank => true, :default => nil} , {class: "select-input"}  %>
           <% else %>
-                <%= label_tag :car_model_id,"Car Model" %>
-                <%= f.select :car_model_id, options_from_collection_for_select(@car_models, :id, :car_model, @ferrari.car_model_id) %>
+              <%= f.select :year_id, options_from_collection_for_select(@years, :id, :car_year, @ferrari.year_id), {}, {class: "select-input"} %>
           <% end %>
-          
+          <div id="car_model">
+                <% if(@ferrari.car_model_id.blank?) %>
+                      <%= label_tag :car_model_id,"Car Model" %>
+                      <%= f.select :car_model_id, options_from_collection_for_select(CarModel.all, :id, :car_model), {}, {class: "select-input"}  %>
+                <% else %>
+                      <%= label_tag :car_model_id,"Car Model" %>
+                      <%= f.select :car_model_id, options_from_collection_for_select(@car_models, :id, :car_model, @ferrari.car_model_id), {}, {class: "select-input"}  %>
+                <% end %>
+
+            </div>
+            
+        <div id="engine-tran-trim">
+              <%= label_tag :ferrari_engine_id,"Engine" %>
+              <%= f.select :engine_id, options_from_collection_for_select(@engines, :id, :name, @ferrari.engine_id), {}, {class: "select-input"} %>
+
+              <%= label_tag :transmission_id,"Transmission" %>
+              <%= f.select :transmission_id, options_from_collection_for_select(@transmissions, :id, :name, @ferrari.transmission_id), {}, {class: "select-input"}  %>
+          </div>    
+
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+    </div>
+    <div class="span4 padding-sellyour">
+          <%= f.label :color %>
+          <%= f.text_field :color, class: "input-sellferrari" %>
+
+          <%= f.label :interior_color %>
+          <%= f.text_field :interior_color %>
+
+          <%= f.label :mileage %>
+          <%= f.text_field :mileage %>
+
+          <%= f.label :vin %>
+          <%= f.text_field :vin %>
+
+          <%= f.label :price %>
+          <%= f.text_field :price %>
+    </div>
+    <div class="span4 padding-sellyour">
+        <%= f.label :description %>
+        <%= f.text_area :description %>
+    </div>
+</div>
+
+<div class="row-fluid=g">
+    <div class="newPaperclipFiles">
+        <%= f.fields_for :assets do |asset| %>
+            <% if asset.object.new_record? %>
+                <%= asset.file_field :image %>
+            <% end %>
+
+        <% end %>
+        <script type="text/javascript" charset="utf-8">
+            $(function() {
+                 function readURL(input) {
+                     if (input.files && input.files[0]) {
+                         var reader = new FileReader();
+                         var index = $(input).index();
+                         reader.onload = function (e) {
+                             $($('#uploaded_files img')[index]).attr('src', e.target.result);
+                         }
+                         reader.readAsDataURL(input.files[0]);
+                     }
+                 }
+             
+                 $("input:file").change(function (e){
+                     readURL(this);
+                 });
+                 
+                 $("#uploaded_files .uploaded_img_container").click(function (e){
+                     console.log('clickooo');
+                      var index = $(e.target).index();
+                      console.log(index);
+                      $($('.newPaperclipFiles input')[index]).click();
+                  });
+             
+              });
+         </script>
       </div>
-      
-      <div id="engine-tran-trim">
-          <%= label_tag :ferrari_engine_id,"Engine" %>
-          <%= f.select :engine_id, options_from_collection_for_select(@engines, :id, :name, @ferrari.engine_id) %>
-
-          <%= label_tag :ferrari_trim_id,"Trim" %>
-          <%= f.select :trim_id, options_from_collection_for_select(@trims, :id, :car_trim, @ferrari.trim_id) %>
-
-          <%= label_tag :transmission_id,"Transmission" %>
-          <%= f.select :transmission_id, options_from_collection_for_select(@transmissions, :id, :name, @ferrari.transmission_id) %>
-      </div>
-      
-      <%= f.label :title %>
-      <%= f.text_field :title %>
-      
-      <%= f.label :color %>
-      <%= f.text_field :color %>
-      
-      <%= f.label :interior_color %>
-      <%= f.text_field :interior_color %>
-      
-      <%= f.label :mileage %>
-      <%= f.text_field :mileage %>
-
-      <%= f.label :vin %>
-      <%= f.text_field :vin %>
-      
-      <%= f.label :price %>
-      <%= f.text_field :price %>
-      
-      <%= f.label :description %>
-      <%= f.text_area :description %>
-      
-      <div class="newPaperclipFiles">
-
-              <%= f.fields_for :assets do |asset| %>
-
-                 <% if asset.object.new_record? %>
-                       <%= asset.file_field :image %>
-                 <% end %>
-
-             <% end %>
-
+      <div id="uploaded_files">
+          <div class="uploaded_img_container">
+              <img src="" />
+          </div>
+          <div class="uploaded_img_container">
+              <img src="" />
+          </div>
+          <div class="uploaded_img_container">
+              <img src="" />
+          </div>
+          <div class="uploaded_img_container">
+              <img src="" />
+          </div>
+          <div class="uploaded_img_container">
+              <img src="" />
+          </div>
       </div>
 
       <div class="existingPaperclipFiles">
-
            <%= f.fields_for :assets do |asset| %>
-
                 <% unless asset.object.new_record? %>
-
                       <div class="thumbnail">
                               <%= link_to( image_tag(asset.object.image.url(:thumb)), asset.object.image.url(:original) ) %>
                               <%= asset.check_box :_destroy %>
                       </div>
-
                 <% end %>        
-
            <% end %>
       </div>
-      <% if(@ferrari.new_record?) %>
-          <%= f.submit "Create", class: "btn btn-large btn-primary" %>
-      <% else %>
-          <%= f.submit "Edit", class: "btn btn-large btn-primary" %>
-      <% end %>
-  <% end %>
-  </div>
 </div>
+<% if(@ferrari.new_record?) %>
+      <%= f.submit "Create", class: "btn btn-large btn-primary" %>
+  <% else %>
+      <%= f.submit "Edit", class: "btn btn-large btn-primary" %>
+  <% end %>
+<% end %>

@@ -1,0 +1,126 @@
+.header-sellferrari {
+    background-image: url("/assets/header-sellferrari.jpg");
+    #description {
+        width: 280px !important;
+        height: 118px;
+    }
+    .secondary-title {
+        margin-left: 30px;
+        font-size:2.6em;
+        color:white;
+        font-family:"Conv_GothamNarrow-Book";
+    }
+}
+
+.padding-sellyour {
+    padding:10px;
+}
+.border-selected{
+    border-bottom:3px solid #303030;
+}
+.border-unselected{
+    border-bottom:3px solid #FCD112;
+}
+
+.select-input {
+    background: transparent;
+    padding: 5px;
+    font-size: 16px;
+    line-height: 1;
+    border: thin dotted #999999;
+    border-radius: 0;
+    height: 34px;
+    -webkit-appearance: none;
+    background:url(/assets/select_caret.png)  no-repeat right #E8E8E8;
+}
+
+.newPaperclipFiles {
+    input[type="file"] {
+        height: 110px;
+        width: 179px;
+        margin-left:5px;
+        visibility:hidden;
+    }
+}
+
+#uploaded_files .uploaded_img_container {
+    position:relative;
+    height: 110px;
+    width: 180px;
+    overflow:hidden;
+    display:block;
+    float:left;
+    border:thin dotted #999999;
+    margin-left:5px;
+    text-align:center;
+}
+
+#uploaded_files img {
+    height: 110px;
+    display:inline-block;
+}
+
+.sell-ferrari-form {
+    textarea, 
+    input[type="text"], 
+    input[type="password"], 
+    input[type="datetime"], 
+    input[type="datetime-local"], 
+    input[type="date"], 
+    input[type="month"], 
+    input[type="time"], 
+    input[type="week"], 
+    input[type="number"], 
+    input[type="email"], 
+    input[type="url"], 
+    input[type="search"], 
+    input[type="tel"], 
+    input[type="color"], 
+    .uneditable-input:focus {
+        color: #000000;
+        padding: 5px;
+        line-height: 1;
+        height:34px;
+        margin-bottom:15px;
+        font-size: 16px;
+        border: thin dotted #999999;
+        border-radius: 0;
+        font-family: "Conv_GothamNarrow-Light",sans-serif !important;
+        box-shadow:none;
+        background-color: #E8E8E8;
+        border-radius: 0;
+    }
+    textarea {
+        height:170px;
+    }
+    .input-sellferrari {
+        height:34px;
+    }
+}
+    
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+      border-color: #FCD112;
+      outline: 0;
+      outline: thin dotted \9;
+      /* IE6-9 */
+
+      -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+      -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+      box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+}
+
