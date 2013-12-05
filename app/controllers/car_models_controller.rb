@@ -122,6 +122,11 @@ class CarModelsController < ApplicationController
   
   def show
     @car_model = CarModel.find(params[:id])
+    begin
+      @next_model = CarModel.maximum(params[:id]).next
+    rescue
+      @next_model = false
+    end
     @html = ""
     
     ferrari = "Ferrari " + @car_model.car_model

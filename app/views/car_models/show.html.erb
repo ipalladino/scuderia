@@ -5,6 +5,10 @@
 <% if(@car_model.assets_urls().length > 0) %>
     <% provide(:meta_image, @car_model.assets_urls()[0][:modal]) %>
 <% end %>
+
+<% if(@next_model) %>
+    <a href="/car_models/<%= @next_model %>">NEXT</a>
+<% end %>
     
 <% unless @car_model.generic_images.length == 0 %>
 <div id="myCarousel" class="carousel slide">
