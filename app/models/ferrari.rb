@@ -22,7 +22,7 @@ class Ferrari < ActiveRecord::Base
   def assets_urls
     urls = []
     assets.each do |a|
-      urls.push({modal: a.image.url(:modal), list: a.image.url(:list)})
+      urls.push({modal: a.image.url(:modal), list: a.image.url(:list), id: a.id})
     end
     return urls
   end

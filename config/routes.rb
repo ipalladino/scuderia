@@ -1,6 +1,7 @@
 SampleApp::Application.routes.draw do
   resources :blogs
 
+  match 'car_models/crawlModel', to: 'car_models#crawlModel'
   match 'car_models/list', to: 'car_models#list_models'
   resources :car_models do
     member do
@@ -11,9 +12,11 @@ SampleApp::Application.routes.draw do
   match '/model_search', to: 'car_models#search'
   match '/get_model', to: 'car_models#get_model'
 
+  match '/ferraris/remove_image', to: 'ferraris#remove_image'
+  match '/ferraris/add_image', to: 'ferraris#add_image'
   resources :ferraris do
     member do
-      get :year_selection, :model_selection, :preview, :confirm
+      get :year_selection, :model_selection, :preview, :confirm, :publish
     end
   end
   match '/basic_search', to: 'ferraris#search'

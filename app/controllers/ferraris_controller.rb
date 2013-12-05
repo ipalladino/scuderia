@@ -1,6 +1,6 @@
 class FerrarisController < ApplicationController
   before_filter :signed_in_user, only: [:create, :destroy, :my, :new]
-  before_filter :correct_user,   only: [:destroy]
+  before_filter :correct_user,   only: [:destroy, :preview, :confirm]
   
   def index
     @ferraris = Ferrari.paginate(page: params[:page])
@@ -20,6 +20,10 @@ class FerrarisController < ApplicationController
   
   def show
     @ferrari = Ferrari.find(params[:id])
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json  { render :json => @ferrari.to_json(methods: [:assets_urls, :car_model_str, :car_year_str]) }
+    end
   end
   
   def search
@@ -68,20 +72,20 @@ class FerrarisController < ApplicationController
     end
     
     if(modl_id == nil && !prce_to && !prce_fr && !yrfr_id && !yrto_id)   
-        ferraris = Ferrari.find(:all, order: "#{sort_by[0]} #{sort_by[1]}")
+        ferraris = Ferrari.find(:all, conditions: ["published = TRUE"], order: "#{sort_by[0]} #{sort_by[1]}")
     end
     
     if(modl_id)
       #begin
         fmodel = CarModel.find(modl_id)
         if(fmodel && prce_to == nil && prce_fr == nil)
-          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ?",fmodel.car_model], order: "#{sort_by[0]} #{sort_by[1]}")
+          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ? AND published = TRUE",fmodel.car_model], order: "#{sort_by[0]} #{sort_by[1]}")
         elsif(fmodel && prce_to && prce_fr)
-          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ? AND price >= ? AND price <= ?",fmodel.car_model, prce_fr, prce_to], order: "#{sort_by[0]} #{sort_by[1]}")
+          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ? AND price >= ? AND price <= ? AND published = TRUE",fmodel.car_model, prce_fr, prce_to], order: "#{sort_by[0]} #{sort_by[1]}")
         elsif(fmodel && prce_to && !prce_fr)
-          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ? AND price <= ?",fmodel.car_model, prce_to], order: "#{sort_by[0]} #{sort_by[1]}")
+          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ? AND price <= ? AND published = TRUE",fmodel.car_model, prce_to], order: "#{sort_by[0]} #{sort_by[1]}")
         elsif(fmodel && !prce_to && prce_fr)
-          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ? AND price >= ?",fmodel.car_model, prce_fr], order: "#{sort_by[0]} #{sort_by[1]}")
+          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ? AND price >= ? AND published = TRUE",fmodel.car_model, prce_fr], order: "#{sort_by[0]} #{sort_by[1]}")
         end   
       #rescue
         print "invalid model"
@@ -118,7 +122,7 @@ class FerrarisController < ApplicationController
         end
         
         if(!query.blank?)
-          ferraris = Ferrari.joins(:year).find(:all, conditions: query, order: "#{sort_by[0]} #{sort_by[1]}")
+          ferraris = Ferrari.joins(:year).find(:all, conditions: query+"AND published = TRUE", order: "#{sort_by[0]} #{sort_by[1]}")
         end
     end
     
@@ -207,6 +211,13 @@ class FerrarisController < ApplicationController
     @ferrari = Ferrari.find(params[:id])
   end
   
+  def publish
+    @ferrari = Ferrari.find(params[:id])
+    @ferrari.published = true
+    @ferrari.save
+    redirect_to @ferrari
+  end
+  
   def my
     @ferraris = current_user.ferraris.paginate(page: params[:page])
   end
@@ -235,7 +246,8 @@ class FerrarisController < ApplicationController
     @car_models = CarModel.where({ year_id: @ferrari.year_id})
     @engines = Engine.all
     @transmissions = Transmission.all
-    5.times { @ferrari.assets.build }
+    assets_to_build = 10-@ferrari.assets.length
+    assets_to_build.times { @ferrari.assets.build }
   end
 
   def update
@@ -259,7 +271,42 @@ class FerrarisController < ApplicationController
     @years = Year.order("car_year ASC").all
     @engines = Engine.all
     @transmissions = Transmission.all
-    5.times { @ferrari.assets.build }
+    10.times { @ferrari.assets.build }
+  end
+  
+  def add_image
+    #debugger
+    if(params[:id] && params[:file])
+      #process image and add it to the record
+      ferrari = Ferrari.find(params[:id])
+      message = [:added => true, :id => params[:id]];
+      ferrari.assets.build(image: File.open(params[:file].tempfile))
+      ferrari.save
+      #params[:file]['datafile'].original_filename
+      #ferrari.assets.build(File.open(params[:file].tempfile))
+    else
+      #message we cant process
+      message = [:added => false]
+    end
+    render json: message.to_json
+  end
+  
+  def remove_image
+    if(params[:id])
+      #process remove image
+      begin
+        asset = Asset.find(params[:id]);
+        asset.destroy
+        message = [:removed => true]
+      rescue
+        message = [:removed => false]
+      end
+      render json: message.to_json
+    else
+      #message cant process
+      message = [:removed => false]
+      render json: message.to_json
+    end
   end
   
   private 

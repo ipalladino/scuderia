@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131130080249) do
+ActiveRecord::Schema.define(:version => 20131202084401) do
 
   create_table "assets", :force => true do |t|
     t.integer  "ferrari_id"
@@ -135,9 +135,10 @@ ActiveRecord::Schema.define(:version => 20131130080249) do
     t.string   "color"
     t.string   "interior_color"
     t.string   "vin"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.integer  "user_id"
+    t.boolean  "published",       :default => false
   end
 
   add_index "ferraris", ["user_id"], :name => "index_ferraris_on_user_id"

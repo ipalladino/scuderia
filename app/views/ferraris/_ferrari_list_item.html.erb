@@ -1,0 +1,85 @@
+<div class="ferrari-line span12">
+    <div class="span12 details">
+        <div class="span4 thumbnails">
+            <%= 
+                begin
+                    image_tag(ferrari_list_item.assets[0].image.url(:modal), { data: {toggle: "modal", target: "#myModal#{ferrari_list_item.id}"}})
+                rescue 
+                    puts "Image not found"
+                end
+             %>
+        </div>
+        <div class="span8 ferrari-list-details">
+            <div id="top-row">
+                <div id="left-col">
+                    Year:
+                </div>
+                <div id="mid-col">
+                    <%= ferrari_list_item.year.car_year %> | Price : <%= ferrari_list_item.price %>
+                </div>
+                <div id="right-col">
+                    <% if(ferrari_list_item.published) %>
+                        PUBLISHED
+                    <% else %>
+                        <a href="/ferraris/<%= ferrari_list_item.id %>/preview">PUBLISH</a>
+                    <% end %>
+                </div>
+            </div>
+            <div id="mid-row">
+                <div id="left-col">
+                    Model:
+                </div>
+                <div id="mid-col">
+                    <%= ferrari_list_item.car_model.car_model %>
+                </div>
+                <div id="right-col">
+                    Share on
+                </div>
+            </div>
+            <div id="bot-row">
+                <div id="left-col">
+                    Description:
+                </div>
+                <div id="desc-col">
+                    <%= ferrari_list_item.description %>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+    
+</div>
+
+<!-- MODAL PART -->
+
+<div id="myModal<%= ferrari_list_item.id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel"><%= ferrari_list_item.title %></h3>
+  </div>
+  <div class="modal-body">
+      <div id="myCarousel<%= ferrari_list_item.id %>" class="carousel slide">
+        <!-- Carousel items -->
+        <div class="carousel-inner">
+            <% ferrari_list_item.assets.each_with_index do |asset, index| %>
+                <% if(index == 0) %>
+                <div class="item active">
+                    <%= image_tag(asset.image.url(:modal)) %>
+                </div>
+                <% else %>
+                <div class="item">
+                    <%= image_tag(asset.image.url(:modal)) %>
+                </div>
+                <% end %>
+            <% end %>
+        </div>
+        <!-- Carousel nav -->
+        <a class="carousel-control left" href="#myCarousel<%= ferrari_list_item.id %>" data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#myCarousel<%= ferrari_list_item.id %>" data-slide="next">&rsaquo;</a>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>

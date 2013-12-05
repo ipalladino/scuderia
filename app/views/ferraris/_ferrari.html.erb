@@ -1,89 +1,87 @@
-<div class="ferrari-line span12">
-    <div class="span12 details">
-        <div class="span4 thumbnails">
-            <%= 
-                begin
-                    image_tag(ferrari.assets[0].image.url(:modal), { data: {toggle: "modal", target: "#myModal#{ferrari.id}"}})
-                rescue 
-                    puts "Image not found"
-                end
-             %>
-        </div>
-        <div class="span8 ferrari-list-details">
-            <div id="top-row">
-                <div id="left-col">
-                    Year:
-                </div>
-                <div id="mid-col">
-                    <%= ferrari.year.car_year %>
-                </div>
-                <div id="right-col">
-                    Contact Buyer
-                </div>
+<% unless @ferrari.assets.length == 0 %>
+<div id="myCarousel" class="carousel slide">
+    <!-- Carousel items -->
+    <div class="carousel-inner">
+        <% @ferrari.assets.each_with_index do |asset, index| %>
+            <% if(index == 0) %>
+            <div class="item active">
+                <%= image_tag(asset.image.url(:slideshow)) %>
             </div>
-            <div id="mid-row">
-                <div id="left-col">
-                    Model:
-                </div>
-                <div id="mid-col">
-                    <%= ferrari.car_model.car_model %>
-                </div>
-                <div id="right-col">
-                    Share on
-                </div>
+            <% else %>
+            <div class="item">
+                <%= image_tag(asset.image.url(:slideshow)) %>
             </div>
-            <div id="bot-row">
-                <div id="left-col">
-                    Description:
-                </div>
-                <div id="desc-col">
-                    <%= ferrari.description %>
-                </div>
-            </div>
-            
-            
-        </div>
-        
-        <!-- div class="span8 text-details ferrari" data-id=<%= ferrari.id %>>
-            <table class="table table-striped">
-                <tr><td>Year</td><td style="min-width:100px;"> </td></tr>
-                <tr><td>Model</td><td></td></tr>
-                <tr><td>Title</td><td><%= link_to ferrari.title, ferrari %></td></tr>
-            </table>
-        </div -->
-    </div>
-    
-</div>
-
-<!-- MODAL PART -->
-
-<div id="myModal<%= ferrari.id %>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel"><%= ferrari.title %></h3>
-  </div>
-  <div class="modal-body">
-      <div id="myCarousel<%= ferrari.id %>" class="carousel slide">
-        <!-- Carousel items -->
-        <div class="carousel-inner">
-            <% ferrari.assets.each_with_index do |asset, index| %>
-                <% if(index == 0) %>
-                <div class="item active">
-                    <%= image_tag(asset.image.url(:modal)) %>
-                </div>
-                <% else %>
-                <div class="item">
-                    <%= image_tag(asset.image.url(:modal)) %>
-                </div>
-                <% end %>
             <% end %>
-        </div>
-        <!-- Carousel nav -->
-        <a class="carousel-control left" href="#myCarousel<%= ferrari.id %>" data-slide="prev">&lsaquo;</a>
-        <a class="carousel-control right" href="#myCarousel<%= ferrari.id %>" data-slide="next">&rsaquo;</a>
-      </div>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-  </div>
+        <% end %>
+    </div>
+    <!-- Carousel nav -->
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
 </div>
+<% end %>
+
+<div class="row-fluid ferrari-view" >
+    <div class="span3 ferrari-view-model" >
+        <span class="bold">Model:</span> <%= @ferrari.car_model.car_model %>
+    </div>
+    <div class="span2 ferrari-view-year">
+        <span class="bold">Year:</span> <%= @ferrari.year.car_year %>
+    </div>
+    <div class="span2 ferrari-view-seller">
+        <span class="bold">Seller:</span> <%= @ferrari.user.name %>
+    </div>
+    <div class="span3 offset2 ferrari-view-price">
+        <span class="bold">Price:</span> $<%= @ferrari.price %>
+    </div>
+</div>
+
+<div class="row-fluid ferrari-view">
+    <div class="span9 ferrari-view-description">
+        <p><span class="bold">Description:</span> </p>
+        <p><%= @ferrari.description %></p>
+    </div>
+    <div class="span3 ferrari-view-options">
+        <div class="ferrari-view-cntsell">
+            <span class="bold">Contact Seller</span>
+        </div>
+        <div class="ferrari-view-share">
+            <span class="bold">Share On:</span>
+            <span id="facebookbtn-link" class="share-button facebook" href="http://www.facebook.com/sharer/sharer.php?u=http://scuderia.herokuapp.com/ferraris/<%= @ferrari.id %>"><i class="icon-facebook"></i></span>
+            <span id="twitterbtn-link" class="share-button twitter" href="http://twitter.com/share?text=Check out this Ferrari <%= @ferrari.car_model.car_model %> from <%= @ferrari.year.car_year %>&hashtags=scuderia,ferrari&url=http://scuderia.herokuapp.com/ferraris/<%= @ferrari.id %>"><i class="icon-twitter"></i></span>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid ferrari-specs-header">
+    <div class="span9 ferrari-specs-title">
+        Specifications
+    </div>
+    <div class="span3 ferrari-specs-full">
+        Full Specifications
+    </div>
+</div>
+
+
+<div class="row-fluid ferrari-specs-table">
+    <div class="span9">
+        <table class="table table-striped">
+            <tr><td><span class="bold">Year</span></td><td><%= @ferrari.year.car_year %></td></tr>
+            <tr><td><span class="bold">Model</span></td><td><%= @ferrari.car_model.car_model %></td></tr>
+            <tr><td><span class="bold">Engine</span></td><td><%= @ferrari.engine.name %></td></tr>
+            <tr><td><span class="bold">Transmission</span></td><td><%= @ferrari.transmission.name %></td></tr>
+            <tr><td><span class="bold">Color</span></td><td><%= @ferrari.color %></td></tr>
+            <tr><td><span class="bold">Interior Color</span></td><td><%= @ferrari.interior_color %></td></tr>
+            <tr><td><span class="bold">Mileage</span></td><td><%= @ferrari.mileage %></td></tr>
+            <tr><td><span class="bold">Price</span></td><td><%= @ferrari.price %></td></tr>
+            <tr><td><span class="bold">VIN</span></td><td><%= @ferrari.vin %></td></tr>
+        </table>
+    </div>
+</div>
+
+
+<% if current_user?(@ferrari.user) %>
+   <%= link_to "delete", @ferrari, method: :delete,
+                                data: { confirm: "You sure?" },
+                                title: @ferrari.title %>
+    <%= link_to "edit", edit_ferrari_path(:id => @ferrari.id) %>
+<% end %>

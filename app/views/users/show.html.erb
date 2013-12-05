@@ -33,6 +33,6 @@
 </div>
 <div class="row">
 <% if @user.ferraris.any? %>
-    <%= render partial: 'ferraris/ferrari', collection: @user.ferraris %>
+    <%= render partial: 'ferraris/ferrari_list_item', collection: @user.ferraris %>
 <% end %>
 </div>

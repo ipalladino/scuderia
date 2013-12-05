@@ -199,7 +199,118 @@ class CarModelsController < ApplicationController
     5.times { @carmodel.generic_images.build }
   end
   
+  def crawlModel
+    map = ferrarisMap
+    cms = CarModel.all
+    cms.each do |cm|
+      cm = setModel(map, cm)
+      if(cm != "not found")
+        cm.save
+      end
+    end
+    render '/car_models/list'
+  end
+  
   private 
+    def setModel(map, cm)
+      agent = Mechanize.new
+      begin
+        page = agent.get "http://www.ferraridatabase.com/The_Cars/"+cm.year.car_year+"/"+cm.car_model+"/1/"+cm.car_model+"%201%20"+cm.year.car_year+".htm"
+      rescue
+        return "not found"
+      end
+      
+      trs = page.search("//tr")
+      
+      map.each do |item|
+        if(!item[1].empty?)
+          item_to_find = item[1]
+          print "trying to find: #{item_to_find}\n"
+          found = false
+          i=0
+          while i < trs.length
+
+            z = 0
+            while z < trs[i].children.length
+              if(trs[i].children[z].content.strip.gsub("\u00A0", "") == item_to_find)
+                found = true
+                print "Found: #{item_to_find}, at trs[#{i}] children[#{z}] \n"
+                item_found_value = trs[i].children[z+2].content.strip.gsub("\u00A0", "")
+                print "======#{item_found_value}========\n"
+                cm.send("#{item[0]}=", "#{item_found_value}")
+                break;
+              end
+              z=z+1
+            end
+            i=i+1
+
+            if found
+              break
+            end
+          end
+
+        end
+      end
+
+      return cm
+    end
+
+    def ferrarisMap
+      map = [["designation", ""], 
+      ["msrp", "Price"], 
+      ["total_production", "Total Built"], 
+      ["engine_designer", "Engine design"], 
+      ["engine_configuration", "Arrangement"], 
+      ["number_of_cylinders", "Nr. of cylinders"], 
+      ["engine_location", "Position"], 
+      ["cylinder_bore", "Bore"], 
+      ["stroke", "Stroke"], 
+      ["displacement", "Unitary and \n      total capacity"], 
+      ["engine_material", "Cilinder block   and head"], 
+      ["compression_ratio", "Compression   ratio"], 
+      ["horse_power", "Spec. power \n      per liter"], 
+      ["torque", "Max torque"], 
+      ["redline", "Max revs \n      (red line)"], 
+      ["timing", "Timing gear"], 
+      ["fuel_delivery", "Fuel feed"], 
+      ["lubrication", "Lubrication"], 
+      ["body_designer", ""], 
+      ["seating", "Number of seats"], 
+      ["body_material", "Body frame"], 
+      ["chassis_construction", "Chassis type"], 
+      ["overall_length", "Length"], 
+      ["overall_width", "Width"], 
+      ["height", "Height"], 
+      ["wheelbase", "Wheelbase"], 
+      ["steering", "Steering"], 
+      ["fuel_capacity", "Fuel tank"], 
+      ["wheel_type", "Wheels make \n      and type"], 
+      ["wheel_size_front", "Wheel size front \n      Wheel size rear"], 
+      ["wheel_size_rear", "Wheel size front \n      Wheel size rear"], 
+      ["tire_size_front", "Tyre size front \n      Tyre size rear"], 
+      ["tire_size_rear", "Tyre size front \n      Tyre size rear"], 
+      ["tire_type", "Tyres make \n      and type"], 
+      ["front_brakes", "Brakes front"], 
+      ["front_rotor_dimension", "Brake size front"], 
+      ["rear_brakes", "Brakes rear"], 
+      ["rear_rotor_dimension", "Brake size rear"], 
+      ["drive_type", "Wheeldrive"], 
+      ["gear_box", "Gearbox"], 
+      ["clutch", "Clutch"], 
+      ["differential", "Differential"], 
+      ["first_gear_ratio", "1st gear ratio"], 
+      ["second_gear_ratio", "2nd gear ratio"], 
+      ["third_gear_ratio", "3rd gear ratio"], 
+      ["foruth_gear_ratio", "4th gear ratio"], 
+      ["fifth_gear_ratio", "5th gear ratio"], 
+      ["final_drive_ratio", "Final drive \n      ratio"], 
+      ["zero_sixty", "0-60 mph"], 
+      ["zero_hundred", "0-100 mph"], 
+      ["one_fourth_mile", "1/4 mile"], 
+      ["top_speed", "top speed"], 
+      ["fuel_consumption", "Fuel  consumption  overall"]]
+    end
+  
     def admin_user
       redirect_to(root_path) unless current_user.admin?
     end

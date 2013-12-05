@@ -1,5 +1,5 @@
 <div class="row">
-    <%= render @ferraris %>
+    <%= render partial: "ferrari_list_item", collection: @ferraris %>
 </div>
 <script type="text/javascript" charset="utf-8">
     $('.year-popover').popover({title: "Hi" , content: "Ho", trigger: "click"});

@@ -43,21 +43,37 @@
     }
 }
 
-#uploaded_files .uploaded_img_container {
+#uploaded_files {
     position:relative;
-    height: 110px;
-    width: 180px;
-    overflow:hidden;
-    display:block;
-    float:left;
-    border:thin dotted #999999;
-    margin-left:5px;
-    text-align:center;
-}
-
-#uploaded_files img {
-    height: 110px;
-    display:inline-block;
+    
+    .uploaded_img_container {
+        position:relative;
+        height: 110px;
+        width: 180px;
+        overflow:hidden;
+        display:block;
+        float:left;
+        border:thin dotted #999999;
+        margin-left:5px;
+        text-align:center;
+        font-size:2em;
+        background-color: #A8A687;
+        margin-bottom:10px;
+    }
+    
+    img {
+        position:relative;
+        z-index:3;
+        height: 110px;
+        display:inline-block;
+    }
+    i {
+        z-index:2;
+        position: absolute;
+        background: transparent;
+        top: 46px;
+        left: 78px;
+    }
 }
 
 .sell-ferrari-form {
@@ -124,3 +140,33 @@ input[type="color"]:focus,
       box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
 }
 
+.steps-bar-container {
+    position:relative;
+    margin-top:20px;
+}
+
+.steps-bar {
+    background-color:#FCD112;
+}
+
+.button-step {
+    padding:10px;
+    font-size:1.2em;
+    font-weight:bold;
+    text-align:center;
+    background-color:#000;
+    color:#FCD112;
+    cursor:pointer;
+}
+.delete-asset-icon {
+    z-index:4 !important;
+    background-color:#FCD112 !important;
+    color:black;
+    width:30px;
+    height:30px;
+    line-height: 30px !important;
+}
+
+.newPaperclipFiles {
+    display:none;
+}

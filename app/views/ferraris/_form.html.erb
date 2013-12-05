@@ -2,7 +2,7 @@
     App.page = "sellferrari"
 </script>
 
-<%= form_for @ferrari, html: { class: "" }  do |f| %>
+<%= form_for @ferrari, html: { class: "", id: "ferrari-form" }  do |f| %>
 <%= render 'shared/error_messages', object: f.object %>
 <div class="row-fluid sell-ferrari-form">
     <div class="span4 padding-sellyour">
@@ -55,74 +55,214 @@
         <%= f.text_area :description %>
     </div>
 </div>
-
-<div class="row-fluid=g">
-    <div class="newPaperclipFiles">
+<div class="newPaperclipFiles">
+    <% if(@ferrari.new_record?) %>
         <%= f.fields_for :assets do |asset| %>
             <% if asset.object.new_record? %>
                 <%= asset.file_field :image %>
             <% end %>
-
         <% end %>
-        <script type="text/javascript" charset="utf-8">
-            $(function() {
-                 function readURL(input) {
-                     if (input.files && input.files[0]) {
-                         var reader = new FileReader();
-                         var index = $(input).index();
-                         reader.onload = function (e) {
-                             $($('#uploaded_files img')[index]).attr('src', e.target.result);
-                         }
-                         reader.readAsDataURL(input.files[0]);
-                     }
-                 }
-             
-                 $("input:file").change(function (e){
-                     readURL(this);
-                 });
-                 
-                 $("#uploaded_files .uploaded_img_container").click(function (e){
-                     console.log('clickooo');
-                      var index = $(e.target).index();
-                      console.log(index);
-                      $($('.newPaperclipFiles input')[index]).click();
-                  });
-             
-              });
-         </script>
-      </div>
+    <% end %>
+</div>
+<div class="row-fluid">
+        
       <div id="uploaded_files">
-          <div class="uploaded_img_container">
-              <img src="" />
-          </div>
-          <div class="uploaded_img_container">
-              <img src="" />
-          </div>
-          <div class="uploaded_img_container">
-              <img src="" />
-          </div>
-          <div class="uploaded_img_container">
-              <img src="" />
-          </div>
-          <div class="uploaded_img_container">
-              <img src="" />
-          </div>
-      </div>
-
-      <div class="existingPaperclipFiles">
-           <%= f.fields_for :assets do |asset| %>
-                <% unless asset.object.new_record? %>
-                      <div class="thumbnail">
-                              <%= link_to( image_tag(asset.object.image.url(:thumb)), asset.object.image.url(:original) ) %>
-                              <%= asset.check_box :_destroy %>
+          <% if(@ferrari.new_record?) %>
+            <%= f.fields_for :assets do |asset| %>
+                <% if asset.object.new_record? %>
+                    <div class="uploaded_img_container">
+                          <i class="icon-plus"></i>
+                          <img src="" />
                       </div>
-                <% end %>        
-           <% end %>
+                <% end %>
+            <% end %>
+          <% end %>
+      </div>
+<br />
+      <div class="existingPaperclipFiles">
+          <% unless(@ferrari.new_record?) %>
+          
+               <%= f.fields_for :assets do |asset| %>
+                    <% unless asset.object.new_record? %>
+                          <div class="thumbnail">
+                                  <%= link_to( image_tag(asset.object.image.url(:small)), asset.object.image.url(:original) ) %>
+                                  <%= asset.check_box :_destroy %>
+                          </div>
+                    <% end %>        
+               <% end %>
+          <% end %>
       </div>
 </div>
-<% if(@ferrari.new_record?) %>
-      <%= f.submit "Create", class: "btn btn-large btn-primary" %>
-  <% else %>
-      <%= f.submit "Edit", class: "btn btn-large btn-primary" %>
-  <% end %>
+
+<% unless(@ferrari.new_record?) %>
+      <script type="text/javascript" charset="utf-8">
+        $(function(){
+            App.AssetManagerItem = Backbone.Model.extend({
+                defaults : {
+                    id : undefined,
+                    list : undefined,
+                    modal : undefined
+                }
+            });
+            
+            App.AssetManager = Backbone.Model.extend({
+               url : "/ferraris/<%= @ferrari.id %>.json",
+               parse : function(result) {
+                   var items = [];
+                   _.each(result.assets_urls, function(item){
+                       items.push(new App.AssetManagerItem(item));
+                   });
+                   
+                   if(items.length != 10) {
+                       while(items.length < 10) {
+                           items.push(new App.AssetManagerItem());
+                       }
+                   }
+                   
+                   this.items = new Backbone.Collection(items);
+                   this.trigger("loadedCollection");
+               }
+            });
+            
+
+            App.AssetManagerView = Backbone.View.extend({
+                template : JST['assets_template'],
+                el : $(".existingPaperclipFiles"),
+                events : {
+                    "click .delete-asset-icon" : "deleteImage",
+                    "click .uploaded_img_container" : "addImage",
+                    "change #file" : "uploadImage"
+                },
+                initialize :function() {
+                    this.model.on("loadedCollection", this.render, this);
+                },
+                render : function() {
+                    var data = {
+                        items: this.model.items.toJSON()
+                    };
+                    var html = this.template(data);
+                    $(this.el).html(html);
+                },
+                
+                addImage : function(e) {
+                    e.preventDefault();
+                    this.target_div = e.currentTarget;
+                    $("#file").click();
+                },
+                
+                uploadImage : function(event) {
+                    event.preventDefault();
+                    var input = event.target;
+                    
+                    var fd = new FormData();    
+                    fd.append( 'file', input.files[0] );
+                    fd.append( 'id', "<%= @ferrari.id %>" );
+                    
+                    $(this.target_div).find("img").attr('src', "/assets/ajax-loader.gif");
+                    var scope = this;
+                    $.ajax({
+                      url: "/ferraris/add_image?&authenticity_token=" + $("meta[name='csrf-token']").attr("content"),
+                      data: fd,
+                      processData: false,
+                      contentType: false,
+                      type: 'POST',
+                      success: function(data){
+                        console.log(data);
+                        //updatePicture();
+                        App.assetManager.fetch();
+                      }
+                    });
+                    
+                    updatePicture = $.proxy(function(){
+                        if (input.files && input.files[0]) {
+                             var reader = new FileReader();
+                             var index = $(input).index();
+                             reader.onload = $.proxy(function (e) {
+                                 $(this.target_div).find("img").attr('src', e.target.result);
+                             },this);
+                             reader.readAsDataURL(input.files[0]);
+                         }
+                    }, this);
+                    /*
+                    if (input.files && input.files[0]) {
+                         var reader = new FileReader();
+                         var index = $(input).index();
+                         reader.onload = $.proxy(function (e) {
+                             $(this.target_div).find("img").attr('src', e.target.result);
+                         },this);
+                         reader.readAsDataURL(input.files[0]);
+                     }
+                     */
+                },
+                
+                deleteImage : function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    var id = e.currentTarget.dataset.id;
+                    console.log("should delete asset with id: " +id);
+                    $.ajax({
+                      type: "GET",
+                      url: "/ferraris/remove_image",
+                      data: { id: id },
+                    }).done(function( msg ) {
+                        //$(e.currentTarget).find("img").attr("src", "");
+                        alert( "Removed: " + msg[0].removed );
+                        App.assetManager.fetch();
+                    });
+                },
+            });
+            
+            App.AssetManagerItemView = Backbone.View.extend({
+                
+            });
+            
+            App.assetManager = new App.AssetManager();
+            App.assetManagerView = new App.AssetManagerView({model : App.assetManager});
+            App.assetManager.fetch();
+        });
+      </script>
+<% end %>
+
+
+<div class="row-fluid steps-bar-container">
+    <div class="span12 steps-bar">
+        <div class="span2 offset5 button-step">
+            Next Step
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    $(function() {
+         function readURL(input) {
+             if (input.files && input.files[0]) {
+                 var reader = new FileReader();
+                 var index = $(input).index();
+                 reader.onload = function (e) {
+                     $($('#uploaded_files img')[index]).attr('src', e.target.result);
+                 }
+                 reader.readAsDataURL(input.files[0]);
+             }
+         }
+     
+         $("input:file").change(function (e){
+             readURL(this);
+         });
+         
+         $("#uploaded_files .uploaded_img_container").on("click", function (e){
+             console.log('clickooo');
+              var index = $(e.currentTarget).index();
+              console.log(index);
+              $($('.newPaperclipFiles input')[index]).click();
+          });
+     
+      });
+ </script>
+
+<script type="text/javascript" charset="utf-8">
+    $(".button-step").click(function() {
+      $("#ferrari-form").submit();
+    });
+</script>
+
 <% end %>

@@ -39,29 +39,39 @@
     </div>
 </div>
 
-<% provide(:title, "Preview Ferrari for sale #{@ferrari.car_model_str} | #{@ferrari.car_year_str}") %>
-<% unless @ferrari.assets.length == 0 %>
-<div id="myCarousel" class="carousel slide">
-    <!-- Carousel items -->
-    <div class="carousel-inner">
-        <% @ferrari.assets.each_with_index do |asset, index| %>
-            <% if(index == 0) %>
-            <div class="item active">
-                <%= image_tag(asset.image.url(:slideshow)) %>
-            </div>
-            <% else %>
-            <div class="item">
-                <%= image_tag(asset.image.url(:slideshow)) %>
-            </div>
-            <% end %>
-        <% end %>
+<script type="text/javascript" charset="utf-8">
+    App.page = "sellferrari"
+</script>
+
+
+<div class="row-fluid sell-ferrari-form">
+    <div class="span4 padding-sellyour">
+        <label for="card_number">Card Number</label><input type="text" name="card_number" value="" id="card_number">
+        <label for="expiration_date">Expiration date</label><input type="text" name="expiration_date" value="" id="expiration_date">
+        <label for="cvv">CVV</label><input type="text" name="cvv" value="" id="cvv">
+        <label for="name_on_card">Name on Card</label><input type="text" name="name_on_card" value="" id="name_on_card">
+        <label for="country">Country</label><input type="text" name="country" value="" id="country">
+          
     </div>
-    <!-- Carousel nav -->
-    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    <div class="span4 padding-sellyour">
+        <label for="state_provice">State/Provice</label><input type="text" name="state_provice" value="" id="state_provice">  
+        <label for="phone_number">Phone Number</label><input type="text" name="phone_number" value="" id="phone_number">
+        <label for="address">Address</label><input type="text" name="address" value="" id="address">
+        <label for="zip_code">Zip Code</label><input type="text" name="zip_code" value="" id="zip_code">  
+    </div>
+    <div class="span4 padding-sellyour">
+        
+    </div>
 </div>
-<% end %>
 
 <div id="for-sale-proceed" class="btn btn-large btn-primary">
     Process
 </div>
+
+<script type="text/javascript" charset="utf-8">
+    $(function(){
+        $("#for-sale-proceed").on("click", function(){
+            window.location.href = "/ferraris/<%= @ferrari.id %>/publish"
+        })
+    })
+</script>
