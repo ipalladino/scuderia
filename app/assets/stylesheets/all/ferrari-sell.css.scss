@@ -34,7 +34,7 @@
     background:url(/assets/select_caret.png)  no-repeat right #E8E8E8;
 }
 
-.newPaperclipFiles {
+.ferrariPaperclipFiles {
     input[type="file"] {
         height: 110px;
         width: 179px;
@@ -167,6 +167,22 @@ input[type="color"]:focus,
     line-height: 30px !important;
 }
 
-.newPaperclipFiles {
+.ferrarisPaperclipFiles {
     display:none;
+}
+
+.field_with_errors {
+    padding: 2px !important;
+    background-color: #F7D6D6 !important;
+    display: block !important;
+}
+#error_explanation {
+    position: relative;
+    left: 10px;
+    ul {
+        list-style-type:none;
+    }
+    li {
+        list-style-type:none !important;
+    }
 }

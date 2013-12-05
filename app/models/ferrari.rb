@@ -18,6 +18,7 @@ class Ferrari < ActiveRecord::Base
   validates :vin, presence: true
   validates :color, presence: true
   validates :user, presence: true
+  validates :assets, presence: true
   
   def assets_urls
     urls = []

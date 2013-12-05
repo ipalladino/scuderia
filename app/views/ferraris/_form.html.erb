@@ -13,10 +13,10 @@
               <%= f.select :year_id, options_from_collection_for_select(@years, :id, :car_year, @ferrari.year_id), {}, {class: "select-input"} %>
           <% end %>
           <div id="car_model">
-                <% if(@ferrari.car_model_id.blank?) %>
+                <% if(@ferrari.car_model_id.blank? || !@car_models) %>
                       <%= label_tag :car_model_id,"Car Model" %>
                       <%= f.select :car_model_id, options_from_collection_for_select(CarModel.all, :id, :car_model), {}, {class: "select-input"}  %>
-                <% else %>
+                <% elsif(@car_models)%>
                       <%= label_tag :car_model_id,"Car Model" %>
                       <%= f.select :car_model_id, options_from_collection_for_select(@car_models, :id, :car_model, @ferrari.car_model_id), {}, {class: "select-input"}  %>
                 <% end %>
@@ -55,7 +55,7 @@
         <%= f.text_area :description %>
     </div>
 </div>
-<div class="newPaperclipFiles">
+<div class="ferrarisPaperclipFiles">
     <% if(@ferrari.new_record?) %>
         <%= f.fields_for :assets do |asset| %>
             <% if asset.object.new_record? %>

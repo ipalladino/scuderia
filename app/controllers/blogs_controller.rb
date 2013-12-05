@@ -28,7 +28,7 @@ class BlogsController < ApplicationController
   def new
     @blog = Blog.new
     5.times { @blog.assets.build }
-    
+    debugger
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @blog }
@@ -50,6 +50,7 @@ class BlogsController < ApplicationController
         format.html { redirect_to @blog, notice: 'Blog was successfully created.' }
         format.json { render json: @blog, status: :created, location: @blog }
       else
+        5.times { @blog.assets.build }
         format.html { render action: "new" }
         format.json { render json: @blog.errors, status: :unprocessable_entity }
       end

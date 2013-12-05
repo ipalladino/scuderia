@@ -196,10 +196,14 @@ class FerrarisController < ApplicationController
       flash[:success] = "The Ferrari post was created"
       redirect_to "/ferraris/#{@ferrari.id}/preview"
     else
-      @years = Year.all
+      @years = Year.order("car_year ASC").all
       @engines = Engine.all
       @transmissions = Transmission.all
-      render 'new'
+      10.times { @ferrari.assets.build }
+      respond_to do |format|
+        format.html { render action: "new" }
+        format.json { render json: @ferraris.errors, status: :unprocessable_entity }
+      end
     end
   end
   
