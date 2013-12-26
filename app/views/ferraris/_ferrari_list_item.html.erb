@@ -1,6 +1,16 @@
 <div class="ferrari-line span12">
     <div class="span12 details">
         <div class="span4 thumbnails">
+            <div class="ferrari-user-actions-menu">
+                 <div class="ferrari-user-action delete-action">
+                     <%= link_to raw("<i class='icon-trash_can'></i>"), ferrari_list_item, method: :delete,
+                                                         data: { confirm: "You sure?" },
+                                                         title: ferrari_list_item.car_model %>
+                 </div>
+                 <div class="ferrari-user-action edit-action">
+                     <%= link_to raw("<i class='icon-settings'></i>"), edit_ferrari_path(:id => ferrari_list_item.id) %>
+                  </div>
+             </div>
             <%= 
                 begin
                     image_tag(ferrari_list_item.assets[0].image.url(:modal), { data: {toggle: "modal", target: "#myModal#{ferrari_list_item.id}"}})
@@ -8,6 +18,7 @@
                     puts "Image not found"
                 end
              %>
+             
         </div>
         <div class="span8 ferrari-list-details">
             <div id="top-row">
@@ -19,9 +30,9 @@
                 </div>
                 <div id="right-col">
                     <% if(ferrari_list_item.published) %>
-                        PUBLISHED
+                        <span class="bold"><a href="/ferraris/<%= ferrari_list_item.id %>">PUBLISHED</a></span>
                     <% else %>
-                        <a href="/ferraris/<%= ferrari_list_item.id %>/preview">PUBLISH</a>
+                        <span class="bold"><a class="button" href="/ferraris/<%= ferrari_list_item.id %>/preview">PUBLISH</a></span>
                     <% end %>
                 </div>
             </div>
@@ -33,7 +44,14 @@
                     <a style="text-decoration:underline" href="/ferraris/<%= ferrari_list_item.id %>"><%= ferrari_list_item.car_model.car_model %></a>
                 </div>
                 <div id="right-col">
-                    Share on
+                    <% if(ferrari_list_item.published) %>
+                        Share on
+                        <span id="facebookbtn-link" class="share-button facebook" href="http://www.facebook.com/sharer/sharer.php?u=http://scuderia.herokuapp.com/ferraris/<%= ferrari_list_item.id %>"><i class="icon-facebook"></i></span>
+                        <span id="twitterbtn-link" class="share-button twitter" href="http://twitter.com/share?text=Check out this Ferrari <%= ferrari_list_item.car_model_str %> from <%= ferrari_list_item.car_year_str %>&hashtags=scuderia,ferrari&url=http://scuderia.herokuapp.com/ferraris/<%= ferrari_list_item.id %>"><i class="icon-twitter"></i></span>
+                    <% else %>
+                        
+                    <% end %>
+                    
                 </div>
             </div>
             <div id="bot-row">

@@ -1,0 +1,56 @@
+<div class="row-fluid" style="margin-bottom: 25px; margin-top:10px;">
+    <div class="span2 send-message">
+        <span class="msg-icon"><i class="icon-message"></i></span>
+        <span class="msg-text">
+            <% if(@user.new_record?) %>
+                Create User
+            <% else %>
+                <a href="http://gravatar.com/emails" />Change image</a> 
+            <% end %>
+        </span>
+    </div>
+    <div class="span10 light-input">
+        <%= form_for(@user) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        
+        <table class="table">
+              <tr><td class="user-table-label"><%= f.label :name %></td><td><%= f.text_field :name %></td><td></td></tr>
+              
+              <tr><td class="user-table-label"><%= f.label :email %></td><td><%= f.text_field :email %></td><td>Public? <%= f.check_box :public_email %></td></tr> 
+              
+              <tr><td class="user-table-label"><%= f.label :phone %></td><td><%= f.text_field :phone %></td><td>Public? <%= f.check_box :public_phone %></td></tr>
+
+              
+              <tr><td class="user-table-label"><%= f.label :state %></td><td><%= select_tag "user[state]", options_for_select(us_states) %></td>
+              <td>Public? <%= f.check_box :public_address %></td></tr>
+              
+              
+              <tr><td class="user-table-label"><%= f.label :address %></td><td><%= f.text_field :address %></td></tr>
+              
+              
+              <tr><td class="user-table-label"><%= f.label :zip %></td><td><%= f.text_field :zip %></td></tr>
+              
+              <tr><td class="user-table-label"><%= label_tag("user[is_dealer]", "Dealership") %></td><td><%= check_box_tag("user[is_dealer]") %></td></tr>
+              
+              <tr><td class="user-table-label"><%= f.label :password %></td><td><%= f.password_field :password %></td></tr>
+              
+              <tr><td class="user-table-label"><%= f.label :password_confirmation, "Confirm Password" %></td><td><%= f.password_field :password_confirmation %></td></tr>
+              
+          </table>
+          
+          <% end %>
+    </div>
+</div>
+<div class="row-fluid steps-bar-container">
+    <div class="span12 steps-bar">
+        <div class="span2 offset5 button-step">
+            Submit
+        </div>
+        <script type="text/javascript" charset="utf-8">
+            $(".button-step").click(function(){
+                console.log("click");
+                $("form").submit();
+            });
+        </script>
+    </div>
+</div>

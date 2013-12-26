@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131202084401) do
+ActiveRecord::Schema.define(:version => 20131212065001) do
 
   create_table "assets", :force => true do |t|
     t.integer  "ferrari_id"
@@ -228,6 +228,10 @@ ActiveRecord::Schema.define(:version => 20131202084401) do
     t.string   "phone"
     t.string   "zip"
     t.boolean  "is_dealer"
+    t.boolean  "public_email",    :default => false
+    t.boolean  "public_address",  :default => false
+    t.boolean  "public_phone",    :default => false
+    t.boolean  "public_dealer",   :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

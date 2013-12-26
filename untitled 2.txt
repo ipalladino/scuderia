@@ -1,0 +1,24 @@
+How to launch cidclient:
+Get build on usb
+Plug into Sony TV
+
+Make sure to have the latest content_id version, meaning: 
+    /gs/content_id/$ git pull inside gs/content_id
+    
+Then push cidserv and cidserv_proxy
+    push/push.py --roles=cidserv
+    push/push.py --roles=cidserv_proxy
+    
+Push your changes
+    
+Telnet to TV, lookup IP in Network settings of TV,
+Kill process cidclient 
+Launch:
+
+    /mnt/usb/sda1/$ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:cidclient/lib ./cidclient/bin/cidclient --loglevel=trace --domain=ignacio.flingo.tv
+
+Launch browser using:
+<IP>:8080/restart_browser?w=960&h=540&url=http://flingo.tv/apps/samba/?guid=SOME_GUID&cachebuster=fgergeger
+
+trace state:
+while True; do curl http://192.168.1.58:8080/content_id; echo; sleep 5; done

@@ -1,39 +1,22 @@
-<% provide(:title, 'Sign up') %>
-<h1>Sign up</h1>
+<% provide(:title, @user.name) %>
+
+<script type="text/javascript" charset="utf-8">
+    App.page = "userpage";
+</script>
 
 <div class="row">
-  <div class="span6 offset3">
-    <%= form_for(@user) do |f| %>
-      <%= render 'shared/error_messages', object: f.object %>
-
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-      
-      <%= f.label :phone %>
-      <%= f.text_field :phone %>
-      
-      <%= f.label :state %>
-      <%= select_tag :state, options_for_select(us_states) %> 
-      
-      <%= f.label :address %>
-      <%= f.text_field :address %>
-      
-      <%= f.label :zip %>
-      <%= f.text_field :zip %>
-      
-      <%= check_box_tag(:is_dealer) %>
-      <%= label_tag(:is_dealer, "Dealership") %>
-      
-      <%= f.label :email %>
-      <%= f.text_field :email %>
-
-      <%= f.label :password %>
-      <%= f.password_field :password %>
-
-      <%= f.label :password_confirmation, "Confirmation" %>
-      <%= f.password_field :password_confirmation %>
-
-      <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
-    <% end %>
-  </div>
+    <div class="span12 header-section header-sellferrari">
+            <div id="title">
+            Sign Up
+        </div>
+        <div id="description">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+        </div>
+        <div class="secondary-title">
+            Create your user
+        </div>
+    </div>
 </div>
+
+
+<%= render 'users/form' %>

@@ -11,6 +11,9 @@
     background-color: #E4E4E4;
     margin-bottom: 10px;
     overflow:hidden;
+    .thumbnails{
+        position:relative;
+    }
 }
 
 .ferrari-line-hover {
@@ -20,6 +23,8 @@
 
 .ferrari-line img {
         height: 155px !important;
+        position:relative;
+        z-index:1;
 }
 
 .modal {
@@ -64,7 +69,24 @@
     #desc-col {
         width:500px;
     }
-    
+    a {
+        text-decoration:underline;
+        display:inline-block;
+        line-height: 40px;
+    }
+    a:hover {
+        background-color:transparent;
+        color:#333333;
+    }
+    .button {
+        line-height: 40px;
+        padding-left: 15px;
+        padding-right: 15px;
+        background-color:#FCD112;
+    }
+    .button:hover {
+        background-color:#000000;
+    }
 }
 
 #forsale {
@@ -199,4 +221,25 @@ input[type="color"],
   background-color:#202020;
   border-radius:0;
   height:30px;
+}
+
+
+.ferrari-user-actions-menu {
+    position:absolute;
+    z-index:2;
+    bottom:0px;
+    right:0px;
+    .ferrari-user-action {
+        display:block;
+        float:left;
+    }
+    .ferrari-user-action a {
+        background-color:#FCD112;
+        display:block;
+        padding:5px;
+    }
+    .ferrari-user-action a:hover {
+        background-color:#000000;
+    }
+    
 }

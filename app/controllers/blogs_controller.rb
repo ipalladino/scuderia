@@ -28,7 +28,6 @@ class BlogsController < ApplicationController
   def new
     @blog = Blog.new
     5.times { @blog.assets.build }
-    debugger
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @blog }

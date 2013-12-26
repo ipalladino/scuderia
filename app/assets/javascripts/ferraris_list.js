@@ -108,6 +108,7 @@ App.FerrarisModel = Backbone.Model.extend({
         if(options== undefined) {
             options = {};
         }
+        
         this.collection.fetch({data : options, reset : true});
     },
     

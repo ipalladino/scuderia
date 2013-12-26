@@ -33,6 +33,8 @@ class FerrarisController < ApplicationController
     prce_fr = params[:prce_fr]
     prce_to = params[:prce_to]
     sort_by = params[:sort_by]
+    user_id = params[:user_id]
+    
     
     #debugger
     if(yrfr_id && yrfr_id.empty?)
@@ -69,6 +71,11 @@ class FerrarisController < ApplicationController
       sort_by = "created_at:DESC".split(":")
     else
       sort_by = sort_by.split(":")
+    end
+    
+    if(user_id)
+      ferraris = Ferrari.find(:all, conditions: ["user_id = #{user_id} AND published = TRUE"], order: "#{sort_by[0]} #{sort_by[1]}")
+      return render json: ferraris.to_json(methods: [:assets_urls, :car_model_str, :car_year_str])
     end
     
     if(modl_id == nil && !prce_to && !prce_fr && !yrfr_id && !yrto_id)   

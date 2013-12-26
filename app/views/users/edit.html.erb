@@ -1,42 +1,40 @@
-<% provide(:title, "Edit user") %>
-<h1>Update your profile</h1>
+<% provide(:title, @user.name) %>
+
+<script type="text/javascript" charset="utf-8">
+    App.page = "userpage";
+</script>
 
 <div class="row">
-  <div class="span6 offset3">
-    <%= form_for(@user) do |f| %>
-      <%= render 'shared/error_messages', object: f.object %>
-
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-      
-      <%= f.label :phone %>
-      <%= f.text_field :phone %>
-
-      <%= f.label :state %>
-      <%= select_tag "user[state]", options_for_select(us_states) %> 
-
-      <%= f.label :address %>
-      <%= f.text_field :address %>
-
-      <%= f.label :zip %>
-      <%= f.text_field :zip %>
-
-      <%= check_box_tag("user[is_dealer]") %>
-      <%= label_tag("user[is_dealer]", "Dealership") %>
-
-      <%= f.label :email %>
-      <%= f.text_field :email %>
-
-      <%= f.label :password %>
-      <%= f.password_field :password %>
-
-      <%= f.label :password_confirmation, "Confirm Password" %>
-      <%= f.password_field :password_confirmation %>
-
-      <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
-    <% end %>
-
-    <%= gravatar_for @user %>
-    <a href="http://gravatar.com/emails">change</a>
-  </div>
+    <div class="span12 header-section header-sellferrari">
+            <div id="title">
+            <% if(@user == current_user) %>
+                My Profile
+            <% else %>
+                <%= @user.name %>
+            <% end %>
+        </div>
+        <div id="description">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+        </div>
+        <div class="secondary-title">
+            <% if(@user == current_user) %>
+                Review your profile
+            <% else %>
+                Contact user
+            <% end %>
+        </div>
+    </div>
 </div>
+
+
+<div class="row-fluid">
+    <div class="span2 avatar">
+        <%= gravatar_for @user %>
+    </div>
+    <div class="span10 user-title">
+        <%= @user.name %>
+    </div>
+</div>
+
+
+<%= render 'users/form' %>

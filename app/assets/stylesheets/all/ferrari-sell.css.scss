@@ -47,6 +47,7 @@
     position:relative;
     
     .uploaded_img_container {
+        cursor:pointer;
         position:relative;
         height: 110px;
         width: 180px;
@@ -92,7 +93,7 @@
     input[type="search"], 
     input[type="tel"], 
     input[type="color"], 
-    .uneditable-input:focus {
+    .uneditable-input {
         color: #000000;
         padding: 5px;
         line-height: 1;
@@ -111,6 +112,32 @@
     }
     .input-sellferrari {
         height:34px;
+    }
+    
+    textarea:focus,
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    input[type="datetime"]:focus,
+    input[type="datetime-local"]:focus,
+    input[type="date"]:focus,
+    input[type="month"]:focus,
+    input[type="time"]:focus,
+    input[type="week"]:focus,
+    input[type="number"]:focus,
+    input[type="email"]:focus,
+    input[type="url"]:focus,
+    input[type="search"]:focus,
+    input[type="tel"]:focus,
+    input[type="color"]:focus,
+    .uneditable-input:focus {
+          border-color: #FCD112;
+          outline: 0;
+          outline: thin dotted \9;
+          /* IE6-9 */
+
+          -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+          -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
     }
 }
     
