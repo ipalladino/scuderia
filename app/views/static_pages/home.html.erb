@@ -5,27 +5,38 @@
 <div id="slideshow" class="carousel slide">
   <!-- Carousel items -->
   <div class="carousel-inner">
-      <% @featured.each_with_index do |ferrari, index| %>
-          <% if ferrari.assets.first && ferrari.assets.first.image %>
-              <% if(index == 0) %>
-              <div class="item active">
-                  <%= image_tag(ferrari.assets.first.image.url(:homepage)) %>
-                  <div class="carousel-caption">
-                      <div class="home-title"><%= ferrari.year.car_year %> | <%= ferrari.car_model.car_model %> | <span class="home-price">$<%= ferrari.price %></span></div>
-                      <div class="home-description"><%= ferrari.description %></div>
-                  </div>
+      <% if @featured.length > 0 %>
+          <% @featured.each_with_index do |ferrari, index| %>
+              <% if ferrari.assets.first && ferrari.assets.first.image %>
+                  <% if(index == 0) %>
+                  <div class="item active">
+                      <%= image_tag(ferrari.assets.first.image.url(:homepage)) %>
+                      <div class="carousel-caption">
+                          <div class="home-title"><%= ferrari.year.car_year %> | <%= ferrari.car_model.car_model %> | <span class="home-price">$<%= ferrari.price %></span></div>
+                          <div class="home-description"><%= ferrari.description %></div>
+                      </div>
               
-              </div>
-              <% else %>
-              <div class="item">
-                  <%= image_tag(ferrari.assets.first.image.url(:homepage)) %>
-                  <div class="carousel-caption">
-                      <div class="home-title"><%= ferrari.year.car_year %> | <%= ferrari.car_model.car_model %> | <span class="home-price">$<%= ferrari.price %></span></div>
-                      <div class="home-description"><%= ferrari.description %></div>
                   </div>
-              </div>
+                  <% else %>
+                  <div class="item">
+                      <%= image_tag(ferrari.assets.first.image.url(:homepage)) %>
+                      <div class="carousel-caption">
+                          <div class="home-title"><%= ferrari.year.car_year %> | <%= ferrari.car_model.car_model %> | <span class="home-price">$<%= ferrari.price %></span></div>
+                          <div class="home-description"><%= ferrari.description %></div>
+                      </div>
+                  </div>
+                  <% end %>
               <% end %>
           <% end %>
+      <% else %>
+        <div class="item active">
+              <%= image_tag("/assets/portada_nocars.jpg") %>
+              <div class="carousel-caption">
+                  <div class="home-title">SCUDERIA.COM %> | <span class="home-price">NO CARS PUBLISHED</span></div>
+                  <div class="home-description">It looks like the app was recently created, there's no cars to show.termi</div>
+              </div>
+      
+          </div>
       <% end %>
   </div>
   <!-- Carousel nav -->

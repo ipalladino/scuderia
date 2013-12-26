@@ -1,5 +1,11 @@
-# Ruby on Rails Tutorial: sample application
+# SCUDERIA.COM
 
-This is the sample application for
-[*Ruby on Rails Tutorial: Learn Rails by Example*](http://railstutorial.org/)
-by [Michael Hartl](http://michaelhartl.com/).
+Building 
+[*scuderia.com*](http://scuderia.herokuapp.org/)
+by [Ignacio Palladino](http://ignaciopalladino.com/).
+
+== About the site
+
+For a long time there has been a need for a place where Ferrari enthusiasts can trade their cars and be up to date with the most recent Ferrari news. Scuderia.com aims to take care if this as a whole, a complete portal to services and news.
+
+This could me modified to work with any specific brands.
