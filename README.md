@@ -1,7 +1,7 @@
 # SCUDERIA.COM
 
 Building 
-[*scuderia.com*](http://scuderia.herokuapp.org/)
+[*scuderia.com*](http://scuderia.herokuapp.com/)
 by [Ignacio Palladino](http://ignaciopalladino.com/).
 
 == About the site
