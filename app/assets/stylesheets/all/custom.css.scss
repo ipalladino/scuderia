@@ -38,7 +38,7 @@ textarea {
 
 /* typography */
 
-h1, h2, h3, h4, h5, h6 {
+h1, h3, h4, h5, h6 {
   line-height: 1;
 }
 
@@ -51,11 +51,13 @@ h1 {
 
 h2 {
   font-size: 1.7em;
+  margin: 0 auto !important;
   letter-spacing: -1px;
-  margin-bottom: 30px;
-  text-align: center;
+  text-align: left;
   font-weight: normal;
-  color: $grayLight;
+  color: #fcd112;
+  font-family:"Conv_Gotham-Medium";
+  padding:10px;
 }
 
 p {

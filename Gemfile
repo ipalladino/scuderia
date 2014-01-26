@@ -16,6 +16,7 @@ gem "ejs"
 gem "rails_12factor"
 gem  "wikipedia-client", :github => "kenpratt/wikipedia-client"
 gem "wikicloth", "~> 0.8.0"
+gem 'rails-timeago', '~> 2.0'
 
 group :development do
   gem 'pg', '0.12.2'

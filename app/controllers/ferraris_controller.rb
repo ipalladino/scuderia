@@ -27,38 +27,17 @@ class FerrarisController < ApplicationController
   end
   
   def search
-    yrfr_id = params[:yrfr_id]
-    yrto_id = params[:yrto_id]
-    modl_id = params[:modl_id]
+    year_fr = params[:year_fr]
+    year_to = params[:year_to]
+    modelstr = params[:model]
     prce_fr = params[:prce_fr]
     prce_to = params[:prce_to]
     sort_by = params[:sort_by]
     user_id = params[:user_id]
     
     
-    #debugger
-    if(yrfr_id && yrfr_id.empty?)
-      yrfr_id = nil
-    else
-      begin
-        yrfr = Year.find(yrfr_id).car_year
-      rescue
-        yrfr = nil
-      end
-    end
-    
-    if(yrto_id && yrto_id.empty?)
-      yrto_id = nil
-    else
-      begin
-        yrto = Year.find(yrto_id).car_year
-      rescue
-        yrto = nil
-      end
-    end
-    
-    if(modl_id && modl_id.empty?)
-      modl_id = nil
+    if(modelstr && modelstr.empty?)
+      modelstr = nil
     end
     if(prce_to && prce_to.empty?)
       prce_to = nil
@@ -78,34 +57,57 @@ class FerrarisController < ApplicationController
       return render json: ferraris.to_json(methods: [:assets_urls, :car_model_str, :car_year_str])
     end
     
-    if(modl_id == nil && !prce_to && !prce_fr && !yrfr_id && !yrto_id)   
+    if(modelstr == nil && !prce_to && !prce_fr && !year_fr && !year_to)   
         ferraris = Ferrari.find(:all, conditions: ["published = TRUE"], order: "#{sort_by[0]} #{sort_by[1]}")
     end
     
-    if(modl_id)
-      #begin
-        fmodel = CarModel.find(modl_id)
-        if(fmodel && prce_to == nil && prce_fr == nil)
-          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ? AND published = TRUE",fmodel.car_model], order: "#{sort_by[0]} #{sort_by[1]}")
-        elsif(fmodel && prce_to && prce_fr)
-          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ? AND price >= ? AND price <= ? AND published = TRUE",fmodel.car_model, prce_fr, prce_to], order: "#{sort_by[0]} #{sort_by[1]}")
-        elsif(fmodel && prce_to && !prce_fr)
-          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ? AND price <= ? AND published = TRUE",fmodel.car_model, prce_to], order: "#{sort_by[0]} #{sort_by[1]}")
-        elsif(fmodel && !prce_to && prce_fr)
-          ferraris = Ferrari.joins(:car_model).find(:all, conditions: ["car_model = ? AND price >= ? AND published = TRUE",fmodel.car_model, prce_fr], order: "#{sort_by[0]} #{sort_by[1]}")
-        end   
-      #rescue
-        print "invalid model"
-      #end
+    if(modelstr)        
+        query_string_for_models = "car_model like '%"+modelstr+"%'"
+        puts "searching: " +query_string_for_models
+
+        backup_search = Ferrari.joins(:car_model).find(:all, conditions: query_string_for_models, order: "#{sort_by[0]} #{sort_by[1]}")
+
+        if(prce_to)
+          if(!query_string_for_models.empty?)
+            query_string_for_models += " AND "
+          end
+          query_string_for_models += "price <= #{prce_to}"
+        end
+        if(prce_fr)
+          if(!query_string_for_models.empty?)
+            query_string_for_models += " AND "
+          end
+          query_string_for_models += "price >= #{prce_fr}"
+        end
+        
+        if(year_fr && !year_fr.empty?)
+          if(!query_string_for_models.empty?)
+            query_string_for_models += " AND "
+          end
+          query_string_for_models += "car_year >= '#{year_fr}'"
+        end
+        
+        if(year_to && !year_to.empty?)
+          if(!query_string_for_models.empty?)
+            query_string_for_models += " AND "
+          end
+          query_string_for_models += "car_year <= '#{year_to}'"
+        end
+        
+        ferraris = Ferrari.joins(:car_model, :year).find(:all, conditions: query_string_for_models, order: "#{sort_by[0]} #{sort_by[1]}")
+        
+        if(ferraris.length == 0 && backup_search.length == 0)
+          ferraris = Ferrari.find(:all, conditions: ["published = TRUE"], order: "#{sort_by[0]} #{sort_by[1]}")
+        end
+        ferraris.concat backup_search
     else
-        #debugger
         query = ""
-        if(yrto && yrfr)
-          query = "car_year >= '#{yrfr}' AND car_year <= '#{yrto}'"
-        elsif(yrto && !yrfr)
-          query = "car_year = '#{yrto}'"
-        elsif(yrfr && !yrto)
-          query = "car_year = '#{yrfr}'"
+        if(year_to && year_fr)
+          query = "car_year >= '#{year_fr}' AND car_year <= '#{year_to}'"
+        elsif(year_to && !year_fr)
+          query = "car_year = '#{year_to}'"
+        elsif(year_fr && !year_to)
+          query = "car_year = '#{year_fr}'"
         end
         
         if(prce_to && prce_fr)

@@ -14,12 +14,12 @@ $(function() {
   if(App.page=="ferraris"){
   console.log("PAGE: "+App.page);
   $("#year-fr").on("focus", function(e) {
-      if(e.currentTarget.value == "Year Fr")
+      if(e.currentTarget.value == "Year From")
         e.currentTarget.value = "";
   })
   $("#year-fr").on("blur", function(e) {
       if(e.currentTarget.value == "") {
-          e.currentTarget.value = "Year Fr";
+          e.currentTarget.value = "Year From";
           $("#yrfr_id").val("");
       }
         
@@ -47,12 +47,12 @@ $(function() {
   })
   //PRICE
   $("#prce_fr").on("focus", function(e) {
-      if(e.currentTarget.value == "Price Fr")
+      if(e.currentTarget.value == "Price From")
           e.currentTarget.value = "";
   })
   $("#prce_fr").on("blur", function(e) {
         if(e.currentTarget.value == "")
-            e.currentTarget.value = "Price Fr";
+            e.currentTarget.value = "Price From";
   })
   $("#prce_to").on("focus", function(e) {
       if(e.currentTarget.value == "Price To")
@@ -83,7 +83,6 @@ $(function() {
       select: function(event, ui) {
           event.preventDefault();
           $("#year-fr").val(ui.item.label);
-          $("#yrfr_id").val(ui.item.value);
       },
       focus: function(event, ui) {
           event.preventDefault();
@@ -108,7 +107,6 @@ $(function() {
       select: function(event, ui) {
           event.preventDefault();
           $("#year-to").val(ui.item.label);
-          $("#yrto_id").val(ui.item.value);
       },
       focus: function(event, ui) {
           event.preventDefault();
@@ -134,7 +132,7 @@ $(function() {
       var year_fr = Number($("#year-fr").attr("value")),
           year_to = Number($("#year-to").attr("value"));
 
-      var blank_fr = (syea_fr == "" || syea_fr == "Year Fr")? true : false;
+      var blank_fr = (syea_fr == "" || syea_fr == "Year From")? true : false;
       var blank_to = (syea_to == "" || syea_to == "Year To")? true : false;
 
       if((year_fr >= Number(years[0].label) && year_fr <= year_to && year_to <= Number(years[years.length-1].label)) ||
@@ -157,7 +155,6 @@ $(function() {
                         select: function(event, ui) {
                             event.preventDefault();
                             $("#model").val(ui.item.label);
-                            $("#modl_id").val(ui.item.value);
                         },
                         focus: function(event, ui) {
                             event.preventDefault();
@@ -185,21 +182,24 @@ $(function() {
   $("#year-to").on("blur", checkAndFilterModels);
   $("#submit").on("click", function() {
       console.log("Submit");
-      var model = $("#modl_id").val().trim();
+      var model = $("#model").val().trim();
       if(model == "" || model == "Model") {
           model = "";
       }
-      price_to = ($("#prce_to").val() != "Price To")? $("#prce_to").val() : price_to = "";
-      price_fr = ($("#prce_fr").val() != "Price Fr")? $("#prce_fr").val() : price_fr = "";
-      yrfr_id = $("#yrfr_id").val();
-      yrto_id = $("#yrto_id").val();
+      
+      var reg = /^\d+$/;
+      
+      price_to = (reg.test($("#prce_to").val()))? $("#prce_to").val() : price_to = "";
+      price_fr = (reg.test($("#prce_fr").val()))? $("#prce_fr").val() : price_fr = "";
+      year_fr = (reg.test($("#year-fr").val()))? $("#year-fr").val() : "" ;
+      year_to = (reg.test($("#year-to").val()))? $("#year-to").val() : "" ;
       
       App.carsColl.fetch({reset: true, data: {
           prce_to : price_to,
           prce_fr : price_fr,
-          yrfr_id : yrfr_id,
-          yrto_id : yrto_id,
-          modl_id : model
+          year_fr : year_fr,
+          year_to : year_to,
+          model : model
       }})
   });
   

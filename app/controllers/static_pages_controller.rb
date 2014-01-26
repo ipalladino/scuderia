@@ -28,7 +28,9 @@ class StaticPagesController < ApplicationController
   end
   
   def inbox
-    @inbox = current_user.mailbox.inbox
+    @inbox = current_user.mailbox.conversations
+    #@inbox = current_user.mailbox.outbox
+    @unread = current_user.mailbox.inbox({:read => false}).count
   end
   
   def conversation

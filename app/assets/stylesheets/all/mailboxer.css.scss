@@ -1,0 +1,26 @@
+.unread {
+    color: white;
+    font-family: "Conv_Gotham-Book";
+    font-size: 0.5em;
+    background-color: black;
+    border-radius: 8px;
+    position: relative;
+    z-index: 2;
+    width: 15px;
+    display: inline-block;
+    height: 14px;
+    line-height: 15px;
+    text-align: center;
+    text-indent: -1px;
+    top: -10px;
+    left: -6px;
+}
+
+.darker-row {
+    background-color:#dddddd;
+}
+
+.inbox tr i {
+    margin-right: 5px;
+    margin-top: -1px;
+}

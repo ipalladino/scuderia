@@ -53,6 +53,8 @@ module SampleApp
     # parameters by using an attr_accessible or attr_protected declaration.
     config.active_record.whitelist_attributes = true
     
+    Rails::Timeago.default_options :limit => proc { 20.days.ago }, :nojs => true
+    
     config.assets.precompile += ['application-screen.css', 'application-print.css']
     
     # Enable the asset pipeline

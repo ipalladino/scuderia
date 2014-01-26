@@ -1,6 +1,26 @@
-<h1>CONVERSATIONS</h1>
-<table class="table">
-    <tr><th>Participants</th><th>Subject</th><th>Created at</th><th>Trash</th></tr>
+<div class="row">
+    <div class="span12 header-section header-sellferrari">
+        <div id="title">
+            My Conversations
+        </div>
+        <div id="description">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+        </div>
+        <div class="secondary-title">
+            A simple chat email
+        </div>
+    </div>
+</div>
+
+<h2>Conversations &nbsp;&nbsp;<i class="icon-mail" style="position:relative;top:3px;"></i>
+    <% if @unread >= 0 %>
+    <span class="unread"><%= @unread %></span>
+    <% end %>
+</h2>
+<p style="padding:10px;margin-top:-10px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+
+<table class="table inbox">
+    <tr class="darker-row"><th><i class="icon-user"></i>Participants</th><th><i class="icon-discussion"></i>Message</th><th><i class="icon-clock"></i>Created at</th><th>Trash</th></tr>
 <% @inbox.each do |m| %>
     <% if(!m.is_trashed?(current_user) or m.is_unread?(current_user)) %>
     <tr>
@@ -18,7 +38,7 @@
             <%= link_to m.subject, "/inbox/conversation?id=#{m.id}" %>
         <% end %>
         </td>
-        <td><%= m.created_at %></td>
+        <td><%= timeago_tag m.updated_at, :nojs => true %></td>
         <td><%= link_to raw("<i class='icon-trash'></i>") , "/inbox/conversation?id=#{m.id}&delete=1" %></td>
     </tr>
     <% end %>

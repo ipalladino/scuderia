@@ -19,7 +19,7 @@ body {
     background-color: #000000 !important;
     background-position-y: 502px;
     background-repeat: no-repeat;
-    background-image: url(/assets/backgroundgradient.jpg);
+    background-image: url(/assets/backgroundgradientflip.jpg);
     color:#000000;
 }
 
@@ -86,4 +86,3 @@ select {
     top: 10%;
     left: 10%;
 }
-

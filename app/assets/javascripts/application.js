@@ -17,6 +17,7 @@
 //= require underscore
 //= require dropzone
 //= require backbone
+//= require rails-timeago
 //= require spin
 //= require_tree ../templates
 //= require ferraris_list
