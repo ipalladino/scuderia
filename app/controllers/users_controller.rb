@@ -10,18 +10,44 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(page: params[:page])
   end
   
   def create
-    @user = User.new(params[:user])
+    if(params['oauth_token'])
+      #create using facebook
+      @user = User.create_through_fb(params[:user])
+      @user.save
+    else
+      #create by itself
+      @user = User.new(params[:user])
+    end
+    
     if @user.save
       sign_in @user
-      flash[:success] = "Welcome to the Sample App!"
+      flash[:success] = "Welcome to Scuderia!"
       redirect_to @user
     else
       render 'new'
     end
+  end
+  
+  def facebook_callback
+    @user_fb = request.env['omniauth.auth']
+    user = User.find_by_uid(@user_fb.uid)
+    if(user)
+      sign_in user
+      redirect_to user
+      return
+    end
+    if(signed_in?)
+      current_user.add_fb_details(@user_fb)
+      redirect_to current_user
+      return
+    else
+      @user = User.new
+    end
+    
+    render 'facebook_callback', :layout => "login"
   end
   
   def edit

@@ -1,0 +1,30 @@
+<div class="div-login-facebook" style="margin-bottom: 25px; margin-top:10px;">
+    <div id="logo">
+        <h1 id="">SCUDERIA.COM</h1>
+    </div>
+    <div id="image">
+        <img src="<%= @user_fb.info.image %>">
+    </div>
+    <div class="form light-input">
+        <%= form_for(@user) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        
+        <table class="table">
+              <tr><td><%= f.text_field :name, value: @user_fb.info.name %></td></tr>
+              
+              <tr><td><%= f.text_field :email, value: @user_fb.info.email %></td></tr> 
+              
+              <tr><td><%= f.password_field :password, :placeholder => "Password"  %></td></tr>
+              
+              <tr><td><%= f.password_field :password_confirmation, :placeholder => "Password Confirmation"  %></td></tr>
+              <tr><td><input type="submit" name="submit" value="Submit"></td></tr>
+              <input type="hidden" name="user[oauth_token]" value="<%= @user_fb.credentials.token %>">
+              <input type="hidden" name="user[oauth_expires_at]" value="<%= @user_fb.credentials.expires_at %>">
+              <input type="hidden" name="user[provider]" value="<%= @user_fb.provider %>">
+              <input type="hidden" name="user[uid]" value="<%= @user_fb.uid %>">
+              
+          </table>
+          
+          <% end %>
+    </div>
+</div>

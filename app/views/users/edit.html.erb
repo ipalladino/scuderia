@@ -29,7 +29,7 @@
 
 <div class="row-fluid">
     <div class="span2 avatar">
-        <%= gravatar_for @user %>
+        <img src="<%= profile_image(@user) %>" />
     </div>
     <div class="span10 user-title">
         <%= @user.name %>

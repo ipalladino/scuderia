@@ -1,5 +1,45 @@
 @import "bootstrap";
 
+#login-body {
+    background-position-y: 0px;
+    color:#f0f0f0;
+    padding-top:20px;
+    #image {
+        position:relative;
+        top:-13px;
+    }
+    .container {
+        text-align:center;
+        background-color:transparent;
+        .div-login-facebook{
+            display:inline-block;
+            width:430px;
+            text-align:center;
+            .form {
+                background-color:rgba(0,0,0,0.5);
+                border-radius:5px;
+                padding:10px;
+                input[type="submit"] {
+                    background-color:#fcd112;
+                    border:none;
+                    font-size:1.2em;
+                }
+            }
+            p {
+                font-size:16px;
+            }
+            a {
+                color:#fcd112;
+            }
+        }
+    }
+    .table {
+        td {
+            border:none;
+        }
+    }
+}
+
 /* mixins, variables, etc. */
 
 $grayMediumLight: #eaeaea;

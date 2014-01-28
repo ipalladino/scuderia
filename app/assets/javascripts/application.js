@@ -15,7 +15,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require underscore
-//= require dropzone
+//= require watermark
 //= require backbone
 //= require rails-timeago
 //= require spin

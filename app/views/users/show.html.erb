@@ -29,7 +29,8 @@
 
 <div class="row-fluid">
     <div class="span2 avatar">
-        <%= gravatar_for @user %>
+        <!-- %= gravatar_for @user % -->
+        <img src="<%= profile_image(@user) %>" />
     </div>
     <div class="span10 user-title">
         <%= @user.name %>
@@ -101,6 +102,17 @@
                   <% end %>
               </td></tr>
               <% end %>
+              
+              <% if(@user == current_user) %>
+                <tr><td><i class="icon-facebook_circle" style="font-size:30px;"></i></td><td>
+                    <% if(@user.uid) %>
+                        SYNCED
+                    <% else %>
+                        <a href="/auth/facebook">NOT SYNCED</a>
+                    <% end %>
+                </td></tr>
+              <% end %>
+              
           </table>
     </div>
 </div>

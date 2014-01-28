@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= full_title(yield(:title)) %></title>
+    <%= stylesheet_link_tag    "application", media: "all" %>
+    <%= stylesheet_link_tag    "application-screen", media: "only screen and (min-device-width: 1280px)" %>
+    <%= stylesheet_link_tag    "application-print", media: "print" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <%= render 'layouts/shim' %>    
+    
+    <%= yield :head %>
+    <meta property="og:title" content="SCUDERIA.COM | <%= get_meta_title(yield(:meta_title), yield(:meta_year)) %>" />
+    <meta property="og:description" content="<%= get_meta(yield(:meta_description), "description") %>" />
+    <meta property="og:image" content="<%= get_meta(yield(:meta_image), "image") %>" />
+  </head>
+  <body id="login-body">
+    <div class="container">
+      <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
+      <%= yield %>
+      <%= debug(params) if Rails.env.development? %>
+    </div>
+  </body>
+</html>

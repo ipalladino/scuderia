@@ -1,6 +1,13 @@
 class SessionsController < ApplicationController
   
   def new
+    render 'new', :layout => "login"
+  end
+  
+  def create_facebook
+    user = User.from_omniauth(env["omniauth.auth"])
+    sign_in user
+    redirect_to root_url
   end
   
   def create
@@ -10,7 +17,7 @@ class SessionsController < ApplicationController
       redirect_back_or user
     else
       flash.now[:error] = 'Invalid email/password combination'
-      render 'new'
+      render 'new', :layout => "login"
     end
   end
   

@@ -10,7 +10,7 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :name, :email, :password, :password_confirmation, :address, :zip, :state, :is_dealer, :phone, :public_phone, :public_email, :public_address, :public_dealer
+  attr_accessible :name, :email, :password, :password_confirmation, :address, :zip, :state, :is_dealer, :phone, :public_phone, :public_email, :public_address, :public_dealer, :provider, :oauth_token, :oauth_expires_at, :uid
   has_secure_password
   has_many :microposts, dependent: :destroy
   has_many :ferraris, dependent: :destroy
@@ -33,20 +33,49 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true
   acts_as_messageable
   
-  def feed
-    Micropost.from_users_followed_by(self)
+  
+  def self.from_omniauth(auth)
+    where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user.name = auth.info.name
+      user.oauth_token = auth.credentials.token
+      user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+      user.save!
+    end
   end
   
-  def following?(other_user)
-    relationships.find_by_followed_id(other_user.id)
+  def add_fb_details(auth)
+    self.provider = auth.provider
+    self.uid = auth.uid
+    self.oauth_token = auth.credentials.token
+    self.oauth_expires_at = Time.at(auth.credentials.expires_at)
+    self.save
   end
-
-  def follow!(other_user)
-    relationships.create!(followed_id: other_user.id)
+  
+  def self.create_through_fb(auth)
+    debugger
+    where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user.name = auth.name
+      user.email = auth.email
+      user.oauth_token = auth.oauth_token
+      user.oauth_expires_at = Time.at(auth.oauth_expires_at)
+      user.save!
+    end
   end
-
-  def unfollow!(other_user)
-    relationships.find_by_followed_id(other_user.id).destroy
+  
+  def facebook
+    @facebook ||= Koala::Facebook::API.new(oauth_token)
+    block_given? ? yield(@facebook) : @facebook
+  rescue Koala::Facebook::APIError => e
+    logger.info e.to_s
+    nil # or consider a custom null object
+  end
+  
+  def picture
+    self.facebook.get_picture("me", {:type => "large"})
   end
   
   private
