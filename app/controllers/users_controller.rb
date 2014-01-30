@@ -39,8 +39,15 @@ class UsersController < ApplicationController
       redirect_to user
       return
     end
+    #debugger
     if(signed_in?)
-      current_user.add_fb_details(@user_fb)
+      user_details = {
+        provider:         @user_fb.provider,
+        uid:              @user_fb.uid,
+        oauth_token:      @user_fb.credentials.token,
+        oauth_expires_at: Time.at(@user_fb.credentials.expires_at)
+      }
+      current_user.update_attributes!(user_details)
       redirect_to current_user
       return
     else

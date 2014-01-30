@@ -29,10 +29,14 @@ class User < ActiveRecord::Base
   validates :email, presence:   true,
                     format:     { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
-  validates :password, presence: true, length: { minimum: 6 }
-  validates :password_confirmation, presence: true
+  validates :password, presence: true, length: { minimum: 6 }, :if => :validate_password?
+  validates :password_confirmation, presence: true, :if => :validate_password?
+  
   acts_as_messageable
   
+  def validate_password?
+    password.present? || password_confirmation.present?
+  end
   
   def self.from_omniauth(auth)
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
@@ -50,7 +54,6 @@ class User < ActiveRecord::Base
     self.uid = auth.uid
     self.oauth_token = auth.credentials.token
     self.oauth_expires_at = Time.at(auth.credentials.expires_at)
-    self.save
   end
   
   def self.create_through_fb(auth)
