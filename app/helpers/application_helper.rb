@@ -32,8 +32,11 @@ module ApplicationHelper
     end
   end
   
-  def proxy
+  def proxy(url)
     RestClient.proxy = ENV["PROXIMO_URL"] if ENV["PROXIMO_URL"]
-    RestClient::Resource.new(ENV["PROXY_URL"] || "https://httpbin.org")
+    res = RestClient.get(url)
+
+    puts "status code", res.code
+    puts "headers", res.headers
   end
 end
