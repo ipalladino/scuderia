@@ -19,6 +19,7 @@ gem "wikicloth", "~> 0.8.0"
 gem 'rails-timeago', '~> 2.0'
 gem 'omniauth-facebook'
 gem 'koala'
+gem 'rest-client'
 
 group :development do
   gem 'pg', '0.12.2'
