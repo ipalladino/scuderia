@@ -31,4 +31,9 @@ module ApplicationHelper
       return "Ferrari #{year} | #{title}"
     end
   end
+  
+  def proxy
+    RestClient.proxy = ENV["PROXIMO_URL"] if ENV["PROXIMO_URL"]
+    RestClient::Resource.new(ENV["PROXY_URL"] || "https://httpbin.org")
+  end
 end

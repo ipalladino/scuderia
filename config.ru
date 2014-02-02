@@ -3,13 +3,6 @@ require "rest-client"
 
 require ::File.expand_path('../config/environment',  __FILE__)
 
-helpers do
-  def proxy
-    RestClient.proxy = ENV["PROXIMO_URL"] if ENV["PROXIMO_URL"]
-    RestClient::Resource.new(ENV["PROXY_URL"] || "https://httpbin.org")
-  end
-end
-
 get "/*" do
 
   # rebuild the full path and querystring
