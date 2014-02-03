@@ -1,1 +1,1 @@
-web: bin/proximo bundle exec rails s
+web: bin/proximo bundle exec rails s -p $PORT
