@@ -20,6 +20,7 @@ gem 'rails-timeago', '~> 2.0'
 gem 'omniauth-facebook'
 gem 'koala'
 gem 'rest-client'
+gem 'thin'
 
 group :development do
   gem 'pg', '0.12.2'
