@@ -165,10 +165,19 @@
     .ferrari_controls {
         position: relative;
         left: 27px;
+        
         .ferrari_control {
             float:left;
             margin-left:3px;
             color:#fcd112;
+            .btn {
+                border:none;
+                text-shadow:none;
+            }
+            .btn:hover {
+                border:none;
+                text-shadow:none;
+            }
         }
     }
 }

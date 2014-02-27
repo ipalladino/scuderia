@@ -102,9 +102,11 @@
 </div>
 
 
-<% if current_user?(@ferrari.user) %>
-   <%= link_to "delete", @ferrari, method: :delete,
-                                data: { confirm: "You sure?" },
-                                title: @ferrari.title %>
-    <%= link_to "edit", edit_ferrari_path(:id => @ferrari.id) %>
-<% end %>
+<div id="ferrari_show_controls">
+    <% if current_user?(@ferrari.user) %>
+       <%= link_to "Delete", @ferrari, class: "btn", method: :delete,
+                                    data: { confirm: "You sure?" },
+                                    title: @ferrari.title %>
+        <%= link_to "Edit", edit_ferrari_path(:id => @ferrari.id), class: "btn" %>
+    <% end %>
+</div>
