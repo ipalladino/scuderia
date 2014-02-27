@@ -1,6 +1,8 @@
 SampleApp::Application.routes.draw do
-  #flingo stuff (delete)
-  match '/ui_heartbeat', to: 'static_pages#ui_heartbeat'
+  resources :saved_searches
+
+
+  match '/bookmarks/toggle', to: 'bookmarks#toggle'
   #facebook
   match 'auth/:provider/callback', to: 'users#facebook_callback'
   match 'auth/failure', to: redirect('/')

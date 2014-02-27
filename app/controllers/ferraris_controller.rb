@@ -29,11 +29,12 @@ class FerrarisController < ApplicationController
   def search
     year_fr = params[:year_fr]
     year_to = params[:year_to]
-    modelstr = params[:model]
+    modelstr = params[:car_model]
     prce_fr = params[:prce_fr]
     prce_to = params[:prce_to]
     sort_by = params[:sort_by]
     user_id = params[:user_id]
+    keywords = params[:keywords]
     
     
     if(modelstr && modelstr.empty?)
@@ -94,7 +95,32 @@ class FerrarisController < ApplicationController
           query_string_for_models += "car_year <= '#{year_to}'"
         end
         
-        ferraris = Ferrari.joins(:car_model, :year).find(:all, conditions: query_string_for_models, order: "#{sort_by[0]} #{sort_by[1]}")
+        
+        if(!keywords.empty?)
+          query_string_for_models_with_keywords = query_string_for_models
+          if(!query_string_for_models_with_keywords.empty?)
+            query_string_for_models_with_keywords += " AND ("
+          end
+          index = 0
+          keywords_arr = keywords.split(",")
+          if(keywords.length > 0)
+            keywords_arr.each do |keyword|
+              if(index != 0)
+                query_string_for_models_with_keywords += " OR "
+              end
+              query_string_for_models_with_keywords += "transmissions.name LIKE '%#{keyword}%' OR color LIKE '%#{keyword}%' OR engines.name LIKE '%#{keyword}%'"
+              index = index + 1
+            end
+          end
+          
+          
+          if(index != 0)
+            query_string_for_models_with_keywords += ")"
+          end 
+        end
+        
+        ferraris = Ferrari.joins(:car_model, :year, :transmission, :engine).find(:all, conditions: query_string_for_models_with_keywords, order: "#{sort_by[0]} #{sort_by[1]}")
+        #ferraris = Ferrari.joins(:car_model, :year).find(:all, conditions: query_string_for_models, order: "#{sort_by[0]} #{sort_by[1]}")
         
         if(ferraris.length == 0 && backup_search.length == 0)
           ferraris = Ferrari.find(:all, conditions: ["published = TRUE"], order: "#{sort_by[0]} #{sort_by[1]}")
@@ -102,11 +128,11 @@ class FerrarisController < ApplicationController
         ferraris.concat backup_search
     else
         query = ""
-        if(year_to && year_fr)
+        if((year_to && !year_to.empty?) && (year_fr && !year_fr.empty?))
           query = "car_year >= '#{year_fr}' AND car_year <= '#{year_to}'"
-        elsif(year_to && !year_fr)
+        elsif((year_to && !year_to.empty?) && (!year_fr || year_fr.empty?))
           query = "car_year = '#{year_to}'"
-        elsif(year_fr && !year_to)
+        elsif((year_fr && !year_to.empty?) && (!year_fr || year_fr.empty?))
           query = "car_year = '#{year_fr}'"
         end
         
@@ -132,6 +158,8 @@ class FerrarisController < ApplicationController
         
         if(!query.blank?)
           ferraris = Ferrari.joins(:year).find(:all, conditions: query+"AND published = TRUE", order: "#{sort_by[0]} #{sort_by[1]}")
+        else
+          ferraris = Ferrari.joins(:year).find(:all, conditions: "published = TRUE", order: "#{sort_by[0]} #{sort_by[1]}")
         end
     end
     

@@ -32,6 +32,29 @@
     </div>
     <div class="span3 offset2 ferrari-view-price">
         <span class="bold">Price:</span> $<%= @ferrari.price %>
+        
+        <% if current_user %>
+            <a href="/bookmarks/toggle?url=<%=h request.fullpath %>" id="bookmark_toggle" class="ajax_get">
+            <% if bookmarked?(current_user.id, @ferrari.id, request.fullpath) %>
+                <i class="icon-star" id="icon_bookmark" style="font-size:16px; color:#fcd112;"></i>
+            <% else %>
+                <i class="icon-star_empty" id="icon_bookmark" style="font-size:16px; color:#fcd112;"></i>
+            <% end %>
+            </a>
+        <% end %>
+
+        <script type="text/javascript" charset="utf-8">
+            $(".ajax_get").click(function(e){
+                e.preventDefault();
+                $.ajax({
+                  url: e.currentTarget.href,
+                }).done(function() {
+                  console.log("done");
+                  swapBookmarkImage();
+                });
+
+            })
+        </script>
     </div>
 </div>
 

@@ -23,3 +23,17 @@
 //= require ferraris_list
 //= require_tree .
 
+
+function swapBookmarkImage()
+{
+    console.log("swapBookmarkImage");
+    var target = $("#icon_bookmark");
+
+    // Change the image src toggle based on the current image
+    if (target.hasClass("icon-star")) {
+        target.addClass("icon-star_empty").removeClass("icon-star");
+    }
+    else {
+        target.addClass("icon-star").removeClass("icon-star_empty");
+    };
+}

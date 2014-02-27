@@ -5,7 +5,9 @@ class BlogsController < ApplicationController
   # GET /blogs.json
   def index
     @blogs = Blog.all
-
+    
+    #render json: ferraris.to_json(methods: [:assets_urls, :car_model_str, :car_year_str])
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @blogs }

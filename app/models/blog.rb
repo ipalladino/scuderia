@@ -8,4 +8,13 @@ class Blog < ActiveRecord::Base
   validates :body, presence: true
   
   accepts_nested_attributes_for :assets, :reject_if => lambda { |a| a[:image].blank? }, :allow_destroy => true
+  
+  def assets_urls
+    urls = []
+    assets.each do |a|
+      urls.push({modal: a.image.url(:modal), list: a.image.url(:list), id: a.id})
+    end
+    return urls
+  end
+  
 end

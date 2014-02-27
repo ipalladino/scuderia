@@ -177,7 +177,11 @@ $(function() {
           $("#errorMessage").css("display", "block");
       }
   }
-
+  
+  $("#save_search").on("click", function() {
+      App.savedSearch.save();
+  });
+  
   $("#year-fr").on("blur", checkAndFilterModels);
   $("#year-to").on("blur", checkAndFilterModels);
   $("#submit").on("click", function() {
@@ -185,6 +189,10 @@ $(function() {
       var model = $("#model").val().trim();
       if(model == "" || model == "Model") {
           model = "";
+      }
+      var keywords = $("#keywords").val().trim();
+      if(keywords == "" || keywords == "Keywords") {
+          keywords = "";
       }
       
       var reg = /^\d+$/;
@@ -194,19 +202,54 @@ $(function() {
       year_fr = (reg.test($("#year-fr").val()))? $("#year-fr").val() : "" ;
       year_to = (reg.test($("#year-to").val()))? $("#year-to").val() : "" ;
       
-      App.carsColl.fetch({reset: true, data: {
+      var query = {
           prce_to : price_to,
           prce_fr : price_fr,
           year_fr : year_fr,
           year_to : year_to,
-          model : model
-      }})
+          car_model : model,
+          keywords : keywords
+      }
+      
+      App.savedSearch.set(query);
+      
+      App.carsColl.fetch({reset: true, data: query})
   });
   
   
   App.ferrarisModel = new App.FerrarisModel();
   App.carsView = new App.CarsView({el : $('#ferraris-bb-list'), model: App.ferrarisModel});
-  App.ferrarisModel.loadCollection();
   
+  var QueryString = function () {
+    // This function is anonymous, is executed immediately and 
+    // the return value is assigned to QueryString!
+    var query_string = {};
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+      var pair = vars[i].split("=");
+      	// If first entry with this name
+      if (typeof query_string[pair[0]] === "undefined") {
+        query_string[pair[0]] = pair[1];
+      	// If second entry with this name
+      } else if (typeof query_string[pair[0]] === "string") {
+        var arr = [ query_string[pair[0]], pair[1] ];
+        query_string[pair[0]] = arr;
+      	// If third or later entry with this name
+      } else {
+        query_string[pair[0]].push(pair[1]);
+      }
+    } 
+      return query_string;
+  } ();
+  
+  if(Object.keys(QueryString).length === 0) {
+      App.ferrarisModel.loadCollection();  
+  } else {
+      App.ferrarisModel.loadCollection(QueryString);  
+  }
+  
+  
+  App.savedSearch = new App.SavedSearch();
 }}
 });

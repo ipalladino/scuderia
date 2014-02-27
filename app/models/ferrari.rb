@@ -35,5 +35,21 @@ class Ferrari < ActiveRecord::Base
     return car_model.car_model
   end
   
+  def self.get_title(id)
+    find_by_id(id).title
+  end
+
+  def self.get_description(id)
+    find_by_id(id).description
+  end
+  
+  def self.get_model(id)
+    find_by_id(id)
+  end
+
+  def self.find_id_by_site_url(site_url)
+    site_url.split(%r{/})[4]
+  end
+  
   accepts_nested_attributes_for :assets, :reject_if => lambda { |a| a[:image].blank? }, :allow_destroy => true
 end

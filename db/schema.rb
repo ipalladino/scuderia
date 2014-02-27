@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140126080838) do
+ActiveRecord::Schema.define(:version => 20140227062208) do
 
   create_table "assets", :force => true do |t|
     t.integer  "ferrari_id"
@@ -34,6 +34,20 @@ ActiveRecord::Schema.define(:version => 20140126080838) do
   end
 
   add_index "blogs", ["user_id"], :name => "index_blogs_on_user_id"
+
+  create_table "bookmarks", :id => false, :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "model_type_id"
+    t.integer  "model_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "bookmarktypes", :force => true do |t|
+    t.string   "model"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "car_models", :force => true do |t|
     t.string   "car_model"
@@ -207,6 +221,20 @@ ActiveRecord::Schema.define(:version => 20140126080838) do
   add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
   add_index "relationships", ["follower_id", "followed_id"], :name => "index_relationships_on_follower_id_and_followed_id", :unique => true
   add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
+
+  create_table "saved_searches", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "price_fr"
+    t.string   "price_to"
+    t.string   "year_fr"
+    t.string   "year_to"
+    t.string   "car_model"
+    t.string   "keywords"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "saved_searches", ["user_id"], :name => "index_saved_searches_on_user_id"
 
   create_table "transmissions", :force => true do |t|
     t.string   "name"

@@ -27,5 +27,17 @@ class CarModel < ActiveRecord::Base
     return year.car_year
   end
   
+  def self.get_title(id)
+    find_by_id(id).car_model
+  end
+
+  def self.get_description(id)
+    find_by_id(id).car_year_str
+  end
+
+  def self.find_id_by_site_url(site_url)
+    site_url.split(%r{/})[4]
+  end
+  
   accepts_nested_attributes_for :generic_images, :reject_if => lambda { |a| a[:image].blank? }, :allow_destroy => true
 end

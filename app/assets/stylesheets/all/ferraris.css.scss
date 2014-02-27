@@ -159,11 +159,17 @@
             width:120px;
         }
     }
-    #submit {
-        margin-top:10px;
-    }
     #filter-year-advanced {
         position:absolute;
+    }
+    .ferrari_controls {
+        position: relative;
+        left: 27px;
+        .ferrari_control {
+            float:left;
+            margin-left:3px;
+            color:#fcd112;
+        }
     }
 }
 

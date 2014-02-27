@@ -114,6 +114,85 @@
               <% end %>
               
           </table>
+          
+          <% if @user == current_user %>
+              <div class="span10">
+                  <h4>To bookmark a page or remove a bookmark, just click the star.</h4>
+                  <ul class="nav nav-pills">
+                    <li class="active">
+                      <a id="a-bookmark" data-toggle="tooltip"><i class="icon-star" id="icon_bookmark" style="font-size:16px; color:#000000;top:-3px;position:relative;"></i> Bookmarked</a> 
+                    </li>
+                    <li class="active">
+                        <a id="a-bookmark-empty" data-toggle="tooltip"><i class="icon-star_empty" id="icon_bookmark" style="font-size:16px; color:#000000;top:-3px;position:relative;"></i> Not Bookmarked</a>
+                    </li>
+                    
+                    <script type="text/javascript" charset="utf-8">
+                        $('#a-bookmark').popover({
+                            placement : "top",
+                            title : "Bookmark",
+                            content: "You'll find this icon on a Ferrari for sale or a Ferrari model, it means the item is bookmarked"
+                        });
+                        $('#a-bookmark').mouseenter(function(){
+                            $('#a-bookmark').popover("show");
+                        })
+                        $('#a-bookmark').mouseleave(function(){
+                            $('#a-bookmark').popover("hide");
+                        })
+                        $('#a-bookmark-empty').popover({
+                            placement : "top",
+                            title : "Unbookmark",
+                            content: "You'll find this icon on a Ferrari for sale or a Ferrari model, it means the item is NOT bookmarked"
+                        });
+                        
+                        $('#a-bookmark-empty').mouseenter(function(){
+                            $('#a-bookmark-empty').popover("show");
+                        })
+                        $('#a-bookmark-empty').mouseleave(function(){
+                            $('#a-bookmark-empty').popover("hide");
+                        })
+                    </script>
+                  </ul>
+                  <% if !@bookmarks.blank? %>
+                      <% count = 0 %>
+                      <p>Below are the pages that you have bookmarked.</p>
+                      <br />
+              </div>
+              <div class="span10">
+                  <table class="table table-striped table-hover" id="bookmarks-table">
+                      <tr>
+                          <th>Title</th>
+                          <th>Year</th>
+                          <th>Model</th>
+                          <th>Type</th>
+                          <th>Timestamp</th>
+                      </tr>
+                      <% @bookmarks.each do |bookmark| %>
+                            <% count = count + 1 %>
+                            
+                            <tr>
+                                <td><%= link_to_bookmark(count, bookmark) %></td>
+                                <td><%= get_model_from_bookmark(bookmark).car_year_str %></td>
+                                <td><%= get_model_from_bookmark(bookmark).car_model_str %></td>
+                                <td><%= print_bookmark_type(bookmark.model_type_id) %></td>
+                                <td>Added <%= timeago_tag bookmark.created_at, :nojs => true %></td>
+                            </tr>
+                        <% end %>
+                  </table>
+                  <script type="text/javascript" charset="utf-8">
+                    $("#bookmarks-table tr").click(function(e){
+                        console.log(e);
+                        var a = $(e.currentTarget).find("a");
+                        if(a.attr("href") != undefined) {
+                            window.location.href = a.attr("href");
+                        }
+                    });
+                  </script>
+                  <% else %>
+                    You currently have no items bookmarked.
+                  <% end %>
+              </div>
+          <% end %>
+          
     </div>
 </div>
 
@@ -125,7 +204,7 @@
     </div>
 </div>
 <script type="text/javascript" charset="utf-8">
-    $( document ).ready(function() {
+    $(document).ready(function() {
       // Handler for .ready() called.
       if(App.page != undefined) { 
           if(App.page=="userpage") {
@@ -134,6 +213,7 @@
               App.ferrarisModel.loadCollection({user_id : <%= @user.id %>});
           }
       }
+      
     });
 </script>
 

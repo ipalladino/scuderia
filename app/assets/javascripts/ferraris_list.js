@@ -66,25 +66,31 @@ App.CarsView = Backbone.View.extend({
         
         
         if($("#prce_to").length > 0) {
-            var model = $("#modl_id").val().trim();
+            console.log("Submit");
+            var model = $("#model").val().trim();
             if(model == "" || model == "Model") {
-                model = "";
+              model = "";
             }
-            
-            var price_to = ($("#prce_to").val() != "Price To")? $("#prce_to").val() : price_to = "";
-            var price_fr = ($("#prce_fr").val() != "Price Fr")? $("#prce_fr").val() : price_fr = "";
-            var yrfr_id = $("#yrfr_id").val();
-            var yrto_id = $("#yrto_id").val();
+
+            var reg = /^\d+$/;
+
             var sort_by = e.currentTarget.value;
+            price_to = (reg.test($("#prce_to").val()))? $("#prce_to").val() : price_to = "";
+            price_fr = (reg.test($("#prce_fr").val()))? $("#prce_fr").val() : price_fr = "";
+            year_fr = (reg.test($("#year-fr").val()))? $("#year-fr").val() : "" ;
+            year_to = (reg.test($("#year-to").val()))? $("#year-to").val() : "" ;
+            keywords = $("#keywords").val().trim();
 
             this.model.loadCollection({
-                  prce_to : price_to,
-                  prce_fr : price_fr,
-                  yrfr_id : yrfr_id,
-                  yrto_id : yrto_id,
-                  modl_id : model,
-                  sort_by : sort_by
+                prce_to : price_to,
+                prce_fr : price_fr,
+                year_fr : year_fr,
+                year_to : year_to,
+                model : model,
+                keywords : keywords,
+                sort_by : sort_by
             });
+            
         } else {
             var sort_by = e.currentTarget.value;
 
@@ -119,4 +125,16 @@ App.FerrarisModel = Backbone.Model.extend({
 
 App.CarsColl = Backbone.Collection.extend({
       url : "/basic_search"
+});
+
+App.SavedSearch = Backbone.Model.extend({
+    defaults : {
+        prce_to : "",
+        prce_fr : "",
+        year_fr : "",
+        year_to : "",
+        car_model : "",
+        keywords : ""
+    }, 
+    urlRoot : '/saved_searches'
 });

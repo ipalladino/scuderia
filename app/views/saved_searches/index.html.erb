@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="row">
+        <div class="span1"></div>
+        <div class="span10">
+            <h1><%= current_user.name %>'s Saved Searches</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span1"></div>
+        <div class="span10">
+            <p>We will notify you when a new car is added that meets your search criteria.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span1"></div>
+        <div class="span10">
+            <table class="table table-striped table-bordered">
+              <tr>
+                <th>Price fr</th>
+                <th>Price to</th>
+                <th>Year fr</th>
+                <th>Year to</th>
+                <th>Car model</th>
+                <th>Keywords</th>
+                <th></th>
+                <th></th>
+              </tr>
+
+            <% @saved_searches.each do |saved_search| %>
+              <tr>
+                <td><%= saved_search.price_fr %></td>
+                <td><%= saved_search.price_to %></td>
+                <td><%= saved_search.year_fr %></td>
+                <td><%= saved_search.year_to %></td>
+                <td><%= saved_search.car_model %></td>
+                <td><%= saved_search.keywords %></td>
+                <td><%= link_to 'Show', saved_search %></td>
+                <td><%= link_to 'Destroy', saved_search, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+            </table>
+        </div>
+    </div>
+</div>
