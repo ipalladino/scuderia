@@ -17,6 +17,7 @@
               <tr><td><%= f.password_field :password, :placeholder => "Password"  %></td></tr>
               
               <tr><td><%= f.password_field :password_confirmation, :placeholder => "Password Confirmation"  %></td></tr>
+              <tr><td><input type="checkbox" name="agrees" value="terms" class="terms_checkbox">Do you agree to the <a href="/termsofservice">Terms of Service?</a></td></tr>
               <tr><td><input type="submit" name="submit" value="Submit"></td></tr>
               <input type="hidden" name="user[oauth_token]" value="<%= @user_fb.credentials.token %>">
               <input type="hidden" name="user[oauth_expires_at]" value="<%= @user_fb.credentials.expires_at %>">
