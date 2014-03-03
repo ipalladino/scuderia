@@ -75,6 +75,9 @@ class StaticPagesController < ApplicationController
     
     redirect_to "/inbox"
   end
+  
+  def termsofservice
+  end
 
   def help
   end

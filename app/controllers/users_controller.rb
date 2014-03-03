@@ -16,21 +16,29 @@ class UsersController < ApplicationController
   end
   
   def create
-    if(params['oauth_token'])
-      #create using facebook
-      @user = User.create_through_fb(params[:user])
-      @user.save
+    if(params['agrees'])
+      if(params['oauth_token'])
+        #create using facebook
+        @user = User.create_through_fb(params[:user])
+        @user.save
+      else
+        #create by itself
+        @user = User.new(params[:user])
+      end
+
+      if @user.save
+        sign_in @user
+        flash[:success] = "Welcome to Scuderia!"
+        redirect_to @user
+      else
+        @user = User.new
+        render 'new', :layout => "login"
+      end
+      return
     else
-      #create by itself
-      @user = User.new(params[:user])
-    end
-    
-    if @user.save
-      sign_in @user
-      flash[:success] = "Welcome to Scuderia!"
-      redirect_to @user
-    else
-      render 'new'
+      flash[:error] = "You need to agree to the terms of service"
+      @user = User.new
+      render 'new', :layout => "login"
     end
   end
   
@@ -83,6 +91,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    render 'new', :layout => "login"
   end
   
   def following

@@ -1,18 +1,41 @@
-<h1>Reply</h1>
+<div class="row">
+    <div class="span12 header-section header-conversation">
+        <div id="title">
+            Compose
+        </div>
+        <div id="description">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+        </div>
+    </div>
+</div>
 
-<%= form_tag("/inbox/send_message", method: "post") do %>
-  <% if(@receipt == nil) %>
-        <%= label_tag(:subject, "Subject:") %>
-        <%= text_field_tag(:subject) %>
-  <% end %>
-  
-  <%= label_tag(:message, "Message:") %>
-  <%= text_field_tag(:message) %>
-  <% if(@receipt != nil) %>
-      <%= hidden_field_tag(:receipt, "#{@receipt.id}") %>
-  <% else %>
-      <%= hidden_field_tag(:recipient_id, "#{@recipient.id}") %>
-  <% end %>
-  
-  <%= submit_tag("Send") %>
-<% end %>
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <div class="content">
+                <div class="avatar">
+                    <!-- %= gravatar_for @user % -->
+                    <img style="display:inline-block;" src="<%= profile_image(@recipient) %>" /> <span><%= @recipient.name %></span>
+                </div>
+                
+                <%= form_tag("/inbox/send_message", method: "post") do %>
+                  <% if(@receipt == nil) %>
+                        <%= label_tag(:subject, "Subject:") %>
+                        <%= text_field_tag(:subject) %>
+                  <% end %>
+
+                  <%= label_tag(:message, "Message:") %>
+                  <%= text_field_tag(:message, "", class: "message") %>
+                  <% if(@receipt != nil) %>
+                      <%= hidden_field_tag(:receipt, "#{@receipt.id}") %>
+                  <% else %>
+                      <%= hidden_field_tag(:recipient_id, "#{@recipient.id}") %>
+                  <% end %>
+
+                  <%= submit_tag("Send", :class => "btn") %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    
+</div>

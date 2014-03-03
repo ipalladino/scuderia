@@ -1,22 +1,18 @@
-<% provide(:title, @user.name) %>
-
-<script type="text/javascript" charset="utf-8">
-    App.page = "userpage";
-</script>
-
-<div class="row">
-    <div class="span12 header-section header-sellferrari">
-            <div id="title">
-            Sign Up
-        </div>
-        <div id="description">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
-        </div>
-        <div class="secondary-title">
-            Create your user
-        </div>
+<div class="div-login-facebook" style="margin-bottom: 25px; margin-top:10px;">
+    <div id="logo">
+        <h1 id="">SCUDERIA.COM</h1>
+    </div>
+    <div class="form light-input">
+        <%= form_for(@user) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+            <table class="table">
+                <tr><td><%= f.text_field :name, :placeholder => "Name" %></td></tr>  
+                <tr><td><%= f.text_field :email, :placeholder => "Email" %></td></tr> 
+                <tr><td><%= f.password_field :password, :placeholder => "Password"  %></td></tr>
+                <tr><td><%= f.password_field :password_confirmation, :placeholder => "Password Confirmation"  %></td></tr>
+                <tr><td><input type="checkbox" name="agrees" value="terms" class="terms_checkbox">Do you agree to the <a href="/termsofservice">Terms of Service?</a></td></tr>
+                <tr><td><input type="submit" name="submit" value="Submit"></td></tr>      
+            </table>
+        <% end %>
     </div>
 </div>
-
-
-<%= render 'users/form' %>
