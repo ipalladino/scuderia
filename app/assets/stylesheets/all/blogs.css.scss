@@ -8,3 +8,41 @@
         width:240px !important;
     }
 }
+
+#blog-copy {
+    margin-top:20px;
+    margin-bottom:20px;
+    #title {
+        font-family:"Conv_GothamNarrow-Book";
+        color:#EEC200;
+        font-size:24px;
+        margin-bottom:10px;
+    }
+    #description {
+        
+    }
+}
+
+.blog-item {
+    .thumbnail {
+        padding:0px;
+    }
+    #title {
+        text-transform:uppercase;
+        font-family:"Conv_Gotham-Bold";
+    }
+    .line-separator{
+        height:1px;
+        background:#cccccc;
+        border-bottom:1px solid #cccccc;
+        margin-top:5px;
+        margin-bottom:5px;
+    }
+    .avatar {
+        height:40px;
+        img {
+            height:40px;
+            width:40px;
+        }
+    }
+}

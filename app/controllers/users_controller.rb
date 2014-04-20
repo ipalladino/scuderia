@@ -45,12 +45,17 @@ class UsersController < ApplicationController
   def facebook_callback
     @user_fb = request.env['omniauth.auth']
     user = User.find_by_uid(@user_fb.uid)
-    if(user)
+    
+    if(user && current_user.email == @user_fb.info.email)
       sign_in user
       redirect_to user
       return
+    else
+      sign_in current_user
+      redirect_to current_user
+      return
     end
-    #debugger
+    
     if(signed_in?)
       user_details = {
         provider:         @user_fb.provider,

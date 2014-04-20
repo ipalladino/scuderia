@@ -5,10 +5,14 @@
   <div class="navbar-inner">
     <div class="container header">
       <nav>
+        <span id="logo">
+            <img src="/assets/logo_example.png" />
+        </span>
         <ul class="nav pull-right">
           <li><%= link_to raw("<i class='icon-home'></i>"), root_path %></li>
           <li><%= link_to "Ferraris For Sale", ferraris_path %></li>
           <li><%= link_to "Sell Your Ferrari", new_ferrari_path %></li>
+          <li><%= link_to "Blog", blogs_path %></li>
           <li id="fat-menu" class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               History <b class="caret"></b>
@@ -69,13 +73,6 @@
           <% else %>
             <li><%= link_to "Sign in", signin_path %></li>
           <% end %>
-            <li class="search-li">
-                <span class="search-box-icon-container"><i class="icon-magnifying search-box-icon"></i>
-                </span>
-            <form class="navbar-search">
-              <input type="text" class="search-query" placeholder="Search">
-            </form>
-            </li>
         </ul>
       </nav>
     </div>

@@ -3,6 +3,9 @@
 }
 
 .ferrari-view {
+    a {
+        color:#fcd112;
+    }
     color:#626262;
     .ferrari-view-model {
         background-color:#fcd112;
@@ -68,4 +71,8 @@
 }
 .ferrari-specs-table {
     color:#303030;
+}
+
+#twitterbtn-link,#facebookbtn-link {
+    cursor:pointer;
 }

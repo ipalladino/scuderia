@@ -13,6 +13,17 @@ class BlogsController < ApplicationController
       format.json { render json: @blogs }
     end
   end
+  
+  def manage
+    @blogs = Blog.all
+    
+    #render json: ferraris.to_json(methods: [:assets_urls, :car_model_str, :car_year_str])
+    
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @blogs }
+    end
+  end
 
   # GET /blogs/1
   # GET /blogs/1.json

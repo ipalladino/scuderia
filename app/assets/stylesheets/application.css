@@ -23,6 +23,16 @@ body {
     color:#000000;
 }
 
+#logo img {
+    height: 55px;
+    top: 7px;
+    position: relative;
+}
+
+a {
+    color:#000000;
+}
+
 table a:hover {
     color: #333333;
     background-color:transparent;

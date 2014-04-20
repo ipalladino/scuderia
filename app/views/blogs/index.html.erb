@@ -14,50 +14,39 @@
     </div>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid" id="blog">
     <div class="row-fluid">
+        <div class="span12" id="blog-copy">
+            <div id="title">
+                Latest Blog News
+            </div>
+            <div id="description">
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores.
+            </div>
+        </div>
         <ul class="thumbnails">
             <% @blogs.each do |blog| %>
-              <li class="span4">
+              <li class="span4 blog-item" >
                 <a href="#" class="thumbnail">
                   <img data-src="holder.js/305x155" src="<%= blog.assets[0].image.url(:list) %>" alt="">
                 </a>
+                <div id="date">
+                    <%= blog.created_at %>
+                </div>
                 <div id="title">
                     <%= blog.title %>
                 </div>
-                <div id="title">
-                    <%= truncate(blog.body, length: 300, omission: '... (continued)') %>
+                <div id="description">
+                    <%= truncate(blog.body, length: 200, omission: '... (continued)') %>
+                </div>
+                <span class="avatar">
+                    <img src="<%= profile_image(blog.user) %>" /> <%= blog.user.name %>
+                </span>
+                <div class="line-separator">
+                    
                 </div>
               </li>
             <% end %>
         </ul>
     </div>
 </div>
-
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Body</th>
-    <th>User</th>
-    <th>Type</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @blogs.each do |blog| %>
-  <tr>
-    <td><%= blog.title %></td>
-    <td><%= blog.body %></td>
-    <td><%= blog.user_id %></td>
-    <td><%= blog.blogtype %></td>
-    <td><%= link_to 'Show', blog %></td>
-    <td><%= link_to 'Edit', edit_blog_path(blog) %></td>
-    <td><%= link_to 'Destroy', blog, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Blog', new_blog_path %>

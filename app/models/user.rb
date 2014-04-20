@@ -79,7 +79,11 @@ class User < ActiveRecord::Base
   end
   
   def picture
-    self.facebook.get_picture("me", {:type => "large"})
+    begin
+      self.facebook.get_picture("me", {:type => "large"})
+    rescue
+      return 404
+    end
   end
   
   private

@@ -1,3 +1,4 @@
+
 class SessionsController < ApplicationController
   
   def new
@@ -14,7 +15,11 @@ class SessionsController < ApplicationController
     user = User.find_by_email(params[:email].downcase)
     if user && user.authenticate(params[:password])
       sign_in user
-      redirect_back_or user
+      if(user.uid)
+        redirect_to "/auth/facebook"
+      else
+        redirect_back_or user
+      end
     else
       flash.now[:error] = 'Invalid email/password combination'
       render 'new', :layout => "login"

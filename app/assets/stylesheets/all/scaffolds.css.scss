@@ -19,13 +19,13 @@ pre {
 }
 
 a {
-  color: #000;
+  font-family: "Conv_GothamNarrow-Book",verdana, arial, helvetica, sans-serif;
+  color: #fcd112;
   &:visited {
-    color: #666;
+    color: #fcd112;
   }
   &:hover {
-    color: #fff;
-    background-color: #000;
+    color: #000000;
   }
 }
 

@@ -65,12 +65,30 @@
     </div>
     <div class="span3 ferrari-view-options">
         <div class="ferrari-view-cntsell">
-            <span class="bold">Contact Seller</span>
+            <span class="bold"><a href="/inbox/compose?recipient_id=<%= @ferrari.user_id %>">Contact Seller</a></span>
         </div>
         <div class="ferrari-view-share">
             <span class="bold">Share On:</span>
             <span id="facebookbtn-link" class="share-button facebook" href="http://www.facebook.com/sharer/sharer.php?u=http://scuderia.herokuapp.com/ferraris/<%= @ferrari.id %>"><i class="icon-facebook"></i></span>
             <span id="twitterbtn-link" class="share-button twitter" href="http://twitter.com/share?text=Check out this Ferrari <%= @ferrari.car_model.car_model %> from <%= @ferrari.year.car_year %>&hashtags=scuderia,ferrari&url=http://scuderia.herokuapp.com/ferraris/<%= @ferrari.id %>"><i class="icon-twitter"></i></span>
+            <script type="text/javascript" charset="utf-8">
+                $('#twitterbtn-link,#facebookbtn-link').click(function(event) {
+                    var width  = 575,
+                        height = 400,
+                        left   = ($(window).width()  - width)  / 2,
+                        top    = ($(window).height() - height) / 2,
+                        url    = this.href,
+                        opts   = 'status=1' +
+                                 ',width='  + width  +
+                                 ',height=' + height +
+                                 ',top='    + top    +
+                                 ',left='   + left;
+
+                        window.open(event.currentTarget.attributes[2].nodeValue, 'twitter', opts);
+
+                    return false;
+                });
+            </script>
         </div>
     </div>
 </div>
@@ -80,7 +98,7 @@
         Specifications
     </div>
     <div class="span3 ferrari-specs-full">
-        Full Specifications
+        <%= link_to "Full Specifications", @ferrari.car_model %>
     </div>
 </div>
 

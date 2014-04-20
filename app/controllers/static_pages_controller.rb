@@ -1,11 +1,6 @@
 class StaticPagesController < ApplicationController
   before_filter :signed_in_user, only: [:inbox]
   
-  #for flingo (delete)
-  def ui_heartbeat
-    render :json => {ok: "ok"}
-  end
-  
   def home
     if signed_in?
     end
