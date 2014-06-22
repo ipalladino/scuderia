@@ -26,12 +26,11 @@
         </div>
         <ul class="thumbnails">
             <% @blogs.each do |blog| %>
-              <li class="span4 blog-item" >
-                <a href="#" class="thumbnail">
+              <li class="span4 blog-item" onclick="location.href='/blogs/<%= blog.id %>';">
+
                   <img data-src="holder.js/305x155" src="<%= blog.assets[0].image.url(:list) %>" alt="">
-                </a>
                 <div id="date">
-                    <%= blog.created_at %>
+                    <%= time_tag(blog.created_at) %> ago.
                 </div>
                 <div id="title">
                     <%= blog.title %>
@@ -39,11 +38,8 @@
                 <div id="description">
                     <%= truncate(blog.body, length: 200, omission: '... (continued)') %>
                 </div>
-                <span class="avatar">
+                <div class="avatar">
                     <img src="<%= profile_image(blog.user) %>" /> <%= blog.user.name %>
-                </span>
-                <div class="line-separator">
-                    
                 </div>
               </li>
             <% end %>

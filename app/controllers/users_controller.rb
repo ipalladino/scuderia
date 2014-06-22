@@ -47,6 +47,7 @@ class UsersController < ApplicationController
     user = User.find_by_uid(@user_fb.uid)
     current = current_user
 
+    
     if(current == nil && user)
       sign_in user
     elsif(current)
@@ -70,6 +71,7 @@ class UsersController < ApplicationController
         oauth_expires_at: Time.at(@user_fb.credentials.expires_at)
       }
       current.update_attributes!(user_details)
+      sign_in current
       redirect_to current
       return
     else

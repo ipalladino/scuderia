@@ -9,12 +9,18 @@
     img {
        width: 80px;
        height: 80px;
+       position:relative;
        -webkit-border-radius: 40px;
        -moz-border-radius: 40px;
        -ms-border-radius: 40px;
        -o-border-radius: 40px;
         border-radius: 40px;
     }
+}
+
+.user_page_avatar img {
+    top:30px;
+    left:30px;
 }
 
 .user-title {
@@ -28,9 +34,9 @@
     background:#FCD112;
     padding:10px;
     .msg-text {
+        color:#000000;
         position:relative;
         top:2px;
-        text-decoration:underline;
         left:5px;
         font-family: "Conv_GothamNarrow-Medium",verdana, arial, helvetica, sans-serif;
     }

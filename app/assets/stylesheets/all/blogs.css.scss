@@ -24,25 +24,78 @@
 }
 
 .blog-item {
+    cursor:pointer;
+    padding:6px;
+    border:1px solid #cccccc;
+    background-color:#ffffff;
     .thumbnail {
         padding:0px;
     }
     #title {
         text-transform:uppercase;
         font-family:"Conv_Gotham-Bold";
-    }
-    .line-separator{
-        height:1px;
-        background:#cccccc;
-        border-bottom:1px solid #cccccc;
         margin-top:5px;
         margin-bottom:5px;
     }
     .avatar {
-        height:40px;
+        margin-top:5px;
+        margin-bottom:5px;
+        height:60px;
         img {
-            height:40px;
-            width:40px;
+            height:60px;
+            width:60px;
         }
+    }
+    > #description {
+        margin-top:5px;
+    }
+}
+
+#blog-post {
+    padding-right:0px;
+    #date {
+        margin-top:20px;
+        font-size:18px;
+    }
+    h1 {
+        text-transform:uppercase;
+        text-align:left;
+        color:#000000;
+        font-size:34px;
+        font-family:"Conv_Gotham-Medium";
+        margin-bottom:10px;
+    }
+    h2 {
+        padding:0px;
+        color:#030303;
+    }
+    #image {
+        margin-top:15px;
+    }
+    #description {
+        font-family:Arial, sans-serif;
+        color:#030303;
+        margin-top:10px;
+        font-size:15px;
+    }
+    
+    #blog_sidebar {
+        background-color:#cccccc;
+        height:100%;
+        padding:10px;
+        li {
+            font-size:16px;
+            font-family:"Conv_GothamNarrow-Book";
+        }    
+        h1 {
+            font-size:24px;
+        }
+        a {
+            text-decoration:underline;
+        }
+    }
+    
+    .actions {
+        margin-top:20px;
     }
 }

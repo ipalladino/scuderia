@@ -28,7 +28,7 @@
 
 
 <div class="row-fluid">
-    <div class="span2 avatar">
+    <div class="span2 avatar user_page_avatar">
         <!-- %= gravatar_for @user % -->
         <img src="<%= profile_image(@user) %>" />
     </div>
@@ -39,10 +39,12 @@
 
 <div class="row-fluid" style="margin-bottom: 25px;">
     <div class="span2 send-message">
-        <span class="msg-icon"><i class="icon-message"></i></span><span class="msg-text">
+        <span class="msg-icon">
         <% if(@user == current_user) %>
+            <i class="icon-user"></i></span><span class="msg-text">
             <a href="/users/<%=@user.id%>/edit">Edit Profile</a>
         <% else %>
+            <i class="icon-message"></i></span><span class="msg-text">
             <a href="/inbox/compose?recipient_id=<%=@user.id%>" >Send a message</a>
         <% end %>
          </span>

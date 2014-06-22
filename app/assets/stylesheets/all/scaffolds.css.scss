@@ -18,17 +18,6 @@ pre {
   font-size: 11px;
 }
 
-a {
-  font-family: "Conv_GothamNarrow-Book",verdana, arial, helvetica, sans-serif;
-  color: #fcd112;
-  &:visited {
-    color: #fcd112;
-  }
-  &:hover {
-    color: #000000;
-  }
-}
-
 div {
   &.field, &.actions {
     margin-bottom: 10px;
