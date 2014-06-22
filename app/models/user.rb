@@ -50,15 +50,7 @@ class User < ActiveRecord::Base
     end
   end
   
-  def add_fb_details(auth)
-    self.provider = auth.provider
-    self.uid = auth.uid
-    self.oauth_token = auth.credentials.token
-    self.oauth_expires_at = Time.at(auth.credentials.expires_at)
-  end
-  
   def self.create_through_fb(auth)
-    debugger
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
       user.provider = auth.provider
       user.uid = auth.uid
