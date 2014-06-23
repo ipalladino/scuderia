@@ -246,7 +246,21 @@ $(function() {
   if(Object.keys(QueryString).length === 0) {
       App.ferrarisModel.loadCollection();  
   } else {
-      App.ferrarisModel.loadCollection(QueryString);  
+      App.ferrarisModel.loadCollection(QueryString);
+      //year_to=1965&year_fr=1950&modelstr=&prce_fr=&prce_to=&keywords=
+      
+      if(QueryString.year_fr != "")
+        $("#year-fr").val(QueryString.year_fr);
+      if(QueryString.year_to != "")
+        $("#year-to").val(QueryString.year_to);
+      if(QueryString.prce_fr != "")
+        $("#prce_fr").val(QueryString.prce_fr);
+      if(QueryString.prce_to != "")
+        $("#prce_to").val(QueryString.prce_to);
+      if(QueryString.modelstr != "")
+        $("#modelstr").val(QueryString.modelstr);
+      if(QueryString.keywords != "")
+        $("#keywords").val(QueryString.keywords);
   }
   
   

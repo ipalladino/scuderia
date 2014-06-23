@@ -36,6 +36,7 @@ class FerrarisController < ApplicationController
     user_id = params[:user_id]
     keywords = params[:keywords]
     
+    debugger
     
     if(modelstr && modelstr.empty?)
       modelstr = nil
@@ -95,9 +96,9 @@ class FerrarisController < ApplicationController
           query_string_for_models += "car_year <= '#{year_to}'"
         end
         
+        query_string_for_models_with_keywords = query_string_for_models
         
-        if(!keywords.empty?)
-          query_string_for_models_with_keywords = query_string_for_models
+        if(!keywords.empty?)  
           if(!query_string_for_models_with_keywords.empty?)
             query_string_for_models_with_keywords += " AND ("
           end
