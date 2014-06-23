@@ -18,8 +18,8 @@ class SavedSearchesController < ApplicationController
   # GET /saved_searches/1.json
   def show
     @saved_search = SavedSearch.find(params[:id])
-    
-    query_str = "year_to=#{@saved_search.year_to}&year_fr=#{@saved_search.year_fr}&modelstr=#{@saved_search.car_model}&prce_fr=#{@saved_search.price_fr}&prce_to=#{@saved_search.price_to}&keywords=#{@saved_search.keywords}"
+    @saved_search.car_model.gsub!(' ','_')
+    query_str = "year_to=#{@saved_search.year_to}&year_fr=#{@saved_search.year_fr}&modelstr=#{@saved_search.car_model}&price_fr=#{@saved_search.price_fr}&price_to=#{@saved_search.price_to}&keywords=#{@saved_search.keywords}"
       
     redirect_to "/ferraris?"+query_str
   end
@@ -27,21 +27,39 @@ class SavedSearchesController < ApplicationController
   # POST /saved_searches
   # POST /saved_searches.json
   def create
+    debugger
+    
     if(!current_user)
       render json: {status: "failed", message: "User needs to be logged in"}
       return
     end
+    
+    debugger
+    
     params[:saved_search][:user_id] = current_user.id
-    @saved_search = SavedSearch.new(params[:saved_search])
+    
+    saved_search = SavedSearch.new(params[:saved_search])
 
     respond_to do |format|
-      if @saved_search.save
-        format.html { redirect_to @saved_search, notice: 'Saved search was successfully created.' }
-        format.json { render json: @saved_search, status: :created, location: @saved_search }
+      if saved_search.save
+        format.html { redirect_to saved_search, notice: 'Saved search was successfully created.' }
+        format.json { render json: saved_search, status: :created, location: saved_search }
       else
         format.html { render action: "new" }
-        format.json { render json: @saved_search.errors, status: :unprocessable_entity }
+        format.json { render json: saved_search.errors, status: :unprocessable_entity }
       end
+    end
+  end
+  
+  def update
+    @savedSearch = SavedSearch.find(params[:id])
+    params[:saved_search][:price_to] = params[:saved_search][:prce_to]
+    params[:saved_search][:price_fr] = params[:saved_search][:prce_fr]
+    if @savedSearch.update_attributes(params[:saved_search])
+      flash[:success] = "Updated search"
+      render json: @savedSearch
+    else
+      render 'edit'
     end
   end
 
@@ -57,4 +75,14 @@ class SavedSearchesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  private
+    def correct_user
+      @saved_search = SavedSearch.find(params[:id])
+      redirect_to(root_path) unless @saved_search.user_id == current_user.id
+    end
+    
+    def admin_user
+      redirect_to(root_path) unless current_user.admin?
+    end
 end

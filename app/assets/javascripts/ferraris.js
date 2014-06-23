@@ -203,8 +203,8 @@ $(function() {
       year_to = (reg.test($("#year-to").val()))? $("#year-to").val() : "" ;
       
       var query = {
-          prce_to : price_to,
-          prce_fr : price_fr,
+          price_to : price_to,
+          price_fr : price_fr,
           year_fr : year_fr,
           year_to : year_to,
           car_model : model,
@@ -247,19 +247,18 @@ $(function() {
       App.ferrarisModel.loadCollection();  
   } else {
       App.ferrarisModel.loadCollection(QueryString);
-      //year_to=1965&year_fr=1950&modelstr=&prce_fr=&prce_to=&keywords=
       
-      if(QueryString.year_fr != "")
+      if(QueryString.year_fr != "" && QueryString.year_fr != undefined)
         $("#year-fr").val(QueryString.year_fr);
-      if(QueryString.year_to != "")
+      if(QueryString.year_to != "" && QueryString.year_to != undefined )
         $("#year-to").val(QueryString.year_to);
-      if(QueryString.prce_fr != "")
-        $("#prce_fr").val(QueryString.prce_fr);
-      if(QueryString.prce_to != "")
-        $("#prce_to").val(QueryString.prce_to);
-      if(QueryString.modelstr != "")
-        $("#modelstr").val(QueryString.modelstr);
-      if(QueryString.keywords != "")
+      if(QueryString.prce_fr != "" && QueryString.prce_fr != undefined)
+        $("#prce_fr").val(QueryString.price_fr);
+      if(QueryString.prce_to != "" && QueryString.prce_to != undefined)
+        $("#prce_to").val(QueryString.price_to);
+      if(QueryString.modelstr != "" && QueryString.modelstr != undefined)
+        $("#model").val(QueryString.modelstr.replace(/_/g, " "));
+      if(QueryString.keywords != "" && QueryString.keywords != undefined)
         $("#keywords").val(QueryString.keywords);
   }
   

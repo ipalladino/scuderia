@@ -30,13 +30,12 @@ class FerrarisController < ApplicationController
     year_fr = params[:year_fr]
     year_to = params[:year_to]
     modelstr = params[:car_model]
-    prce_fr = params[:prce_fr]
-    prce_to = params[:prce_to]
+    prce_fr = params[:price_fr]
+    prce_to = params[:price_to]
     sort_by = params[:sort_by]
     user_id = params[:user_id]
     keywords = params[:keywords]
     
-    debugger
     
     if(modelstr && modelstr.empty?)
       modelstr = nil

@@ -82,8 +82,8 @@ App.CarsView = Backbone.View.extend({
             keywords = $("#keywords").val().trim();
 
             this.model.loadCollection({
-                prce_to : price_to,
-                prce_fr : price_fr,
+                price_to : price_to,
+                price_fr : price_fr,
                 year_fr : year_fr,
                 year_to : year_to,
                 model : model,
@@ -129,8 +129,8 @@ App.CarsColl = Backbone.Collection.extend({
 
 App.SavedSearch = Backbone.Model.extend({
     defaults : {
-        prce_to : "",
-        prce_fr : "",
+        price_to : "",
+        price_fr : "",
         year_fr : "",
         year_to : "",
         car_model : "",
