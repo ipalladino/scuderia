@@ -191,11 +191,12 @@ var checkAndFilterModels = function(e) {
 
         render: function(){
             $(this.el).html("");
-            var page = this.model.get("page");
-            var hwmy = this.model.get("howmany");
-            var coll = this.model.collection.toJSON();
-            var boti = page*hwmy;
-            var topi = page*hwmy+hwmy;
+            var page = this.model.get("page"),
+                hwmy = this.model.get("howmany"),
+                coll = this.model.collection.toJSON(),
+                coll = coll.reverse(),
+                boti = page*hwmy,
+                topi = page*hwmy+hwmy;
             
             var data = {
                 items: coll.slice(boti,topi),
@@ -254,14 +255,14 @@ var checkAndFilterModels = function(e) {
         routes: {
             "start"                       : "start",
             "car_models"                  : "collectionRender",
-            "model/:id":    "showFerrariModel",    // #help
+            "model/:id"                   : "showFerrariModel",    // #help
           },
           
           start : function() {
               App.wrapModCol = new App.WrapModCol();
               App.wrapModCol.once("loaded", function(){
                     console.log("App.Router App.wrapModCol, once:loaded");
-                    App.router.navigate("car_models", {trigger:true})
+                    App.router.collectionRender();
                 }, this);
               App.modelsView = new App.ModelsView({model:App.wrapModCol});
               App.wrapModCol.loadCollection();
@@ -270,11 +271,10 @@ var checkAndFilterModels = function(e) {
           collectionRender : function () {
               console.log("Router.collectionRender");
               if(App.modelsView == undefined) {
-                  this.start();
+                  //this.start();
               } else {
                   App.modelsView.render();
               }
-              
           },
 
           showFerrariModel: function(id) {
