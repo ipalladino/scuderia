@@ -20,7 +20,7 @@
 //= require rails-timeago
 //= require spin
 //= require_tree ../templates
-//= require ferraris_list
+//= require for_sale_list/ferraris_list
 //= require_tree .
 
 

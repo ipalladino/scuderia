@@ -31,13 +31,23 @@ class CarModelsController < ApplicationController
   
   def search
     search_model = []
+    year_from = params[:from]
+    year_to   = params[:to]
+    
     if(params[:model])
       search_model = CarModel.find(:all, select: "year_id, car_models.id ,car_model", conditions: ["car_model like ?", "%#{params[:model]}%"])
     end
     if(params[:from] && params[:to])
-      car_models = CarModel.joins(:year).find(:all, select: "year_id, car_models.id ,car_model", :conditions => ['car_year >= ? AND car_year <= ?', params[:from], params[:to]], order: ['car_year ASC'])
+      order = "ASC"
+      if(params[:from] > params[:to])
+        year_from  = params[:to]
+        year_to    = params[:from]
+        order = "DESC"
+      end
+      car_models = CarModel.joins(:year).find(:all, select: "year_id, car_models.id ,car_model", :conditions => ['car_year >= ? AND car_year <= ?', year_from, year_to], order: ['car_year '+order])
+      debugger
     else
-      car_models = CarModel.joins(:year).find(:all, select: "year_id,car_models.id,car_model", order: ['car_year ASC'])
+      car_models = CarModel.joins(:year).find(:all, select: "year_id,car_models.id,car_model", order: ['car_year DESC'])
     end
     
     search_model.concat car_models
@@ -46,7 +56,7 @@ class CarModelsController < ApplicationController
   end
   
   def list_models
-    years = Year.all
+    years = Year.all.order("car_year ASC")
     @car_models = CarModel.joins(:year).find(:all, order: ['car_year ASC'])
   end
   

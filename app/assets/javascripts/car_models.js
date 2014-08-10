@@ -4,7 +4,7 @@ console.log("PAGE: "+App.page);
 var checkAndFilterModels = function(e) {
       var yearfr = $("#year-fr").val().trim();
       var yearto = $("#year-to").val().trim();
-      if(yearfr.match(/^\d{4}$/) != null && yearto.match(/^\d{4}$/) && Number(yearfr) <= Number(yearto)) {
+      if(yearfr.match(/^\d{4}$/) != null && yearto.match(/^\d{4}$/)) {
           $("#errorMessage").css("display", "none");
           e.preventDefault();
           $.ajax({
@@ -40,8 +40,6 @@ var checkAndFilterModels = function(e) {
                         }
                 });
           });
-      } else {
-          $("#errorMessage").css("display", "block");
       }
   }
   $("#model").on("focus", function(e) {
@@ -163,7 +161,7 @@ var checkAndFilterModels = function(e) {
                 
                 $("#collection-list").html('<div class="span12 ajax-loader" id="loader"><span><img src="/assets/ajax-loader.gif" /></span></div>');
                 
-                if(yearfr.match(/^\d{4}$/) != null && yearto.match(/^\d{4}$/) && Number(yearfr) <= Number(yearto)) {
+                if(yearfr.match(/^\d{4}$/) != null && yearto.match(/^\d{4}$/)) {
                     if(modelo != "Model" && modelo != "") {
                         scope.model.once("loaded", scope.render, scope);
                         App.wrapModCol.loadCollection({from:yearfr,to:yearto, model: modelo});
@@ -194,7 +192,7 @@ var checkAndFilterModels = function(e) {
             var page = this.model.get("page"),
                 hwmy = this.model.get("howmany"),
                 coll = this.model.collection.toJSON(),
-                coll = coll.reverse(),
+                coll = coll,
                 boti = page*hwmy,
                 topi = page*hwmy+hwmy;
             
@@ -259,13 +257,17 @@ var checkAndFilterModels = function(e) {
           },
           
           start : function() {
-              App.wrapModCol = new App.WrapModCol();
-              App.wrapModCol.once("loaded", function(){
-                    console.log("App.Router App.wrapModCol, once:loaded");
-                    App.router.collectionRender();
-                }, this);
-              App.modelsView = new App.ModelsView({model:App.wrapModCol});
-              App.wrapModCol.loadCollection();
+              if(App.modelsView !== undefined) {
+                  this.collectionRender();
+              } else {
+                  App.wrapModCol = new App.WrapModCol();
+                    App.wrapModCol.once("loaded", function(){
+                          console.log("App.Router App.wrapModCol, once:loaded");
+                          App.router.collectionRender();
+                      }, this);
+                    App.modelsView = new App.ModelsView({model:App.wrapModCol});
+                    App.wrapModCol.loadCollection();
+              }
           },
           
           collectionRender : function () {
@@ -289,6 +291,6 @@ var checkAndFilterModels = function(e) {
     
     App.router = new App.Router();
     Backbone.history.start()
-    App.router.start();
+    App.router.navigate("start", {trigger : true});
 }}
 });
