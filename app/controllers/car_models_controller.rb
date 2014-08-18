@@ -56,8 +56,8 @@ class CarModelsController < ApplicationController
   end
   
   def list_models
-    years = Year.all.order("car_year ASC")
-    @car_models = CarModel.joins(:year).find(:all, order: ['car_year ASC'])
+    years = Year.all
+    @car_models = CarModel.joins(:year).find(:all, order: "car_year ASC")
   end
   
   def filter_by_from_to

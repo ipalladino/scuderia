@@ -6,10 +6,10 @@
 development:
   adapter: postgresql
   encoding: utf8
-  database: ignaciopalladino
+  database: scuderia
   pool: 5
-  username: ignaciopalladino
-  password:
+  username: postgres
+  password: ip8801
   host: localhost
 
 # Warning: The database defined as "test" will be erased and

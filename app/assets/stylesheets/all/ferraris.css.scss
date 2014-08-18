@@ -19,10 +19,18 @@
     }
     a:hover {
         color:#fcd112;
-        background-color:#DFB911 !important;
+        background-color:transparent !important;
     }
+    
     .button:hover {
         background-color:#DFB911 !important;
+    }
+    
+    .published_button {
+        background-color:transparent;
+    }
+    .published_button:hover {
+        background-color:transparent !important;
     }
 }
 
