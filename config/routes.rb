@@ -1,4 +1,11 @@
 SampleApp::Application.routes.draw do
+
+  resources :orders
+
+
+  match '/promo_codes/search', to: 'promo_codes#search'
+  resources :promo_codes
+
   resources :saved_searches
 
 
@@ -6,7 +13,7 @@ SampleApp::Application.routes.draw do
   #facebook
   match 'auth/:provider/callback', to: 'users#facebook_callback'
   match 'auth/failure', to: redirect('/')
-  
+
   resources :blogs
 
   match 'car_models/crawlModel', to: 'car_models#crawlModel'
@@ -28,24 +35,24 @@ SampleApp::Application.routes.draw do
     end
   end
   match '/basic_search', to: 'ferraris#search'
-  
+
   resources :users do
     member do
       get :following, :followers
     end
   end
-  
+
   resources :transmissions do
     member do
       get :year_selection
     end
   end
-  
+
   resources :engines do
     member do
       get :year_selection
     end
-  end  
+  end
 
   resources :years
   resources :sessions, only: [:new, :create, :destroy]
@@ -56,7 +63,7 @@ SampleApp::Application.routes.draw do
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete
-  
+
   root to: 'static_pages#home'
 
   match '/inbox/send_message',   to: 'static_pages#send_message'

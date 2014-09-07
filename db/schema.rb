@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140227062208) do
+ActiveRecord::Schema.define(:version => 20140906233849) do
 
   create_table "assets", :force => true do |t|
     t.integer  "ferrari_id"
@@ -142,6 +142,7 @@ ActiveRecord::Schema.define(:version => 20140227062208) do
     t.datetime "updated_at",                         :null => false
     t.integer  "user_id"
     t.boolean  "published",       :default => false
+    t.date     "published_at"
   end
 
   add_index "ferraris", ["user_id"], :name => "index_ferraris_on_user_id"
@@ -185,6 +186,41 @@ ActiveRecord::Schema.define(:version => 20140227062208) do
   end
 
   add_index "notifications", ["conversation_id"], :name => "index_notifications_on_conversation_id"
+
+  create_table "order_transactions", :force => true do |t|
+    t.integer  "order_id"
+    t.string   "action"
+    t.integer  "amount"
+    t.boolean  "success"
+    t.string   "authorization"
+    t.string   "message"
+    t.text     "params"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "orders", :force => true do |t|
+    t.string   "new"
+    t.integer  "ferrari_id"
+    t.string   "ip_address"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "card_type"
+    t.date     "card_expires_on"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "publish_setting"
+    t.integer  "promo_code_id"
+  end
+
+  create_table "promo_codes", :force => true do |t|
+    t.string   "code"
+    t.integer  "charges"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "promo_codes", ["code"], :name => "index_promo_codes_on_code", :unique => true
 
   create_table "receipts", :force => true do |t|
     t.integer  "receiver_id"

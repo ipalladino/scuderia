@@ -1,2 +1,2 @@
 <%= label_tag :ferrari_car_model_id,"Car Model" %>
-<%= select_tag :ferrari_car_model_id, options_from_collection_for_select(@carmodels, :id, :car_model), :prompt=>"Car Model", :name => "ferrari[car_model_id]" %>
+<%= select_tag :ferrari_car_model_id, options_from_collection_for_select(@carmodels, :id, :car_model), :prompt=>"Car Model", :name => "ferrari[car_model_id]", :class => "select-input" %>

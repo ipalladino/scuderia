@@ -1,6 +1,5 @@
 $(function() {
 if(App.page != undefined){ if(App.page=="collection"){
-console.log("PAGE: "+App.page);
 var checkAndFilterModels = function(e) {
       var yearfr = $("#year-fr").val().trim();
       var yearto = $("#year-to").val().trim();
@@ -50,7 +49,7 @@ var checkAndFilterModels = function(e) {
         if(e.currentTarget.value == "")
           e.currentTarget.value = "Model";
     })
-  
+
   $("#year-fr").on("focus", function(e) {
         if(e.currentTarget.value == "Year Fr")
           e.currentTarget.value = "";
@@ -73,14 +72,14 @@ var checkAndFilterModels = function(e) {
           $("#yrto_id").val("");
         }
     })
-    
+
     $("#dropdown-models").on("click", function(){
         $("#model").autocomplete("search", "");
     });
 
   $("#year-fr").on("blur", checkAndFilterModels);
   $("#year-to").on("blur", checkAndFilterModels);
-    
+
     $("#year-fr").autocomplete({
       /* snip */
       source: years,
@@ -111,7 +110,7 @@ var checkAndFilterModels = function(e) {
     App.ModelsColl = Backbone.Collection.extend({
         url : "/model_search",
     });
-    
+
     App.WrapModCol = Backbone.Model.extend({
         defaults : {
             howmany : 35,
@@ -122,7 +121,7 @@ var checkAndFilterModels = function(e) {
             this.collection = new App.ModelsColl();
             this.collection.on("reset", this.onLoadCollection, this);
         },
-        
+
         loadCollection: function(options) {
             if(options== undefined) {
                 options = {};
@@ -130,13 +129,13 @@ var checkAndFilterModels = function(e) {
             this.set("page", 0, {silent:true});
             this.collection.fetch({data : options, reset : true});
         },
-        
+
         onLoadCollection: function(result) {
             this.set("ttlpgs",this.collection.length/this.get("howmany"));
             this.trigger("loaded");
-        } 
+        }
     });
-    
+
     App.ModelsView = Backbone.View.extend({
         template : JST['collection_template'],
         el: $('#collection-list'),
@@ -152,15 +151,14 @@ var checkAndFilterModels = function(e) {
             this.model.on("change:page", this.render, this);
             //this.model.on("loaded", this.render, this);
             var scope = this;
-            
+
             var searchHandler = function(){
-                console.log("#search.on:click");
                 var yearfr = $("#year-fr").val().trim();
                 var yearto = $("#year-to").val().trim();
                 var modelo = $("#model").val().trim();
-                
+
                 $("#collection-list").html('<div class="span12 ajax-loader" id="loader"><span><img src="/assets/ajax-loader.gif" /></span></div>');
-                
+
                 if(yearfr.match(/^\d{4}$/) != null && yearto.match(/^\d{4}$/)) {
                     if(modelo != "Model" && modelo != "") {
                         scope.model.once("loaded", scope.render, scope);
@@ -176,7 +174,7 @@ var checkAndFilterModels = function(e) {
                     }
                 }
             }
-            
+
             $("input").keyup(function (e) {
                 if (e.keyCode == 13) {
                     searchHandler();
@@ -184,7 +182,7 @@ var checkAndFilterModels = function(e) {
                 }
             });
             $("#search").on("click", searchHandler);
-            
+
         },
 
         render: function(){
@@ -195,7 +193,7 @@ var checkAndFilterModels = function(e) {
                 coll = coll,
                 boti = page*hwmy,
                 topi = page*hwmy+hwmy;
-            
+
             var data = {
                 items: coll.slice(boti,topi),
                 total: this.model.get("ttlpgs"),
@@ -206,9 +204,8 @@ var checkAndFilterModels = function(e) {
             var html = this.template(data);
             $(this.el).html(html);
         },
-        
+
         navigateToModel : function (e) {
-            console.log("ModelsView.navigateToModel");
             e.preventDefault();
             var id = e.currentTarget.dataset.id;
             el = e.currentTarget;
@@ -217,27 +214,23 @@ var checkAndFilterModels = function(e) {
             }).spin();
             spinner.el.style.position = "absolute";
             el.appendChild(spinner.el);
-            
+
             App.router.navigate("model/"+id, {trigger:true});
         },
-        
+
         mouseOver : function (e) {
-            console.log("ModelsView.mouseOver");
-            console.log(e);
             $(e.currentTarget).find(".ferrari-model-overlay").css("display", "block");
         },
-        
+
         mouseOut : function (e) {
-            console.log("ModelsView.mouseOver");
-            console.log(e);
             $(e.currentTarget).find(".ferrari-model-overlay").css("display","none");
         },
-        
+
         setPage : function (e) {
             var page = e.currentTarget.dataset.page;
             this.model.set("page",Number(page));
         },
-        left : function () { 
+        left : function () {
             if(this.model.get("page") > 0) {
                 this.model.set("page", this.model.get("page")-1);
             }
@@ -248,30 +241,29 @@ var checkAndFilterModels = function(e) {
             }
         }
     });
-    
+
     App.Router = Backbone.Router.extend({
         routes: {
             "start"                       : "start",
             "car_models"                  : "collectionRender",
             "model/:id"                   : "showFerrariModel",    // #help
           },
-          
+
           start : function() {
               if(App.modelsView !== undefined) {
                   this.collectionRender();
               } else {
                   App.wrapModCol = new App.WrapModCol();
                     App.wrapModCol.once("loaded", function(){
-                          console.log("App.Router App.wrapModCol, once:loaded");
                           App.router.collectionRender();
                       }, this);
                     App.modelsView = new App.ModelsView({model:App.wrapModCol});
                     App.wrapModCol.loadCollection();
               }
           },
-          
+
           collectionRender : function () {
-              console.log("Router.collectionRender");
+              //console.log("Router.collectionRender");
               if(App.modelsView == undefined) {
                   //this.start();
               } else {
@@ -288,7 +280,7 @@ var checkAndFilterModels = function(e) {
               });
           }
     })
-    
+
     App.router = new App.Router();
     Backbone.history.start()
     App.router.navigate("start", {trigger : true});

@@ -22,6 +22,7 @@ gem 'koala'
 gem 'rest-client'
 gem 'unicorn'
 gem 'foreman'
+gem 'activemerchant'
 
 group :development do
   gem 'pg', '0.12.2'

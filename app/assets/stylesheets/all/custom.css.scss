@@ -127,8 +127,15 @@ p {
 }
 
 /* forms */
+select {
+  border: 1px solid #bbb;
+  width: 100%;
+  padding: 0px;
+  margin-bottom: 15px;
+  @include box_sizing;
+}
 
-input, textarea, select, .uneditable-input {
+input, textarea, .uneditable-input {
   border: 1px solid #bbb;
   width: 100%;
   padding: 10px;
@@ -178,7 +185,7 @@ input, textarea, select, .uneditable-input {
 /* HEADER SPECIFIC CLASSES AND OVERRIDES */
 .header ul{
     font-size:1.2em;
-    
+
 }
 .header .nav > li > a {
     padding:10px 10px;
@@ -229,7 +236,7 @@ input, textarea, select, .uneditable-input {
 .text-details {
     position:relative;
     line-height:23px;
-    
+
     .description {
         font-size:14px;
     }
@@ -337,7 +344,7 @@ input, textarea, select, .uneditable-input {
 #blog-readmore {
     color:#FCD112;
     position: relative !important;
-    left: 363px;
+    left: 360px;
     display:inline-block;
     margin-top: -53px;
     background-color: #303030;
@@ -371,7 +378,7 @@ input, textarea, select, .uneditable-input {
         line-height: 43px;
         text-align: right;
     }
-    
+
     #sort {
         position: relative;
         top: 7px;
@@ -382,6 +389,7 @@ input, textarea, select, .uneditable-input {
         background-color: #303030;
         color: #fcd112;
         border-radius: 0;
+        padding:0px;
     }
 }
 
@@ -405,7 +413,7 @@ input, textarea, select, .uneditable-input {
     color: black;
 }
 .btn:hover {
-    background-color: black; 
+    background-color: black;
     background-image: none;
     color: #fcd112;
 }

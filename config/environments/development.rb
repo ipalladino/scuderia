@@ -8,7 +8,21 @@ SampleApp::Application.configure do
       :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
     }
   }
-  
+
+  ActiveMerchant::Billing::Base.mode = :test
+
+  ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
+    :login => "ipalladino_api1.gmail.com",
+    :password => "F99NGY2PP5TGRZZC",
+    :signature => "AcZ9Gki6Su.yEl.pejuYMjiP63E8AUhK8x8Qs.2K7JctwArlLQrmywlV"
+  )
+
+  #ipalladino_api1.gmail.com
+  #Password:
+  #F99NGY2PP5TGRZZC
+  #Signature:
+  #AcZ9Gki6Su.yEl.pejuYMjiP63E8AUhK8x8Qs.2K7JctwArlLQrmywlV
+
   #Paperclip.options[:image_magick_path] = '/usr/local/Cellar/imagemagick/6.7.7-6'
   # Settings specified here will take precedence over those in config/application.rb
 

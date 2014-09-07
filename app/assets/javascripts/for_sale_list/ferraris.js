@@ -9,6 +9,7 @@ $('#ferrari_year_id').live('change', function(){
 });
 
 
+
 $(function() {
   if(App.page != undefined){ 
   if(App.page=="ferraris"){

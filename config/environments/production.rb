@@ -8,7 +8,13 @@ SampleApp::Application.configure do
       :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
     }
   }
-  
+
+  ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
+    :login => "ipalladino_api1.gmail.com",
+    :password => "F99NGY2PP5TGRZZC",
+    :signature => "AcZ9Gki6Su.yEl.pejuYMjiP63E8AUhK8x8Qs.2K7JctwArlLQrmywlV"
+  )
+
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests

@@ -1,0 +1,27 @@
+// Place all the styles related to the orders controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.new_order br {
+  display:none;
+}
+.new_order > div:nth-child(1) {
+  //display:none !important;
+}
+
+.order .error {
+  color:red;
+}
+
+.order select {
+  height: 34px;
+}
+
+.order  {
+  #order_card_expires_on_1i {
+      width:70px;
+  }
+  #order_card_expires_on_2i {
+    width:120px;
+  }
+}
