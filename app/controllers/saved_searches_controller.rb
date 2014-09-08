@@ -31,8 +31,16 @@ class SavedSearchesController < ApplicationController
       render json: {status: "failed", message: "User needs to be logged in"}
       return
     end
-    
+
     params[:saved_search][:user_id] = current_user.id
+
+    if(params[:saved_search][:price_to] == "")
+      params[:saved_search][:price_to] = -1.00
+    end
+
+    if(params[:saved_search][:price_fr] == "")
+      params[:saved_search][:price_fr] = -1.00
+    end
 
     saved_search = SavedSearch.new(params[:saved_search])
 

@@ -56,7 +56,7 @@ class OrdersController < ApplicationController
                   "year_fr::integer <= (?) OR year_fr::integer ISNULL",
                   "price_fr::float <= (?) OR price_fr::float = (-1.00)",
                   "price_to::float <= (?) OR price_to::float = (-1.00)",
-                  "car_model = '#{@ferrari.car_model.car_model}' OR car_model ISNULL"]
+                  "car_model = '#{@ferrari.car_model.car_model}' OR car_model = ''"]
 
         ss = SavedSearch.where(query[0],[@ferrari.year.car_year]).where(query[1], [@ferrari.year.car_year]).where(query[2],[@ferrari.price.to_f]).where(query[3],[@ferrari.price.to_f]).where(query[4],[@ferrari.car_model.car_model])
         #notify the people that need to be notified
