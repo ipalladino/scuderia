@@ -1,8 +1,8 @@
 class SavedSearchesController < ApplicationController
-  before_filter :signed_in_user, 
+  before_filter :signed_in_user,
                 only: [:index, :edit, :update, :destroy]
   before_filter :correct_user,   only: [:edit, :update]
-  
+
   # GET /saved_searches
   # GET /saved_searches.json
   def index
@@ -20,24 +20,20 @@ class SavedSearchesController < ApplicationController
     @saved_search = SavedSearch.find(params[:id])
     @saved_search.car_model.gsub!(' ','_')
     query_str = "year_to=#{@saved_search.year_to}&year_fr=#{@saved_search.year_fr}&modelstr=#{@saved_search.car_model}&price_fr=#{@saved_search.price_fr}&price_to=#{@saved_search.price_to}&keywords=#{@saved_search.keywords}"
-      
+
     redirect_to "/ferraris?"+query_str
   end
 
   # POST /saved_searches
   # POST /saved_searches.json
   def create
-    debugger
-    
     if(!current_user)
       render json: {status: "failed", message: "User needs to be logged in"}
       return
     end
     
-    debugger
-    
     params[:saved_search][:user_id] = current_user.id
-    
+
     saved_search = SavedSearch.new(params[:saved_search])
 
     respond_to do |format|
@@ -50,7 +46,18 @@ class SavedSearchesController < ApplicationController
       end
     end
   end
-  
+
+  def toggle
+    @saved_search = SavedSearch.find(params[:id]);
+    if(@saved_search.notify_me)
+      @saved_search.notify_me = false;
+    else
+      @saved_search.notify_me = true;
+    end
+    @saved_search.save
+    render json: @saved_search.notify_me
+  end
+
   def update
     @savedSearch = SavedSearch.find(params[:id])
     params[:saved_search][:price_to] = params[:saved_search][:prce_to]
@@ -75,13 +82,13 @@ class SavedSearchesController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   private
     def correct_user
       @saved_search = SavedSearch.find(params[:id])
       redirect_to(root_path) unless @saved_search.user_id == current_user.id
     end
-    
+
     def admin_user
       redirect_to(root_path) unless current_user.admin?
     end

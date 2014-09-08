@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>We find a Ferrari that matches your saved search</h1>
+    <p>Hello <%= @user.name %>, our systems indicate that one of your <b>Saved Searches</b> parameters has found a Ferrari matching them</p>
+    <p>Please feel free to visit the following url and check it out.</p>
+    <p><a href="<%= @url %>/ferraris/<%= @ferrari.id %>"><%= @url %>/ferraris/<%= @ferrari.id %></a></p>
+    <p>These where your saved search parameters:
+      <table>
+        <tr>
+          <th>Price fr</th>
+          <th>Price to</th>
+          <th>Year fr</th>
+          <th>Year to</th>
+          <th>Car model</th>
+        </tr>
+
+        <tr>
+          <td><%= @saved_search.price_fr %></td>
+          <td><%= @saved_search.price_to %></td>
+          <td><%= @saved_search.year_fr %></td>
+          <td><%= @saved_search.year_to %></td>
+          <td><%= @saved_search.car_model %></td>
+        </tr>
+    </p>
+    <p>Feel free to contact us at feedback@scuderia.com.</p>
+    <p>CHEERS!</p>
+    <p>Ignacio Palladino</p>
+  </body>
+</html>

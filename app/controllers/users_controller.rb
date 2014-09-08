@@ -1,20 +1,36 @@
 class UsersController < ApplicationController
-  before_filter :signed_in_user, 
+  before_filter :signed_in_user,
                 only: [:index, :edit, :update, :destroy, :following, :followers]
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user,     only: :destroy
-  
+
   def index
     @users = User.paginate(page: params[:page])
   end
-  
+
   def show
     @user = User.find(params[:id])
     if(@user == current_user)
       @bookmarks = Bookmark.find_all_by_user_id(params[:id])
     end
   end
-  
+
+  def test
+    @user = current_user
+    UserNotifier.send_signup_email(@user).deliver
+    redirect_to(@user, :notice => 'User created')
+
+    # Create the user from params
+    #@user = User.new(params[:user])
+    #if @user.save
+      # Deliver the signup email
+    #  UserNotifier.send_signup_email(@user).deliver
+    #  redirect_to(@user, :notice => 'User created')
+    #else
+    #  render :action => 'new'
+    #end
+  end
+
   def create
     if(params['agrees'])
       if(params['oauth_token'])
@@ -29,6 +45,7 @@ class UsersController < ApplicationController
       if @user.save
         sign_in @user
         flash[:success] = "Welcome to Scuderia!"
+        UserNotifier.send_signup_email(@user).deliver
         redirect_to @user
       else
         @user = User.new
@@ -41,13 +58,13 @@ class UsersController < ApplicationController
       render 'new', :layout => "login"
     end
   end
-  
+
   def facebook_callback
     @user_fb = request.env['omniauth.auth']
     user = User.find_by_uid(@user_fb.uid)
     current = current_user
 
-    
+
     if(current == nil && user)
       sign_in user
     elsif(current)
@@ -61,7 +78,7 @@ class UsersController < ApplicationController
         return
       end
     end
-    
+
     if(signed_in?)
       current = current_user
       user_details = {
@@ -77,10 +94,10 @@ class UsersController < ApplicationController
     else
       @user = User.new
     end
-    
+
     render 'facebook_callback', :layout => "login"
   end
-  
+
   def edit
     @user = User.find(params[:id])
   end
@@ -95,7 +112,7 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end
-  
+
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User destroyed."
@@ -106,7 +123,7 @@ class UsersController < ApplicationController
     @user = User.new
     render 'new', :layout => "login"
   end
-  
+
   def following
     @title = "Following"
     @user = User.find(params[:id])
@@ -120,13 +137,13 @@ class UsersController < ApplicationController
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
   end
-  
+
   private
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)
     end
-    
+
     def admin_user
       redirect_to(root_path) unless current_user.admin?
     end

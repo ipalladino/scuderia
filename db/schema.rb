@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140906233849) do
+ActiveRecord::Schema.define(:version => 20140908042939) do
 
   create_table "assets", :force => true do |t|
     t.integer  "ferrari_id"
@@ -249,14 +249,15 @@ ActiveRecord::Schema.define(:version => 20140906233849) do
 
   create_table "saved_searches", :force => true do |t|
     t.integer  "user_id"
-    t.string   "price_fr"
-    t.string   "price_to"
     t.string   "year_fr"
     t.string   "year_to"
     t.string   "car_model"
     t.string   "keywords"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.boolean  "notify_me"
+    t.float    "price_to",   :default => -1.0
+    t.float    "price_fr",   :default => -1.0
   end
 
   add_index "saved_searches", ["user_id"], :name => "index_saved_searches_on_user_id"

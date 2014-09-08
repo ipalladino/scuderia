@@ -51,7 +51,25 @@ class OrdersController < ApplicationController
       else
         @ferrari.published = true
         @ferrari.update_attribute(:published_at, Time.now)
-        redirect_to @ferrari
+        #find possible saved searches
+        query = ["year_to::integer >= (?) OR year_to::integer ISNULL",
+                  "year_fr::integer <= (?) OR year_fr::integer ISNULL",
+                  "price_fr::float <= (?) OR price_fr::float = (-1.00)",
+                  "price_to::float <= (?) OR price_to::float = (-1.00)",
+                  "car_model = '#{@ferrari.car_model.car_model}' OR car_model ISNULL"]
+
+        ss = SavedSearch.where(query[0],[@ferrari.year.car_year]).where(query[1], [@ferrari.year.car_year]).where(query[2],[@ferrari.price.to_f]).where(query[3],[@ferrari.price.to_f]).where(query[4],[@ferrari.car_model.car_model])
+        #notify the people that need to be notified
+        url = request.protocol+request.host_with_port
+        ss.each do |item|
+          UserNotifier.send_saved_search_notification(item.user, @ferrari, item, url).deliver
+        end
+
+
+        render json: [ss,@ferrari]
+
+
+        #redirect_to @ferrari
       end
     else
       render :template => "ferraris/confirm"

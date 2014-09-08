@@ -2,12 +2,13 @@ SampleApp::Application.routes.draw do
 
   resources :orders
 
-
   match '/promo_codes/search', to: 'promo_codes#search'
   resources :promo_codes
 
+  match "/saved_searches/toggle", to: "saved_searches#toggle"
   resources :saved_searches
 
+  match "/users/test", to: "users#test"
 
   match '/bookmarks/toggle', to: 'bookmarks#toggle'
   #facebook

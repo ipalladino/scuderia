@@ -1,3 +1,7 @@
+<script type="text/javascript">
+   App.page = "savedSearches";
+</script>
+
 <div class="row">
     <div class="span12 header-section header-generic">
         <div id="title">
@@ -27,6 +31,7 @@
                 <th>Year to</th>
                 <th>Car model</th>
                 <th>Keywords</th>
+                <th>Notification</th>
                 <th></th>
                 <th></th>
               </tr>
@@ -39,6 +44,9 @@
                 <td><%= saved_search.year_to %></td>
                 <td><%= saved_search.car_model %></td>
                 <td><%= saved_search.keywords %></td>
+                <td><input class="notify_me" type="checkbox" value="<%= saved_search.id %>" name="notify_me" <%= saved_search.notify_me ? "checked" : "" %> />
+                <span id="notify_me_status"></span>
+                </td>
                 <td><%= link_to 'Show', saved_search %></td>
                 <td><%= link_to 'Destroy', saved_search, method: :delete, data: { confirm: 'Are you sure?' } %></td>
               </tr>

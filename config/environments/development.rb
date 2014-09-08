@@ -9,6 +9,18 @@ SampleApp::Application.configure do
     }
   }
 
+  # Configuration for using SendGrid on Heroku
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+    :user_name => 'app16619017@heroku.com',
+    :password => 'ek4ovcxy',
+    :domain => 'scuderia.herokuapp.com',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
+
   ActiveMerchant::Billing::Base.mode = :test
 
   ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(

@@ -47,10 +47,14 @@ class Order < ActiveRecord::Base
   private
 
   def validate_card
-    unless credit_card.valid?
-      credit_card.errors.full_messages.each do |message|
-        errors.add :base, message
+    if price_in_cents > 0
+      unless credit_card.valid?
+        credit_card.errors.full_messages.each do |message|
+          errors.add :base, message
+        end
       end
+    else
+      return true
     end
   end
 
