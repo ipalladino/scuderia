@@ -255,8 +255,7 @@ class FerrarisController < ApplicationController
 
   def publish
     @ferrari = Ferrari.find(params[:id])
-    @ferrari.published = true
-    @ferrari.save
+    @ferrari.publish
     redirect_to @ferrari
   end
 

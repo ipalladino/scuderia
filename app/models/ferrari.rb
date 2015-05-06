@@ -29,6 +29,59 @@ class Ferrari < ActiveRecord::Base
     return urls
   end
 
+  def expired?
+    if(self.published)
+      publish_type = self.order.publish_setting
+      byebug
+      days_since_creation = (Time.zone.now - self.publish_date) / 3600 / 24
+      if(publish_type == 0)
+        #if publish setting is 0 expires in 1 year
+        if(days_since_creation > 365)
+          if(self.expire)
+            return true
+          end
+        else
+          return false
+        end
+
+      elsif(publish_type == 1)
+        #setting 1 expires in 3 months
+        if(days_since_creation > 93)
+          if(self.expire)
+            return true
+          else
+            return false
+          end
+        end
+      elsif(publish_type == 2)
+        #setting 2 expires in 1 month
+        if(days_since_creation > 31)
+          if(self.expire)
+            return true
+          else
+            return false
+          end
+        end
+      end
+    else
+      return true
+    end
+  end
+
+  def publish
+    self.published_date = DateTime.now
+    self.published = true
+    self.save
+  end
+
+  def expire
+    #we should send an email notification letting the user know that his item has expired
+    puts "THIS FERRARI HAS EXPIRED!!!!!! #{self.id}"
+    self.published = false
+    self.save
+    UserNotifier.send_expired_ferrari_notification(self).deliver
+  end
+
   def car_year_str
     return year.car_year
   end

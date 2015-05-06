@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140908042939) do
+ActiveRecord::Schema.define(:version => 20150506073028) do
 
   create_table "assets", :force => true do |t|
     t.integer  "ferrari_id"
@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(:version => 20140908042939) do
     t.integer  "user_id"
     t.boolean  "published",       :default => false
     t.date     "published_at"
+    t.datetime "publish_date"
   end
 
   add_index "ferraris", ["user_id"], :name => "index_ferraris_on_user_id"

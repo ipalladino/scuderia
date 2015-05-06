@@ -6,6 +6,7 @@ class PromoCodesController < ApplicationController
       @promo_code = PromoCode.where(code: params[:code])
     end
 
+
     render json: @promo_code.to_json(methods: [:discount_type])
   end
 
