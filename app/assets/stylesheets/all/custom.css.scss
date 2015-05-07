@@ -411,7 +411,7 @@ input, textarea, .uneditable-input {
     color:black;
 }
 
-.btn {
+.btn, .btn:focus, .btn:active {
     background-color: #fcd112;
     background-image: none;
     color: black;

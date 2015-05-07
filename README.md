@@ -41,3 +41,8 @@ rvm install 2.1.0 --disable-binary
 
 11- run: heroku config
 copy necessary vars onto .bash_profile or .bashrc
+
+
+12- to expire ferraris run
+heroku run rake expire_ferraris --trace
+update this task in lib/tasks/scheduler.rake
