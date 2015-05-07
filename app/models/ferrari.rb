@@ -32,7 +32,6 @@ class Ferrari < ActiveRecord::Base
   def expired?
     if(self.published)
       publish_type = self.order.publish_setting
-      byebug
       days_since_creation = (Time.zone.now - self.publish_date) / 3600 / 24
       if(publish_type == 0)
         #if publish setting is 0 expires in 1 year
@@ -43,7 +42,6 @@ class Ferrari < ActiveRecord::Base
         else
           return false
         end
-
       elsif(publish_type == 1)
         #setting 1 expires in 3 months
         if(days_since_creation > 93)
