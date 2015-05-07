@@ -24,4 +24,11 @@ class UserNotifier < ActionMailer::Base
     :subject => 'Your Ferrari publication on Scuderia.com has expired' )
   end
 
+  def send_ferrari_published_notification(ferrari)
+    @ferrari = ferrari
+    @user = ferrari.user
+    mail(:to => @user.email,
+    :subject => 'Your Ferrari has been published' )
+  end
+
 end

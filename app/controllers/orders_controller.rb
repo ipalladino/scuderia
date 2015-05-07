@@ -44,13 +44,29 @@ class OrdersController < ApplicationController
     if @order.save
       if @order.price_in_cents != 0
         if @order.purchase
-          render json: [@order, @ferrari, @order.transactions, @order.promo_code]
+          #render json: [@order, @ferrari, @order.transactions, @order.promo_code]
+          @ferrari.publish
+          #find possible saved searches
+          query = ["year_to::integer >= (?) OR year_to::integer ISNULL",
+                    "year_fr::integer <= (?) OR year_fr::integer ISNULL",
+                    "price_fr::float <= (?) OR price_fr::float = (-1.00)",
+                    "price_to::float <= (?) OR price_to::float = (-1.00)",
+                    "car_model = '#{@ferrari.car_model.car_model}' OR car_model = ''"]
+
+          ss = SavedSearch.where(query[0],[@ferrari.year.car_year]).where(query[1], [@ferrari.year.car_year]).where(query[2],[@ferrari.price.to_f]).where(query[3],[@ferrari.price.to_f]).where(query[4],[@ferrari.car_model.car_model])
+          #notify the people that need to be notified
+          url = request.protocol+request.host_with_port
+          ss.each do |item|
+            UserNotifier.send_saved_search_notification(item.user, @ferrari, item, url).deliver
+          end
+
+          #render json: [ss,@ferrari]
+          redirect_to @ferrari
         else
           render text: "{message : 'failure'}"
         end
       else
-        @ferrari.published = true
-        @ferrari.update_attribute(:publish_date, DateTime.now)
+        @ferrari.publish
         #find possible saved searches
         query = ["year_to::integer >= (?) OR year_to::integer ISNULL",
                   "year_fr::integer <= (?) OR year_fr::integer ISNULL",
@@ -65,11 +81,8 @@ class OrdersController < ApplicationController
           UserNotifier.send_saved_search_notification(item.user, @ferrari, item, url).deliver
         end
 
-
-        render json: [ss,@ferrari]
-
-
-        #redirect_to @ferrari
+        #render json: [ss,@ferrari]
+        redirect_to @ferrari
       end
     else
       render :template => "ferraris/confirm"

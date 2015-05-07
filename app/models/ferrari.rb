@@ -83,6 +83,7 @@ class Ferrari < ActiveRecord::Base
     self.publish_date = DateTime.now
     self.published = true
     self.save
+    UserNotifier.send_ferrari_published_notification(self).deliver
   end
 
   def expire

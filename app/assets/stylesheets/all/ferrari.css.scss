@@ -33,7 +33,7 @@
     .ferrari-view-seller{
         padding: 10px;
     }
-    
+
     .ferrari-view-description {
         padding:30px;
     }
@@ -71,6 +71,9 @@
         padding:10px;
         background-color:#000000;
         color:#fcd112;
+        a {
+          color:#fcd112;
+        }
     }
 }
 .ferrari-specs-table {
