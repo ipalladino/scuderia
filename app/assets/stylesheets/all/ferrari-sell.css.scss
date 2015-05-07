@@ -26,6 +26,8 @@ img[src=""] {
     border-bottom:3px solid #FCD112;
 }
 
+
+
 .select-input {
     background: transparent;
     padding: 5px;
@@ -232,9 +234,6 @@ input[type="color"]:focus,
 
 
 #confirm-icons {
-    .selected {
-        color:#00AB66;
-    }
     margin-top:20px;
     margin-bottom:20px;
     div:nth-child(0){
@@ -274,5 +273,22 @@ input[type="color"]:focus,
     }
 }
 .confirm-button {
-    text-align:justify;
+  text-align:justify;
+  padding:10px;
+  cursor:pointer;
+  &.selected {
+    i {
+        color:#00AB66;
+    }
+    .big-button {
+      border-color:#00AB66;
+      background-color: white;
+    }
+  }
+  .big-button {
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    background-color: aliceblue;
+    padding:10px;
+  }
 }

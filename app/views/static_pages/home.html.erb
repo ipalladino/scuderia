@@ -15,7 +15,7 @@
                           <div class="home-title"><%= ferrari.year.car_year %> | <%= ferrari.car_model.car_model %> | <span class="home-price">$<%= ferrari.price %></span></div>
                           <div class="home-description"><%= ferrari.description %></div>
                       </div>
-              
+
                   </div>
                   <% else %>
                   <div class="item">
@@ -35,7 +35,7 @@
                   <div class="home-title">SCUDERIA.COM %> | <span class="home-price">NO CARS PUBLISHED</span></div>
                   <div class="home-description">It looks like the app was recently created, there's no cars to show.termi</div>
               </div>
-      
+
           </div>
       <% end %>
   </div>
@@ -55,17 +55,17 @@
         <div class="tab-content news_tab-content">
           <div class="tab-pane active" id="news_content">
               <% #@blogs.each_with_index do |blog, index| %>
-                      <%= render 'blogs/blog' ,blog: @blogs_news.first %>
+                      <%= render 'blogs/blog' ,blog: @blogs_news %>
               <% #end %>
           </div>
           <div class="tab-pane" id="racing_content">
               <% #@blogs.each_with_index do |blog, index| %>
-                        <%= render 'blogs/blog' ,blog: @blogs_rcng.first %>
+                        <%= render 'blogs/blog' ,blog: @blogs_rcng %>
                 <% #end %>
           </div>
           <div class="tab-pane" id="weekly_content">
               <% #@blogs.each_with_index do |blog, index| %>
-                        <%= render 'blogs/blog' ,blog: @blogs_wkly.first %>
+                        <%= render 'blogs/blog' ,blog: @blogs_wkly %>
                 <% #end %>
           </div>
         </div>
@@ -108,4 +108,3 @@
 
     </div>
 </div>
-

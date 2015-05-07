@@ -23,6 +23,7 @@ gem 'rest-client'
 gem 'unicorn'
 gem 'foreman'
 gem 'activemerchant'
+gem 'simple-rss', '~> 1.3.1'
 
 group :development do
   gem 'pg', '0.12.2'

@@ -1,19 +1,19 @@
 <% if(blog) %>
 <div class="span8 blog">
     <div>
-        <img src=<%= blog.assets[0].image.url(:modal) %> />
+        <img src=<%= blog.media_content_url.split("?")[0] %> />
     </div>
     <div id="blog-date">
-        <%= blog.created_at %>
+        <%= blog.pubDate %>
     </div>
     <div id="blog-readmore">
-        <%= link_to("Read More", blog, style: "color:#fcd112") %>
+      <a href="<%= blog.link %>" style="color:#fcd112">Read More</a>
     </div>
     <div id="blog-title">
         <%= blog.title %>
     </div>
     <div id="blog-description">
-        <%= blog.body %>
+        <%= raw(blog.description) %>
     </div>
 </div>
 

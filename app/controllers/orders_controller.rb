@@ -63,7 +63,8 @@ class OrdersController < ApplicationController
           #render json: [ss,@ferrari]
           redirect_to @ferrari
         else
-          render text: "{message : 'failure'}"
+          flash[:error] = "We coulnd't process your credit card data"
+          redirect_to @ferrari
         end
       else
         @ferrari.publish

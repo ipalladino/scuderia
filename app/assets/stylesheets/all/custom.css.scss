@@ -276,6 +276,7 @@ input, textarea, .uneditable-input {
 
 .blog {
     margin-left:0px;
+    margin-bottom:20px;
 }
 
 .news_tab-content {
@@ -322,7 +323,7 @@ input, textarea, .uneditable-input {
 #blog-date {
     background-color: #FCD112;
     display: inline-block;
-    width: 150px;
+    width: 180px;
     color: black;
     padding: 10px;
     padding-left: 15px;
@@ -331,10 +332,12 @@ input, textarea, .uneditable-input {
 }
 
 #blog-title {
-    font-size:2em;
-    color:#303030;
-    text-indent:15px;
-    margin-bottom:15px;
+  font-size: 2em;
+  color: #303030;
+  padding-left: 15px;
+  margin-bottom: 15px;
+  line-height: 1.1em;
+  font-weight:600;
 }
 
 #blog-description {
@@ -348,7 +351,7 @@ input, textarea, .uneditable-input {
 #blog-readmore {
     color:#FCD112;
     position: relative !important;
-    left: 360px;
+    left: 330px;
     display:inline-block;
     margin-top: -53px;
     background-color: #303030;

@@ -17,7 +17,7 @@ App.Plan = Backbone.Model.extend({
 App.PlanView = Backbone.View.extend({
     el : "#confirm-icons",
     events : {
-        "click .confirm-icon-container>i" : "selectPlan"
+        "click .confirm-button" : "selectPlan"
     },
     initialize : function(){
         this.model.on("change:selected_plan", this.changeSelectedPlan, this);
@@ -30,7 +30,7 @@ App.PlanView = Backbone.View.extend({
     changeSelectedPlan : function(ev) {
         $(this.el).find(".selected").removeClass("selected")
         var id = this.model.get("selected_plan");
-        $($(this.el).find("i")[id]).addClass("selected");
+        $($(this.el).find(".confirm-button")[id]).addClass("selected");
 
         $("#publish_setting").val(id);
 
