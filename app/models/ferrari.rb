@@ -31,10 +31,15 @@ class Ferrari < ActiveRecord::Base
 
   def expired?
     if(self.published)
+      order_set = false
       begin
         publish_type = self.order.publish_setting
+        order_set = true
       rescue
         puts "Ferrari Model, line 35 - no order setting - we will do nothing"
+        order_set = false
+      end
+      if(!order_set)
         return false
       end
       days_since_creation = (Time.zone.now - self.publish_date) / 3600 / 24
