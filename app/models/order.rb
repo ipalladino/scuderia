@@ -13,7 +13,7 @@ class Order < ActiveRecord::Base
   def purchase
     response = GATEWAY.purchase(price_in_cents, credit_card, ip: ip_address)
     transactions.create!(:action => "purchase", :amount => price_in_cents, :response => response)
-    ferrari.update_attribute(:published_at, Time.now) if response.success?
+    ferrari.update_attribute(:publish_date, DateTime.now) if response.success?
     response.success?
   end
 

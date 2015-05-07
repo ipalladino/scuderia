@@ -50,7 +50,7 @@ class OrdersController < ApplicationController
         end
       else
         @ferrari.published = true
-        @ferrari.update_attribute(:published_at, Time.now)
+        @ferrari.update_attribute(:publish_date, DateTime.now)
         #find possible saved searches
         query = ["year_to::integer >= (?) OR year_to::integer ISNULL",
                   "year_fr::integer <= (?) OR year_fr::integer ISNULL",

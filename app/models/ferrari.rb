@@ -80,7 +80,7 @@ class Ferrari < ActiveRecord::Base
   end
 
   def publish
-    self.published_date = DateTime.now
+    self.publish_date = DateTime.now
     self.published = true
     self.save
   end

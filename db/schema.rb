@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150506073028) do
+ActiveRecord::Schema.define(:version => 20150507022151) do
 
   create_table "assets", :force => true do |t|
     t.integer  "ferrari_id"
@@ -142,7 +142,6 @@ ActiveRecord::Schema.define(:version => 20150506073028) do
     t.datetime "updated_at",                         :null => false
     t.integer  "user_id"
     t.boolean  "published",       :default => false
-    t.date     "published_at"
     t.datetime "publish_date"
   end
 
