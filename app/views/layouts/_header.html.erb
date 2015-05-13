@@ -1,5 +1,5 @@
 <div id="back-yellow">
-    
+
 </div>
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="navbar-inner">
@@ -11,7 +11,7 @@
         <ul class="nav pull-right">
           <li><%= link_to "For Sale", ferraris_path %></li>
           <li><%= link_to "Sell Yours", new_ferrari_path %></li>
-          <li><%= link_to "Blog", blogs_path %></li>
+          <li><%= link_to "Blog", "https://blogscuderia.wordpress.com/" %></li>
           <li><%= link_to "Collection", car_models_path %></li>
           <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" title="Services" data-toggle="dropdown">
@@ -44,7 +44,7 @@
                 </li>
               </ul>
             </li>
-            
+
             <% if current_user.admin? %>
                 <li id="fat-menu" class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -58,8 +58,8 @@
                 </ul>
                 </li>
            <% end %>
-              
-            
+
+
           <% else %>
             <li><%= link_to "Sign in", signin_path %></li>
           <% end %>
