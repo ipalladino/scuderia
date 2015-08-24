@@ -8,9 +8,9 @@ development:
   encoding: utf8
   database: scuderia
   pool: 5
-  username: ipalladino
+  username: ignacio
   host: localhost
-  password: 8801Nacho
+  password: ip8801
 
 
 # Warning: The database defined as "test" will be erased and
