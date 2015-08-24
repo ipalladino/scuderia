@@ -1,4 +1,9 @@
+require 'wikipedia'
+
 SampleApp::Application.configure do
+  Wikipedia.Configure {
+    protocol "https"
+  }
   #paperclip
   config.paperclip_defaults = {
     :storage => :s3,
