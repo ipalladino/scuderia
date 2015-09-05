@@ -295,7 +295,7 @@ class FerrarisController < ApplicationController
     @ferrari = Ferrari.find(params[:id])
     if @ferrari.update_attributes(params[:ferrari])
       flash[:success] = "The Ferrari post was updated"
-      redirect_to @ferrari
+      redirect_to "/ferraris/#{@ferrari.id}/preview"
     else
       @years = Year.all
       render 'new'
@@ -312,7 +312,8 @@ class FerrarisController < ApplicationController
     @years = Year.order("car_year ASC").all
     @engines = Engine.all
     @transmissions = Transmission.all
-    10.times { @ferrari.assets.build }
+    assetsneeded = 10 - @ferrari.assets.length
+    assetsneeded.times { @ferrari.assets.build }
   end
 
   def add_image

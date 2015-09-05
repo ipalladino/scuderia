@@ -44,12 +44,12 @@
   <a class="carousel-control right" href="#slideshow" data-slide="next">&rsaquo;</a>
 </div>
 <div class="row">
-    <div class="span8" id="news">
+    <div class="span8 blog-summary" id="news">
 
         <ul class="nav nav-tabs" id="myTab">
-          <li class="active disabled"><a href="#news" data-toggle="tab" data-target="news">News</a></li>
-          <li class="disabled"><a href="#racing" data-toggle="tab" data-target="racing">Racing</a></li>
-          <li class="disabled"><a href="#weekly" data-toggle="tab" data-target="weekly">Weekly</a></li>
+          <li class="active disabled"><a href="#news" data-toggle="tab" data-target="news"><%=  @blogs_news.title %></a></li>
+          <li class="disabled"><a href="#racing" data-toggle="tab" data-target="racing"><%=  @blogs_rcng.title %></a></li>
+          <li class="disabled"><a href="#weekly" data-toggle="tab" data-target="weekly"><%=  @blogs_wkly.title %></a></li>
         </ul>
 
         <div class="tab-content news_tab-content">

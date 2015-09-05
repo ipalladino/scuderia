@@ -9,8 +9,26 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree ./all
  *= require bootstrapicons.min
+ *= require ./all/blogs
+ *= require ./all/car_models
+ *= require ./all/contact
+ *= require ./all/custom
+ *= require ./all/ferrari-sell
+ *= require ./all/ferrari
+ *= require ./all/ferraris
+ *= require ./all/fonts
+ *= require ./all/footer
+ *= require ./all/hero-banner
+ *= require ./all/jquery-ui
+ *= require ./all/mailboxer
+ *= require ./all/mfglabs_iconset
+ *= require ./all/orders
+ *= require ./all/scaffolds
+ *= require ./all/sessions
+ *= require ./all/users
+ *= require ./all/component-blog-summary
+
  */
 
 @font-face {
