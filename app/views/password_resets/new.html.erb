@@ -10,11 +10,11 @@
       <p>
         Please enter your email and we will send you a reset form.
       </p>
-      <%= form_for(:password_reset, url: password_resets_path) do |f| %>
+      <%= form_for(:password_reset, url: password_resets_path, :html => {:class => "form"}) do |f| %>
         <%= f.label :email %>
         <%= f.email_field :email, class: 'form-control', id: 'email' %>
         <br><br>
-        <%= f.submit "Submit", class: "btn btn-primary" %>
+        <%= f.submit "Submit" %>
       <% end %>
     </div>
 </div>
