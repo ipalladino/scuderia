@@ -1,0 +1,24 @@
+<% provide(:title, "Forgot password") %>
+
+
+
+<div class="div-login-facebook" style="margin-bottom: 25px; margin-top:10px;">
+    <div id="logo">
+      <h1>Forgot password</h1>
+    </div>
+    <div class="form light-input">
+      <p>
+        Please enter your email and we will send you a reset form.
+      </p>
+      <%= form_for(:password_reset, url: password_resets_path) do |f| %>
+        <%= f.label :email %>
+        <%= f.email_field :email, class: 'form-control', id: 'email' %>
+        <br><br>
+        <%= f.submit "Submit", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+     $('#email').watermark('Email');
+</script>

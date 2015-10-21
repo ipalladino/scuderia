@@ -10,7 +10,8 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :name, :email, :password, :password_confirmation, :address, :zip, :state, :is_dealer, :phone, :public_phone, :public_email, :public_address, :public_dealer, :provider, :oauth_token, :oauth_expires_at, :uid
+  attr_accessor :reset_token
+  attr_accessible :reset_token, :name, :email, :password, :password_confirmation, :address, :zip, :state, :is_dealer, :phone, :public_phone, :public_email, :public_address, :public_dealer, :provider, :oauth_token, :oauth_expires_at, :uid
   has_secure_password
   has_many :microposts, dependent: :destroy
   has_many :ferraris, dependent: :destroy
@@ -32,13 +33,13 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }, :if => :validate_password?
   validates :password_confirmation, presence: true, :if => :validate_password?
-  
+
   acts_as_messageable
-  
+
   def validate_password?
     password.present? || password_confirmation.present?
   end
-  
+
   def self.from_omniauth(auth)
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
       user.provider = auth.provider
@@ -49,7 +50,7 @@ class User < ActiveRecord::Base
       user.save!
     end
   end
-  
+
   def self.create_through_fb(auth)
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
       user.provider = auth.provider
@@ -61,7 +62,7 @@ class User < ActiveRecord::Base
       user.save!
     end
   end
-  
+
   def facebook
     @facebook ||= Koala::Facebook::API.new(oauth_token)
     block_given? ? yield(@facebook) : @facebook
@@ -69,7 +70,7 @@ class User < ActiveRecord::Base
     logger.info e.to_s
     nil # or consider a custom null object
   end
-  
+
   def picture
     begin
       self.facebook.get_picture("me", {:type => "large"})
@@ -77,10 +78,40 @@ class User < ActiveRecord::Base
       return 404
     end
   end
-  
+
+  # Sends password reset email.
+  def send_password_reset_email
+    UserNotifier.password_reset(self).deliver
+  end
+
+  def authenticated?(attribute, token)
+    digest = self.reset_digest
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
+  end
+
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_attribute(:reset_digest,  User.digest(reset_token))
+    update_attribute(:reset_sent_at, Time.zone.now)
+  end
+
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
+  end
+
+  def User.new_token
+    SecureRandom.urlsafe_base64
+  end
+
+  def User.digest(token)
+    #Digest::SHA1.hexdigest(token.to_s)
+    BCrypt::Password.create(token)
+  end
+
   private
     def create_remember_token
       self.remember_token = SecureRandom.urlsafe_base64
     end
-  
+
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150507022151) do
+ActiveRecord::Schema.define(:version => 20151021041030) do
 
   create_table "assets", :force => true do |t|
     t.integer  "ferrari_id"
@@ -290,6 +290,8 @@ ActiveRecord::Schema.define(:version => 20150507022151) do
     t.string   "oauth_token"
     t.string   "provider"
     t.datetime "oauth_expires_at"
+    t.string   "reset_digest"
+    t.datetime "reset_sent_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -8,6 +8,11 @@ class UserNotifier < ActionMailer::Base
     :subject => 'Thanks for signing up to SCUDERIA.COM!' )
   end
 
+  def password_reset(user)
+    @user = user
+    mail to: user.email, subject: "Password reset"
+  end
+
   def send_saved_search_notification(user, ferrari, saved_search, url)
     @url = url
     @user = user

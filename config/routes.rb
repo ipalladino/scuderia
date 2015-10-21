@@ -1,5 +1,7 @@
 SampleApp::Application.routes.draw do
 
+  resources :password_resets,     only: [:new, :create, :edit, :update]
+
   resources :orders
 
   match '/promo_codes/search', to: 'promo_codes#search'

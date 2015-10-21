@@ -1,0 +1,24 @@
+<% provide(:title, 'Reset password') %>
+
+<div class="div-login-facebook" style="margin-bottom: 25px; margin-top:10px;">
+    <div id="logo">
+        <h1>Reset password</h1>
+    </div>
+    <div class="form light-input">
+      <%= form_for(@user, url: password_reset_path(params[:id])) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+
+        <%= hidden_field_tag :email, @user.email %>
+
+        <%= f.label :password %>
+        <%= f.password_field :password, class: 'form-control' %>
+
+        <%= f.label :password_confirmation, "Confirm Password" %>
+        <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+        <br><br>
+
+        <%= f.submit "Update password", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+</div>
