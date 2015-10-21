@@ -5,7 +5,7 @@
         <h1>Reset password</h1>
     </div>
     <div class="form light-input">
-      <%= form_for(@user, url: password_reset_path(params[:id])) do |f| %>
+      <%= form_for(@user, url: password_reset_path(params[:id]), :html => {:class => "form"}) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
 
         <%= hidden_field_tag :email, @user.email %>
@@ -18,7 +18,7 @@
 
         <br><br>
 
-        <%= f.submit "Update password", class: "btn btn-primary" %>
+        <%= f.submit "Update password" %>
       <% end %>
     </div>
 </div>
